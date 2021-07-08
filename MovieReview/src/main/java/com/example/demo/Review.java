@@ -48,6 +48,18 @@ public class Review {
 		this.text = text;
 	}
 
+	public Review(//評価、日付、タイトル、テキスト
+			Integer evaluation,
+			Date date,
+			String title,
+			String text
+	) {
+		this.evaluation = evaluation;
+		this.date = date;
+		this.title = title;
+		this.text = text;
+	}
+
 	//::必要に応じてコンストラクタは追加する:://
 
 

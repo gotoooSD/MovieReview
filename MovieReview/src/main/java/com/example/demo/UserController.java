@@ -47,7 +47,7 @@ public class UserController {
 			@RequestParam("password") String password,
 			ModelAndView mv
 		) {
-		////空の入力がある場合(でかいif)
+		////空の入力がある場合(大のif)
 		if(email.equals("") ||password.equals("")) {
 			//エラーメッセージを表示
 			mv.addObject("message", "未入力の項目があります");
@@ -55,8 +55,7 @@ public class UserController {
 			//ログイン画面(reviewWrrite.html)を表示して再度書き込ませる
 			mv.setViewName("login");
 
-
-		////空の入力なしの場合(でかいifのelse)
+		////空の入力なしの場合(大のelse)
 		}else {
 		//取得したemailでusersテーブルに検索をかける
 		List<User> loginUser = userRepository.findByEmail(email);
@@ -68,22 +67,30 @@ public class UserController {
 				//ログイン画面(reviewWrrite.html)を表示して再度書き込ませ
 				mv.setViewName("login");
 
-			///該当ユーザがいた場合(中のifのelse)
+			///該当ユーザがいた場合(中のelse)
 			}else {
 				//入力されたパスワードと登録してあるパスワードを比較
 				User userInfo = loginUser.get(0);//レコードを取得
 				String _password = userInfo.getPassword();//登録してあるパスワード
 
 				///パスワードが不一致(小のif)
+				if(!(password.equals(_password))){
+					//エラーメッセージを表示
+					mv.addObject("message", "メールアドレスまたはパスワードが間違っています");
+					//ログイン画面(reviewWrrite.html)を表示して再度書き込ませ
+					mv.setViewName("login");
 
-				//そのユーザ情報（ユーザコード含）をセッションに保存
+				///パスワードが一致(小のelse)
+				//ログインできるので、次の画面に移行するための処理を行う
+				}else {
+					//そのユーザ情報（ユーザコード含）をセッションに保存
+					session.setAttribute("userInfo", userInfo);
 
-				//映画一覧画面(movies.html)を表示
-				mv.setViewName("movies");
-
-			}
-
-		}//でかいifのelseの終端
+					//映画一覧画面(movies.html)を表示
+					mv.setViewName("movies");
+				}//小のelseの終端
+			}//中のelseの終端
+		}//大のelseの終端
 		return mv;
 	}
 

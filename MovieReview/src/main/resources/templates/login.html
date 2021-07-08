@@ -5,9 +5,12 @@
 <title>ログイン</title>
 </head>
 <body>
+	<h1>ログイン</h1>
+	<hr>
+
 	<form action="/login" method="post">
-		<input type="text" name="email" placeholder="メールアドレス">
-		<input type="text" name="password" placeholder="パスワード">
+		<input type="text" name="email" placeholder="メールアドレス"><br>
+		<input type="text" name="password" placeholder="パスワード"><br>
 		<input type="submit" value="ログイン">
 		<br>
 		<span th:text="${message}" style="color:rgb(255, 218, 4)"></span>

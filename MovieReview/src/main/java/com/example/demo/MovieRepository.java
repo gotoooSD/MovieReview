@@ -12,4 +12,6 @@ public interface MovieRepository extends JpaRepository<Movie, Integer>{
 
 	List<Movie> findByCountry(String country);
 
+	List<Movie> findByMoviecode(int moviecode);
+
 }

@@ -5,6 +5,21 @@
 <title>映画詳細・レビュー</title>
 </head>
 <body>
-
+<h1>映画詳細画面</h1>
+こんにちは
+<a href="/myPage"><span th:text="${session.userInfo.name}"></span></a>
+さん
+<a href="/logout">ログアウト</a>
+<hr>
+<h2>レビュー一覧</h2>
+<br>
+<table border="1">
+<tr th:each="review:${reviews}">
+		<td th:text="${review.evaluation}"></td>
+		<td th:text="${review.date}"></td>
+		<td th:text="${review.title}"></td>
+		<td th:text="${review.text}"></td>
+	</tr>
+</table>
 </body>
 </html>

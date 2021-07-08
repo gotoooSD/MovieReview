@@ -16,12 +16,11 @@ public class Review {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="code")
-	private Integer reviewcode;
+	private int reviewcode;
 
-	private Integer moviecode;
-	private Integer usercode;
-
-	private Integer evaluation;
+	private int moviecode;
+	private int usercode;
+	private int evaluation;
 	private Date date;
 	private String title;
 	private String text;
@@ -31,10 +30,10 @@ public class Review {
 	}
 
 	public Review(//全部あるやつ
-			Integer reviewcode,
-			Integer moviecode,
-			Integer usercode,
-			Integer evaluation,
+			int reviewcode,
+			int moviecode,
+			int usercode,
+			int evaluation,
 			Date date,
 			String title,
 			String text
@@ -49,7 +48,7 @@ public class Review {
 	}
 
 	public Review(//評価、日付、タイトル、テキスト
-			Integer evaluation,
+			int evaluation,
 			Date date,
 			String title,
 			String text
@@ -64,19 +63,19 @@ public class Review {
 
 
 	////ゲッター
-	public Integer getReviewcode() {
+	public int getReviewcode() {
 		return reviewcode;
 	}
 
-	public Integer getMoviecode() {
+	public int getMoviecode() {
 		return moviecode;
 	}
 
-	public Integer getUsercode() {
+	public int getUsercode() {
 		return usercode;
 	}
 
-	public Integer getEvaluation() {
+	public int getEvaluation() {
 		return evaluation;
 	}
 

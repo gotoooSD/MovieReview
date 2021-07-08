@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,7 +13,8 @@ public class Movie {
 	//フィールド
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int code;
+	@Column(name="code")
+	private int moviecode;
 	private String title;
 	private String genre;
 	private int time;
@@ -32,8 +34,8 @@ public class Movie {
 		this.year = year;
 	}
 
-	public Movie(int code, String title, String genre, int time, String country,int year) {
-		this.code = code;
+	public Movie(int moviecode, String title, String genre, int time, String country,int year) {
+		this.moviecode = moviecode;
 		this.title = title;
 		this.genre = genre;
 		this.time = time;
@@ -42,12 +44,12 @@ public class Movie {
 	}
 
 	//ゲッタ＆セッタのインスタンスを生成
-	public int getCode() {
-		return code;
+	public int getMoviecode() {
+		return moviecode;
 	}
 
-	public void setCode(int code) {
-		this.code = code;
+	public void setMoivecode(int moviecode) {
+		this.moviecode = moviecode;
 	}
 
 	public String getTitle() {

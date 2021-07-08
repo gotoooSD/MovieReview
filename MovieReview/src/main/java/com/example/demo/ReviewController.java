@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,20 +18,28 @@ public class ReviewController {
 	HttpSession session;
 
 	@Autowired
+	MovieRepository movieRepository;
+
+	@Autowired
 	ReviewRepository reviewRepository;
 
 	/**
 	  レビュー一覧画面
 	 **/
 	@RequestMapping("/review/{moviecode}")
-	public ModelAndView users(ModelAndView mv) {
+	public ModelAndView users(
+			@RequestParam("moviecode") int moviecode,
+			ModelAndView mv) {
 		//選択した映画の詳細を表示する
+		List<Movie> movieInfo = movieRepository.findByMoviecode(moviecode);
+		mv.addObject("movieInfo", movieInfo);
 
 		//選択した映画の全レビューの一覧を表示
-//		List<Review> reviewList = reviewRepository.findAll();
-//		mv.addObject("reviews", reviewList);
+		List<Review> reviewList = reviewRepository.findByMoviecode(moviecode);
+		mv.addObject("reviews", reviewList);
 
 		//遷移先を指定
+		mv.setViewName("movies");
 		mv.setViewName("reviews");
 		return mv;
 	}

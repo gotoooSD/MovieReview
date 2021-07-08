@@ -118,7 +118,7 @@ public class MovieController {
 //		mv.addObject("movie", movieList);
 //
 //		//遷移先を指定
-//		mv.setViewName("movie");
+//		mv.setViewName("movies");
 //		return mv;
 //	}
 

@@ -24,7 +24,7 @@ public class UserController {
 	//http://localhost:8080/
 	@RequestMapping("/")
 	public ModelAndView index(ModelAndView mv) {
-		//遷移先を指定
+		//トップページ(index.html)を表示
 		mv.setViewName("index");
 		return mv;
 	}
@@ -45,38 +45,144 @@ public class UserController {
 			@RequestParam("password") String password,
 			ModelAndView mv
 		) {
-		////入力不備がある場合
+		////空の入力がある場合
 			//エラーメッセージを表示
 
-			//レビュー書き込み画面(reviewWrrite.html)を表示して再度書き込ませる
+			//ログイン画面(reviewWrrite.html)を表示して再度書き込ませる
 			mv.setViewName("login");
 
-		////入力不備なしの場合
-		//取得したemailでユーザリストに検索をかける
-			///該当ユーザがいない場合、
-			//エラーメッセージを表示
+		////空の入力なしの場合
+		//取得したemailでusersテーブルに検索をかける
+			///該当ユーザがいない場合
+				//エラーメッセージを表示
 
-			//レビュー書き込み画面(reviewWrrite.html)を表示して再度書き込ませる
-			mv.setViewName("login");
+			//ログイン画面(reviewWrrite.html)を表示して再度書き込ませる
+				mv.setViewName("login");
 
-			//映画詳細内のレビュー一覧画面(reviews.html)を表示
-			mv.setViewName("");
+			///該当ユーザ場合
+				//そのユーザ情報（ユーザコード含）をセッションに保存
 
+				//映画一覧画面(movies.html)を表示
+				mv.setViewName("movies");
 
 		return mv;
 	}
 
 	/**
-	  画面
+	  ログアウト
 	 **/
-	//http://localhost:8080/users
-	@RequestMapping("/users")
-	public ModelAndView users(ModelAndView mv) {
+	@RequestMapping("/logout")
+	public ModelAndView logout(ModelAndView mv) {
+		//セッションを破棄
 
-		//ユーザ情報を表示
-
-		//遷移先を指定
-		mv.setViewName("users");
+		//トップページ(index.html)を表示
+		mv.setViewName("index");
 		return mv;
 	}
+
+	/**
+	  新規登録画面
+	 **/
+	@RequestMapping("/addUser")
+	public ModelAndView addUser(ModelAndView mv) {
+		//新規登録情報入力画面(addUser.html)を表示
+		mv.setViewName("addUser");
+		return mv;
+	}
+
+	@PostMapping("/addUser")
+	public ModelAndView addUser(
+			@RequestParam("name") String name,
+			@RequestParam("gender") String gender,
+			@RequestParam("age") String age,
+			@RequestParam("email") String email,
+			@RequestParam("password") String password,
+			ModelAndView mv
+		) {
+		////空の入力がある場合
+			//エラーメッセージを表示
+
+			//新規登録情報入力画面(addUser.html)を表示して再度書き込ませる
+			//書き込み途中のものは保持
+			mv.setViewName("addUser");
+
+		////空の入力なしの場合
+			///既存ユーザとの重複がないか調べる
+				//RequestParamで取得したemailでusersテーブルに検索をかける
+					//emailに該当ユーザがいる場合
+					//エラーメッセージを表示（そのメールアドレスは既に登録されています）
+
+				//RequestParamで取得したnameでusersテーブルに検索をかける
+					//nameに該当ユーザがいる場合
+					//エラーメッセージを表示（そのユーザ名は既に登録されています）
+
+				//新規登録情報入力画面(addUser.html)を表示して再度書き込ませる
+				//書き込み途中のものは保持
+				mv.setViewName("addUser");
+
+			///emailかnameが重複するユーザがいない場合
+				//そのユーザ情報をusersテーブルに登録
+
+				//トップ画面(index.html)を表示
+				//登録が完了したことをメッセージで表示
+				mv.setViewName("index");
+
+		return mv;
+	}
+
+	/**
+	  ユーザ登録情報編集画面
+	 **/
+	@RequestMapping("/editUser")
+	public ModelAndView editUser(ModelAndView mv) {
+		//セッションスコープからユーザ情報を取得し表示
+
+		//ユーザ登録情報編集画面(editUser.html)を表示
+		mv.setViewName("editUser");
+		return mv;
+	}
+
+	@PostMapping("/editUser")
+	public ModelAndView editUser(
+			@RequestParam("") String ,
+			ModelAndView mv
+		) {
+		//セッションスコープからユーザ情報を取得し、ユーザコードも取得
+
+		////空の入力がある場合
+			//エラーメッセージを表示
+
+			//ユーザ登録情報編集画面(editUser.html)を表示して再度書き込ませる
+			//書き込み途中のものは保持
+			mv.setViewName("addUser");
+
+		////空の入力なしの場合
+			///既存ユーザとの重複がないか調べる
+			//RequestParamで取得したemailとセッションのemailが異なる場合
+				//RequestParamで取得したemailでusersテーブルに検索をかける
+					//該当ユーザがいる場合
+					//エラーメッセージを表示（そのメールアドレスは既に登録されています）
+					//ユーザ登録情報編集画面(editUser.html)を表示して再度書き込ませる
+					//書き込み途中のものは保持
+					mv.setViewName("addUser");
+			//RequestParamで取得したnameとセッションのnameが異なる場合
+				//RequestParamで取得したnameでusersテーブルに検索をかける
+					//該当ユーザがいる場合
+					//エラーメッセージを表示（そのユーザ名は既に登録されています）
+					//ユーザ登録情報編集画面(editUser.html)を表示して再度書き込ませる
+					//書き込み途中のものは保持
+					mv.setViewName("addUser");
+
+			///emailかnameが重複するユーザがいない場合
+				//usersテーブルでユーザコードを指定してユーザ情報を変更
+
+				//セッションスコープにも変更後のユーザ情報を更新
+
+				//マイページ画面(myPage.html)を表示
+				//変更が完了したことをメッセージで表示
+				mv.setViewName("myPage");
+
+		return mv;
+	}
+
 }

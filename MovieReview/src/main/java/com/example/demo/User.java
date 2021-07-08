@@ -17,7 +17,7 @@ public class User {
 	private int usercode;
 	private String name;
 	private String gender;
-	private int age;
+	private String age;
 	private String email;
 	private String password;
 
@@ -29,7 +29,7 @@ public class User {
 	public User(//usercodeなし//ユーザーネーム、性別、年代、メールアドレス、パスワード
 			String name,
 			String gender,
-			int age,
+			String age,
 			String email,
 			String password
 	) {
@@ -41,7 +41,7 @@ public class User {
 	}
 
 	//全部あるやつ
-	public User(int usercode, String name, String gender, int age, String email,String password) {
+	public User(int usercode, String name, String gender, String age, String email,String password) {
 		this.usercode = usercode;
 		this.name = name;
 		this.gender = gender;
@@ -75,11 +75,11 @@ public class User {
 		this.gender = gender;
 	}
 
-	public int getAge() {
+	public String getAge() {
 		return age;
 	}
 
-	public void setAge(int age) {
+	public void setAge(String age) {
 		this.age = age;
 	}
 

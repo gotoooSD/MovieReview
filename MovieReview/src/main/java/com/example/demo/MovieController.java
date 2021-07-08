@@ -28,7 +28,7 @@ public class MovieController {
 
 		//全件検索を実行して表示
 		List<Movie> movieList = movieRepository.findAll();
-		mv.addObject("movie", movieList);
+		mv.addObject("movies", movieList);
 
 		//遷移先を指定
 		mv.setViewName("movies");

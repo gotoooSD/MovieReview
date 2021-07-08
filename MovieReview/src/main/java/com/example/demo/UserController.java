@@ -90,7 +90,7 @@ public class UserController {
 
 					//movieテーブルから全件検索を実行して表示
 					List<Movie> movieList = movieRepository.findAll();
-					mv.addObject("movie", movieList);
+					mv.addObject("movies", movieList);
 
 					//映画一覧画面(movies.html)を表示
 					mv.setViewName("movies");

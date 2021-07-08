@@ -82,7 +82,7 @@ public class ReviewController {
 				//映画コード(moviecode)検索で出た値を取得してリストに追加
 
 				//映画詳細内のレビュー一覧画面(reviews.html)を表示
-				mv.setViewName("revies");
+				mv.setViewName("reviwes");
 
 		return mv;
 	}

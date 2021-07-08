@@ -19,6 +19,8 @@ public class UserController {
 	@Autowired
 	UserRepository userRepository;
 
+	@Autowired
+	MovieRepository	movieRepository;
 
 	/**
 	  トップページ
@@ -85,6 +87,10 @@ public class UserController {
 				}else {
 					//そのユーザ情報（ユーザコード含）をセッションに保存
 					session.setAttribute("userInfo", userInfo);
+
+					//movieテーブルから全件検索を実行して表示
+					List<Movie> movieList = movieRepository.findAll();
+					mv.addObject("movie", movieList);
 
 					//映画一覧画面(movies.html)を表示
 					mv.setViewName("movies");

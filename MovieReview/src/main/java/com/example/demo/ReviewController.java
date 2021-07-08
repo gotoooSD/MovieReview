@@ -1,7 +1,6 @@
 package com.example.demo;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -28,8 +27,8 @@ public class ReviewController {
 		//選択した映画の詳細を表示する
 
 		//選択した映画の全レビューの一覧を表示
-		List<Review> reviewList = reviewRepository.findAll();
-		mv.addObject("reviews", reviewList);
+//		List<Review> reviewList = reviewRepository.findAll();
+//		mv.addObject("reviews", reviewList);
 
 		//遷移先を指定
 		mv.setViewName("reviews");

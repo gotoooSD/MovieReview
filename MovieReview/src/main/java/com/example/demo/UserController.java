@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,26 +47,43 @@ public class UserController {
 			@RequestParam("password") String password,
 			ModelAndView mv
 		) {
-		////空の入力がある場合
+		////空の入力がある場合(でかいif)
+		if(email.equals("") ||password.equals("")) {
 			//エラーメッセージを表示
+			mv.addObject("message", "未入力の項目があります");
 
 			//ログイン画面(reviewWrrite.html)を表示して再度書き込ませる
 			mv.setViewName("login");
 
-		////空の入力なしの場合
-		//取得したemailでusersテーブルに検索をかける
-			///該当ユーザがいない場合
-				//エラーメッセージを表示
 
-			//ログイン画面(reviewWrrite.html)を表示して再度書き込ませる
+		////空の入力なしの場合(でかいifのelse)
+		}else {
+		//取得したemailでusersテーブルに検索をかける
+		List<User> loginUser = userRepository.findByEmail(email);
+
+			///該当ユーザがいない場合(中のif)
+			if(loginUser.size() == 0){
+				//エラーメッセージを表示
+				mv.addObject("message", "メールアドレスまたはパスワードが間違っています");
+				//ログイン画面(reviewWrrite.html)を表示して再度書き込ませ
 				mv.setViewName("login");
 
-			///該当ユーザ場合
+			///該当ユーザがいた場合(中のifのelse)
+			}else {
+				//入力されたパスワードと登録してあるパスワードを比較
+				User userInfo = loginUser.get(0);//レコードを取得
+				String _password = userInfo.getPassword();//登録してあるパスワード
+
+				///パスワードが不一致(小のif)
+
 				//そのユーザ情報（ユーザコード含）をセッションに保存
 
 				//映画一覧画面(movies.html)を表示
 				mv.setViewName("movies");
 
+			}
+
+		}//でかいifのelseの終端
 		return mv;
 	}
 
@@ -144,7 +163,11 @@ public class UserController {
 
 	@PostMapping("/editUser")
 	public ModelAndView editUser(
-			@RequestParam("") String ,
+			@RequestParam("name") String name,
+			@RequestParam("gender") String gender,
+			@RequestParam("age") String age,
+			@RequestParam("email") String email,
+			@RequestParam("password") String password,
 			ModelAndView mv
 		) {
 		//セッションスコープからユーザ情報を取得し、ユーザコードも取得

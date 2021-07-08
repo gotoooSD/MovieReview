@@ -53,7 +53,9 @@ public class UserController {
 		if(email.equals("") ||password.equals("")) {
 			//エラーメッセージを表示
 			mv.addObject("message", "未入力の項目があります");
-
+			//書き込んだものは保持
+			mv.addObject("email", email);
+			mv.addObject("password", password);
 			//ログイン画面(reviewWrrite.html)を表示して再度書き込ませる
 			mv.setViewName("login");
 
@@ -66,6 +68,9 @@ public class UserController {
 			if(loginUser.size() == 0){
 				//エラーメッセージを表示
 				mv.addObject("message", "メールアドレスまたはパスワードが間違っています");
+				//書き込んだものは保持
+				mv.addObject("email", email);
+				mv.addObject("password", password);
 				//ログイン画面(reviewWrrite.html)を表示して再度書き込ませ
 				mv.setViewName("login");
 
@@ -79,6 +84,9 @@ public class UserController {
 				if(!(password.equals(_password))){
 					//エラーメッセージを表示
 					mv.addObject("message", "メールアドレスまたはパスワードが間違っています");
+					//書き込んだものは保持
+					mv.addObject("email", email);
+					mv.addObject("password", password);
 					//ログイン画面(reviewWrrite.html)を表示して再度書き込ませ
 					mv.setViewName("login");
 
@@ -94,9 +102,9 @@ public class UserController {
 
 					//映画一覧画面(movies.html)を表示
 					mv.setViewName("movies");
-				}//小のelseの終端
-			}//中のelseの終端
-		}//大のelseの終端
+				}///小のelseの終端
+			}///中のelseの終端
+		}////大のelseの終端
 		return mv;
 	}
 
@@ -106,6 +114,7 @@ public class UserController {
 	@RequestMapping("/logout")
 	public ModelAndView logout(ModelAndView mv) {
 		//セッションを破棄
+		session.invalidate();
 
 		//トップページ(index.html)を表示
 		mv.setViewName("index");
@@ -131,33 +140,57 @@ public class UserController {
 			@RequestParam("password") String password,
 			ModelAndView mv
 		) {
-		////空の入力がある場合
+		////空の入力がある場合(大のif)//genderとageは選択制なので未入力の心配なし
+		if(name.equals("")||email.equals("")||password.equals("")) {
 			//エラーメッセージを表示
-
+			mv.addObject("message", "未入力の項目があります");
 			//新規登録情報入力画面(addUser.html)を表示して再度書き込ませる
-			//書き込み途中のものは保持
 			mv.setViewName("addUser");
 
-		////空の入力なしの場合
-			///既存ユーザとの重複がないか調べる
-				//RequestParamで取得したemailでusersテーブルに検索をかける
-					//emailに該当ユーザがいる場合
-					//エラーメッセージを表示（そのメールアドレスは既に登録されています）
+		////空の入力なしの場合(大のelse)
+		}else {
+			//既存ユーザとの重複がないか調べる
+			//RequestParamで取得したemailでusersテーブルに検索をかける
+			List<User> addUser1 = userRepository.findByEmail(email);
+			//RequestParamで取得したnameでusersテーブルに検索をかける
+			List<User> addUser2 = userRepository.findByName(name);
 
-				//RequestParamで取得したnameでusersテーブルに検索をかける
-					//nameに該当ユーザがいる場合
-					//エラーメッセージを表示（そのユーザ名は既に登録されています）
-
+			///1.emailが重複するユーザがいる場合
+			if(addUser1.size() != 0) {
+				//エラーメッセージを表示
+				mv.addObject("message1", "そのメールアドレスは既に登録されています");
 				//新規登録情報入力画面(addUser.html)を表示して再度書き込ませる
-				//書き込み途中のものは保持
 				mv.setViewName("addUser");
+			}
 
-			///emailかnameが重複するユーザがいない場合
+			///2.nameが重複するユーザがいる場合(中のelse if)
+			if(addUser2.size() != 0) {
+				//エラーメッセージを表示
+				mv.addObject("message2", "そのユーザ名は既に登録されています");
+				//新規登録情報入力画面(addUser.html)を表示して再度書き込ませる
+				mv.setViewName("addUser");
+			}
+
+			///3.emailもnameも重複するユーザがいない場合
+			if(addUser1.size() == 0 && addUser2.size() == 0){
 				//そのユーザ情報をusersテーブルに登録
+				User userInfo = new User(name,gender,age,email,password);
+				userRepository.saveAndFlush(userInfo);
 
-				//トップ画面(index.html)を表示
 				//登録が完了したことをメッセージで表示
+				mv.addObject("message", "新規ユーザ登録が完了しました");
+				//トップ画面(index.html)を表示
 				mv.setViewName("index");
+			}
+
+		}////大のelseの終端
+
+		//書き込み途中のものは保持して表示
+		mv.addObject("name",name);
+		mv.addObject("gender",gender);
+		mv.addObject("age",age);
+		mv.addObject("email",email);
+		mv.addObject("password",password);
 
 		return mv;
 	}
@@ -168,6 +201,15 @@ public class UserController {
 	@RequestMapping("/editUser")
 	public ModelAndView editUser(ModelAndView mv) {
 		//セッションスコープからユーザ情報を取得し表示
+		User userInfoBefore = (User) session.getAttribute("userInfo");
+		mv.addObject("userInfo", userInfoBefore);
+
+		//表示用に値をセット
+		mv.addObject("name",userInfoBefore.getName());
+		mv.addObject("gender",userInfoBefore.getGender());
+		mv.addObject("age",userInfoBefore.getAge());
+		mv.addObject("email",userInfoBefore.getEmail());
+		mv.addObject("password",userInfoBefore.getPassword());
 
 		//ユーザ登録情報編集画面(editUser.html)を表示
 		mv.setViewName("editUser");
@@ -182,41 +224,73 @@ public class UserController {
 			@RequestParam("email") String email,
 			@RequestParam("password") String password,
 			ModelAndView mv
-		) {
-		//セッションスコープからユーザ情報を取得し、ユーザコードも取得
+	) {
+		//セッションスコープからユーザ情報を取得
+		User userInfoBefore = (User) session.getAttribute("userInfo");
 
-		////空の入力がある場合
+		////空の入力がある場合(大のif)//genderとageは選択制なので未入力の心配なし
+		if(name.equals("")||email.equals("")||password.equals("")) {
 			//エラーメッセージを表示
+			mv.addObject("message", "未入力の項目があります");
 
 			//ユーザ登録情報編集画面(editUser.html)を表示して再度書き込ませる
-			//書き込み途中のものは保持
-			mv.setViewName("addUser");
+			mv.setViewName("editUser");
 
-		////空の入力なしの場合
+		////空の入力なしの場合(大のelse)
+		}else {
 			///既存ユーザとの重複がないか調べる
-			//RequestParamで取得したemailとセッションのemailが異なる場合
-				//RequestParamで取得したemailでusersテーブルに検索をかける
-					//該当ユーザがいる場合
-					//エラーメッセージを表示（そのメールアドレスは既に登録されています）
-					//ユーザ登録情報編集画面(editUser.html)を表示して再度書き込ませる
-					//書き込み途中のものは保持
-					mv.setViewName("addUser");
-			//RequestParamで取得したnameとセッションのnameが異なる場合
-				//RequestParamで取得したnameでusersテーブルに検索をかける
-					//該当ユーザがいる場合
-					//エラーメッセージを表示（そのユーザ名は既に登録されています）
-					//ユーザ登録情報編集画面(editUser.html)を表示して再度書き込ませる
-					//書き込み途中のものは保持
-					mv.setViewName("addUser");
+				List<User> addUser1 = null;
+				List<User> addUser2 = null;
+				//RequestParamで取得したemailとセッションのemailが異なる場合
+				if(!(email.equals(userInfoBefore.getEmail()))) {
+					//RequestParamで取得したemailでusersテーブルに検索をかける
+					addUser1 = userRepository.findByEmail(email);
+				}
+				//RequestParamで取得したnameとセッションのnameが異なる場合
+				if(!(name.equals(userInfoBefore.getName()))) {
+					//RequestParamで取得したnameでusersテーブルに検索をかける
+					addUser2 = userRepository.findByName(name);
+				}
 
-			///emailかnameが重複するユーザがいない場合
+			///1.emailが重複するユーザがいる場合
+			if(addUser1.size() != 0) {
+				//エラーメッセージを表示
+				mv.addObject("message1", "そのメールアドレスは既に登録されています");
+				//ユーザ登録情報編集画面(editUser.html)を表示して再度書き込ませる
+				mv.setViewName("editUser");
+			}
+
+			///2.nameが重複するユーザがいる場合
+			if(addUser2.size() != 0) {
+				//エラーメッセージを表示
+				mv.addObject("message2", "そのユーザ名は既に登録されています");
+				//ユーザ登録情報編集画面(editUser.html)を表示して再度書き込ませる
+				mv.setViewName("editUser");
+			}
+
+			///3.emailもnameも重複するユーザがいない場合
+			if(addUser1.size() == 0 && addUser2.size() == 0) {
 				//usersテーブルでユーザコードを指定してユーザ情報を変更
+				User userInfo = new User(userInfoBefore.getUsercode(),name,gender,age,email,password);
+				userRepository.saveAndFlush(userInfo);
 
 				//セッションスコープにも変更後のユーザ情報を更新
+				session.setAttribute("userInfo", userInfo);
+
+				//変更が完了したことをメッセージで表示
+				mv.addObject("message", "変更が完了しました");
 
 				//マイページ画面(myPage.html)を表示
-				//変更が完了したことをメッセージで表示
 				mv.setViewName("myPage");
+			}
+		}//大のelseの終端
+
+		//書き込み途中のものは保持して表示
+		mv.addObject("name",name);
+		mv.addObject("gender",gender);
+		mv.addObject("age",age);
+		mv.addObject("email",email);
+		mv.addObject("password",password);
 
 		return mv;
 	}

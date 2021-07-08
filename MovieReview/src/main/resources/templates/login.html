@@ -9,12 +9,15 @@
 	<hr>
 
 	<form action="/login" method="post">
-		<input type="text" name="email" placeholder="メールアドレス"><br>
-		<input type="text" name="password" placeholder="パスワード"><br>
+		<input type="text" name="email" placeholder="メールアドレス" th:value="${email}"><br>
+		<input type="text" name="password" placeholder="パスワード" th:value="${password}"><br>
 		<input type="submit" value="ログイン">
 		<br>
-		<span th:text="${message}" style="color:rgb(255, 218, 4)"></span>
 	</form>
+
+	<span th:text="${message}" style="color:rgb(255, 218, 4)"></span>
+
+	<a href="/addUser">新規会員登録</a><br>
 
 </body>
 </html>

@@ -5,6 +5,56 @@
 <title>新規ユーザ登録</title>
 </head>
 <body>
+	<h3>新規ユーザ登録</h3>
+
+	<form action="/addUser" method="post">
+		<table>
+		<tr>
+			<td>ユーザ名</td>
+			<td>
+				<input type="text" name="name" th:value="${name}">
+				<span th:text="${message2}" style="color:rgb(255, 218, 4)"></span>
+			</td>
+		</tr>
+		<tr>
+			<td>性別</td>
+			<td><input type="text" name="gender" th:value="${gender}"></td>
+		</tr>
+		<tr>
+			<td>年代</td>
+			<td>
+				<select name="age" th:value="${age}">
+					<option value="0~9歳">0~9歳</option>
+					<option value="10代">10代</option>
+					<option value="20代">20代</option>
+					<option value="30代">30代</option>
+					<option value="40代">40代</option>
+					<option value="50代">50代</option>
+					<option value="60代">60代</option>
+					<option value="70代~">70代~</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>メールアドレス</td>
+			<td>
+				<input type="text" name="email" th:value="${email}">
+				<span th:text="${message1}" style="color:rgb(255, 218, 4)"></span>
+			</td>
+
+		</tr>
+		<tr>
+			<td>パスワード</td>
+			<td><input type="text" name="password" th:value="${password}"></td>
+		</tr>
+		</table>
+		<input type="submit" value="登録">
+	</form>
+
+	<span th:text="${message}" style="color:rgb(255, 218, 4)"></span>
+
+	<a href="/">トップに戻る</a><br>
+
 
 </body>
 </html>

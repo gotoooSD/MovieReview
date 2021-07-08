@@ -43,7 +43,7 @@ public class MovieController {
 	//http://localhost:8080/movies
 	//ジャンルで映画一覧を表示する
 	@RequestMapping("/movies/{genre}")
-	public ModelAndView moviesgenre(
+	public ModelAndView moviesGenre(
 			@RequestParam("genru") String genru,
 			ModelAndView mv) {
 
@@ -51,8 +51,6 @@ public class MovieController {
 		List<Movie> movieList = movieRepository.findByGenru(genru);
 		mv.addObject("movie", movieList);
 
-		//Thymeleafで表示する準備
-		mv.addObject("movie", movieList);
 
 		//遷移先を指定
 		mv.setViewName("movies");
@@ -71,9 +69,6 @@ public class MovieController {
 
 		//検索を実行して表示
 		List<Movie> movieList = movieRepository.findByCountry(country);
-		mv.addObject("movie", movieList);
-
-		//Thymeleafで表示する準備
 		mv.addObject("movie", movieList);
 
 		//遷移先を指定
@@ -96,7 +91,7 @@ public class MovieController {
 	}
 
 	/**
-	  映画の検索結果の一覧画面
+	  映画の並び替えの一覧画面
 	 **/
 	//http://localhost:8080/movies/sort
 	//映画の並び替えをして一覧で表示する
@@ -109,6 +104,23 @@ public class MovieController {
 
 		//遷移先を指定
 		mv.setViewName("movies");
+		return mv;
+	}
+
+	/**
+	  全映画の一覧画面
+	 **/
+	//http://localhost:8080/movies
+	//全映画の一覧を表示する
+	@RequestMapping("/movies/{moviecode}")
+	public ModelAndView moviesCode(ModelAndView mv) {
+
+		//全件検索を実行して表示
+		List<Movie> movieList = movieRepository.findAll();
+		mv.addObject("movie", movieList);
+
+		//遷移先を指定
+		mv.setViewName("movie");
 		return mv;
 	}
 

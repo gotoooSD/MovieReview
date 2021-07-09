@@ -78,6 +78,11 @@ public class MovieController {
 		//検索を実行して表示
 		mv.addObject("movies", movieList);
 
+		//検索内容を保持
+		mv.addObject("keyword", keyword);
+		mv.addObject("genre", genre);
+		mv.addObject("country", country);
+
 		//遷移先を指定
 		mv.setViewName("movies");
 		return mv;

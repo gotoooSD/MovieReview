@@ -2,20 +2,20 @@
 <table>
 	<form action="/movies/search" method="get">
 	<tr>
-		<td><input type="text" name="keyword" placeholder="キーワードで探す"></td>
+		<td><input type="text" name="keyword" placeholder="キーワードで探す"  th:value="${keyword}"></td>
 		<td>
 			<select name="genre">
 				<option value="">ジャンルで探す</option>
-				<option value="アニメ">アニメ</option>
-				<option value="サスペンス">サスペンス</option>
-				<option value="ドラマ">ドラマ</option>
+				<option value="アニメ" th:selected ="${genre == 'アニメ'}">アニメ</option>
+				<option value="サスペンス" th:selected ="${genre == 'サスペンス'}">サスペンス</option>
+				<option value="ドラマ" th:selected ="${genre == 'ドラマ'}">ドラマ</option>
 			</select>
 		</td>
 		<td>
 			<select name="country">
-				<option value="">邦画/洋画</option>
-				<option value="邦画">邦画</option>
-				<option value="洋画">洋画</option>
+				<option value="" >邦画/洋画</option>
+				<option value="邦画" th:selected ="${country == '邦画'}">邦画</option>
+				<option value="洋画" th:selected ="${country == '洋画'}">洋画</option>
 			</select>
 		</td>
 		<td><input type="submit" value="検索"></td>

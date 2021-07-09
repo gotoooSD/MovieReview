@@ -1,14 +1,21 @@
 <h3>映画検索</h3>
 <table>
-	<form action="/movies/sarch" method="get">
+	<form action="/movies/search" method="get">
 	<tr>
-		<td><input type="text" name="kerword" placeholder="キーワードで探す"></td>
+		<td><input type="text" name="keyword" placeholder="キーワードで探す"></td>
 		<td>
 			<select name="genre">
 				<option value="">ジャンルで探す</option>
 				<option value="アニメ">アニメ</option>
 				<option value="サスペンス">サスペンス</option>
 				<option value="ドラマ">ドラマ</option>
+			</select>
+		</td>
+		<td>
+			<select name="country">
+				<option value="">邦画/洋画</option>
+				<option value="邦画">邦画</option>
+				<option value="洋画">洋画</option>
 			</select>
 		</td>
 		<td><input type="submit" value="検索"></td>

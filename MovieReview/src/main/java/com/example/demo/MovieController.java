@@ -45,17 +45,20 @@ public class MovieController {
 	public ModelAndView moviesSearch(
 			@RequestParam("keyword") String keyword,
 			@RequestParam("genre") String genre,
+			@RequestParam("country") String country,
 			ModelAndView mv) {
 		List<Movie> movieList = null;
 
-		if(keyword.equals("") && genre.equals("")) {
+		if(keyword.equals("") && genre.equals("") && country.equals("")) {
 			movieList = movieRepository.findAll();
-		}else if(keyword.equals("") && !genre.equals("")) {
+		}else if(keyword.equals("") && !genre.equals("") && country.equals("")) {
 			 movieList = movieRepository.findByGenre(genre);
-		}else if(!keyword.equals("") && genre.equals("")) {
+		}else if(keyword.equals("") && genre.equals("") && !country.equals("")) {
+			movieList = movieRepository.findByCountry(country);
+		}else if(!keyword.equals("") && genre.equals("") && country.equals("")) {
 			 movieList = movieRepository.findByTitleLike("%" + keyword + "%");
-		}else if(!keyword.equals("") && !genre.equals("")) {
-			 movieList = movieRepository.findByTitleLikeAndGenre("%" + keyword + "%", genre);
+		}else if(!keyword.equals("") && !genre.equals("") && !country.equals("")) {
+			 movieList = movieRepository.findByTitleLikeAndGenreAndCountry("%" + keyword + "%", genre, country);
 		}
 
 		//検索を実行して表示

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface MovieRepository extends JpaRepository<Movie, Integer>{
 	List<Movie> findByTitleLike(String keyword);
 
-	List<Movie> findByTitleLikeAndGenre(String keyword, String genre);
+	List<Movie> findByTitleLikeAndGenreAndCountry(String keyword, String genre, String country);
 
 	List<Movie> findByGenre(String genre);
 

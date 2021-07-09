@@ -51,11 +51,11 @@ public class MovieController {
 		List<Movie> movieList = null;
 
 		if(keyword.equals("") && genre.equals("") && country.equals("")) {
-			//全部入力無いとき
-			movieList = movieRepository.findAllByOrderByYearAsc();
+			//全部入力無いときで検索・最新の制作年で表示
+			movieList = movieRepository.findAllByOrderByYearDesc();
 		}else if(keyword.equals("") && !genre.equals("") && country.equals("")) {
 			//ジャンルのみで検索
-			 movieList = movieRepository.findByGenre(genre);
+			 movieList = movieRepository.findByGenreOrderByYearDesc(genre);
 		}else if(keyword.equals("") && genre.equals("") && !country.equals("")) {
 			//国のみで検索
 			movieList = movieRepository.findByCountry(country);

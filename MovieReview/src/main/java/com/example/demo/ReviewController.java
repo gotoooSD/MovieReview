@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,9 +27,9 @@ public class ReviewController {
 	/**
 	  レビュー一覧画面
 	 **/
-	@RequestMapping("/review/{moviecode}")
+	@RequestMapping("/reviews/{moviecode}")
 	public ModelAndView users(
-			@RequestParam("moviecode") int moviecode,
+			@PathVariable("moviecode") int moviecode,
 			ModelAndView mv) {
 		//選択した映画の詳細を表示する
 		List<Movie> movieInfo = movieRepository.findByMoviecode(moviecode);

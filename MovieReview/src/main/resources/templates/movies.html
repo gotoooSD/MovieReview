@@ -18,7 +18,7 @@
 		<td th:text="${movie.time}"></td>
 		<td th:text="${movie.country}"></td>
 		<td th:text="${movie.year}"></td>
-		<td><a th:href="'/reviews'+${movie.code}" >レビューを見る</a></td>
+		<td><a th:href="'/reviews/'+${movie.moviecode}" >レビューを見る</a></td>
 	</tr>
 	</table>
 </body>

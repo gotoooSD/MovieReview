@@ -7,6 +7,7 @@
 <body>
 
 <span th:replace="menu"></span>
+<span th:replace="moviessarch"></span>
 
 
 <h1>映画詳細//ここは選択した映画のタイトル</h1>
@@ -16,21 +17,27 @@
 
 <br>
 
-<h2>レビュー一覧</h2>
+<h1>レビュー一覧</h1>
 //ここに並び替え表示用のform
 <br>
 <table border="1">
 	<tr>
 		<th>評価</th>
-		<th>日付</th>
 		<th>レビュータイトル</th>
 		<th>レビュー本文</th>
+		<th>日付</th>
+		<th>ユーザー名</th>
+		<th>性別</th>
+		<th>年代</th>
 	</tr>
 	<tr th:each="review:${reviews}">
 		<td th:text="${review.evaluation}"></td>
 		<td th:text="${review.date}"></td>
 		<td th:text="${review.title}"></td>
 		<td th:text="${review.text}"></td>
+		<th>ユーザー名</th>
+		<th>性別</th>
+		<th>年代</th>
 	</tr>
 </table>
 </body>

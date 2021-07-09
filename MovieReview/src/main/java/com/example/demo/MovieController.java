@@ -47,8 +47,6 @@ public class MovieController {
 			@RequestParam("genre") String genre,
 			ModelAndView mv) {
 		List<Movie> movieList = null;
-<<<<<<< HEAD
-=======
 
 		if(keyword.equals("") && genre.equals("")) {
 			movieList = movieRepository.findAll();
@@ -68,25 +66,7 @@ public class MovieController {
 		return mv;
 	}
 
->>>>>>> refs/remotes/origin/master
 
-		if(keyword.equals("") && genre.equals("")) {
-			movieList = movieRepository.findAll();
-		}else if(keyword.equals("") && !genre.equals("")) {
-			 movieList = movieRepository.findByGenre(genre);
-		}else if(!keyword.equals("") && genre.equals("")) {
-			 movieList = movieRepository.findByTitleLike("%" + keyword + "%");
-		}else if(!keyword.equals("") && !genre.equals("")) {
-			 movieList = movieRepository.findByTitleLikeAndGenre("%" + keyword + "%", genre);
-		}
-
-		//検索を実行して表示
-		mv.addObject("movies", movieList);
-
-		//遷移先を指定
-		mv.setViewName("movies");
-		return mv;
-	}
 //
 //	/**
 //	  映画の検索結果の一覧画面

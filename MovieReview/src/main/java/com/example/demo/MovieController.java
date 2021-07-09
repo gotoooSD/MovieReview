@@ -46,12 +46,13 @@ public class MovieController {
 			@RequestParam("keyword") String keyword,
 			@RequestParam("genre") String genre,
 			@RequestParam("country") String country,
+			@RequestParam(name = "sort",defaultValue = "") String sort,
 			ModelAndView mv) {
 		List<Movie> movieList = null;
 
 		if(keyword.equals("") && genre.equals("") && country.equals("")) {
 			//全部入力無いとき
-			movieList = movieRepository.findAll();
+			movieList = movieRepository.findAllByOrderByYearAsc();
 		}else if(keyword.equals("") && !genre.equals("") && country.equals("")) {
 			//ジャンルのみで検索
 			 movieList = movieRepository.findByGenre(genre);

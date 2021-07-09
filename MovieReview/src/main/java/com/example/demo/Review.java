@@ -25,6 +25,9 @@ public class Review {
 	private String title;
 	private String text;
 
+
+
+
 	////コンストラクタ
 	public Review() {//デフォルトコンストラクタ
 	}

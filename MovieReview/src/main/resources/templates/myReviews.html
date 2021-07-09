@@ -12,8 +12,8 @@
 
 
 <h1>マイレビュー一覧</h1>
-<br>
-
+件数：<span th:text="${reviewsSize}"></span>
+//ここに並べ替え用の記述
 <table border="1">
 	<tr>
 		<th>タイトル</th>
@@ -23,7 +23,7 @@
 		<th>レビュー本文</th>
 	</tr>
 	<tr th:each="review:${reviews}">
-		<td>//ここは後でControllerとEntityで処理</td>
+		<td th:text="${review.movieTitle}"></td>
 		<td th:text="${review.evaluation}"></td>
 		<td th:text="${review.date}"></td>
 		<td th:text="${review.title}"></td>

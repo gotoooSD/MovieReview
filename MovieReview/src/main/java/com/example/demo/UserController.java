@@ -22,6 +22,9 @@ public class UserController {
 	@Autowired
 	MovieRepository	movieRepository;
 
+	@Autowired
+	ReviewRepository reviewRepository;
+
 	/**
 	  トップページ
 	 **/
@@ -100,6 +103,12 @@ public class UserController {
 					List<Movie> movieList = movieRepository.findAll();
 					mv.addObject("movies", movieList);
 
+					//マイページ表示用
+					//ユーザコード(usercode)検索
+					List<Review> myreviewList = reviewRepository.findByUsercode(userInfo.getUsercode());
+					session.setAttribute("reviewsSize", myreviewList.size());
+
+
 					//映画一覧画面(movies.html)を表示
 					mv.setViewName("movies");
 				}///小のelseの終端
@@ -140,8 +149,8 @@ public class UserController {
 			@RequestParam("password") String password,
 			ModelAndView mv
 		) {
-		////空の入力がある場合(大のif)//genderとageは選択制なので未入力の心配なし
-		if(name.equals("")||email.equals("")||password.equals("")) {
+		////空の入力がある場合(大のif)
+		if(name.equals("")||email.equals("")||password.equals("")||gender.equals("")||age.equals("")) {
 			//エラーメッセージを表示
 			mv.addObject("message", "未入力の項目があります");
 			//新規登録情報入力画面(addUser.html)を表示して再度書き込ませる
@@ -228,8 +237,8 @@ public class UserController {
 		//セッションスコープからユーザ情報を取得
 		User userInfoBefore = (User) session.getAttribute("userInfo");
 
-		////空の入力がある場合(大のif)//genderとageは選択制なので未入力の心配なし
-		if(name.equals("")||email.equals("")||password.equals("")) {
+		////空の入力がある場合(大のif)
+		if(name.equals("")||email.equals("")||password.equals("")||gender.equals("")||age.equals("")) {
 			//エラーメッセージを表示
 			mv.addObject("message", "未入力の項目があります");
 
@@ -292,6 +301,16 @@ public class UserController {
 		mv.addObject("email",email);
 		mv.addObject("password",password);
 
+		return mv;
+	}
+
+	/**
+	  マイページ
+	 **/
+	@RequestMapping("/myPage")
+	public ModelAndView myPage(ModelAndView mv) {
+		//マイページ(myPage.html)を表示
+		mv.setViewName("myPage");
 		return mv;
 	}
 

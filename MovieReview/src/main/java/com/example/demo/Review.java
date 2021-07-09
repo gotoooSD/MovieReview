@@ -33,11 +33,14 @@ public class Review {
 	@Transient
 	private String age;
 
+	@Transient
+	private String movieTitle;
+
 	////コンストラクタ
 	public Review() {//デフォルトコンストラクタ
 	}
 
-	public Review(//全部あるやつ
+	public Review(//テーブル内全部＋ユーザ名・性別・年代
 			int reviewcode,
 			int moviecode,
 			int usercode,
@@ -59,6 +62,26 @@ public class Review {
 		this.name = name;
 		this.gender = gender;
 		this.age = age;
+	}
+
+	public Review(//テーブル内全部＋映画タイトル
+			int reviewcode,
+			int moviecode,
+			int usercode,
+			int evaluation,
+			Date date,
+			String title,
+			String text,
+			String movieTitle
+	) {
+		this.reviewcode = reviewcode;
+		this.moviecode = moviecode;
+		this.usercode = usercode;
+		this.evaluation = evaluation;
+		this.date = date;
+		this.title = title;
+		this.text = text;
+		this.movieTitle = movieTitle;
 	}
 
 	public Review(//評価、日付、タイトル、テキスト
@@ -109,5 +132,10 @@ public class Review {
 	public String getAge() {
 		return age;
 	}
+	public String getMovieTitle() {
+		return movieTitle;
+	}
+
+
 
 }

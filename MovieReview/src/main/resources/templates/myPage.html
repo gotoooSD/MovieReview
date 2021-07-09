@@ -5,6 +5,49 @@
 <title>マイページ</title>
 </head>
 <body>
+	<span th:replace="moviessarch"></span>
+
+	<h1>マイページ</h1>
+
+<table>
+	<tr>
+		<th>ユーザ名：</th>
+		<td th:text="${session.userInfo.name}"></td>
+	</tr>
+	<tr>
+		<th>性別：</th>
+		<td th:text="${session.userInfo.gender}"></td>
+	</tr>
+	<tr>
+		<th>年代：</th>
+		<td th:text="${session.userInfo.age}"></td>
+	</tr>
+	<tr>
+		<th>メールアドレス：</th>
+		<td th:text="${session.userInfo.email}"></td>
+	</tr>
+
+</table>
+<table>
+	<tr>
+		<th>今までにレビューした本数：</th>
+		<td th:text="${session.reviewsSize}"></td>
+	</tr>
+</table>
+
+
+	<ul>
+		<li><a href="/myReview">マイレビュー</a></li>
+		<li><a href="/editUser">ユーザ情報編集</a></li>
+		<li><a href="/logout">ログアウト</a></li>
+	</ul>
+
+	<br>
+	<br>
+	<a href="/movies">映画一覧に戻る</a>
+
+
+
 
 </body>
 </html>

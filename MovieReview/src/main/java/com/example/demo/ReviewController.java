@@ -43,7 +43,7 @@ public class ReviewController {
 		//選択した映画の全レビューの一覧を表示
 		List<Review> reviewList = reviewRepository.findByMoviecode(moviecode);
 
-			//それぞれのレビューにおいてユーザコードからユーザ情報を検索してその情報もallreviewListとして追加
+			//ユーザコードからユーザ情報を検索してその情報も追加してallreviewListとして保存
 			List<Review> allreviewList = new ArrayList<>();;
 			//拡張for文
 			for(Review review: reviewList) {
@@ -132,7 +132,27 @@ public class ReviewController {
 		//ログインしているユーザのの全レビューの一覧を表示
 		//ユーザコード(usercode)検索
 		List<Review> reviewList = reviewRepository.findByUsercode(usercode);
-		mv.addObject("reviews", reviewList);
+		//何件あるか
+		int reviewsSize = reviewList.size();
+
+			//映画コードから映画のタイトルを追加してallreviewListとして保存
+			List<Review> allreviewList = new ArrayList<>();;
+			//拡張for文
+			for(Review review: reviewList) {
+				//その項の映画コードを取得
+				int moviecode = review.getMoviecode();
+				//映画コードを指定して映画を検索
+				List<Movie> reviewMovie = movieRepository.findByMoviecode(moviecode);
+				Movie movieInfo = reviewMovie.get(0);//レコードを取得
+				String movieTitle = movieInfo.getTitle();//映画タイトル
+
+				//映画タイトルを追加したもの(Review型)をallreviewListに追加
+				Review allreview = new Review(review.getReviewcode(),review.getMoviecode(),review.getUsercode(),review.getEvaluation(),review.getDate(),review.getTitle(),review.getText(),movieTitle);
+				allreviewList.add(allreview);
+			}
+
+		mv.addObject("reviewsSize", reviewsSize);
+		mv.addObject("reviews", allreviewList);
 
 		//マイレビュー一覧(myReviews.html)を表示
 		mv.setViewName("myReviews");

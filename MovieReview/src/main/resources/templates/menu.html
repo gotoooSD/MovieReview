@@ -1,34 +1,9 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>映画レビュー</title>
-</head>
-<body>
-<h1>メニュー</h1>
-
+<h3>
 こんにちは
-<a href="/myPage"><span th:text="${session.userInfo.name}"></span></a>
+<span th:text="${session.userInfo.name}"></span>
 さん
-<br>
+</h3><br>
+
+<a href="/myPage">マイページ</a>
+<a href="/myReviews">マイレビュー</a><br>
 <a href="/logout">ログアウト</a>
-<a href="/myReviews">マイレビュー</a>
-
-<form action="/movies" method="get">
-<table>
-<tr>
-<td><input type="text" value="キーワードで探す"></td>
-<td>
-	<select name="genre">
-		<option value="">ジャンルで探す</option>
-		<option value="アニメ">アニメ</option>
-		<option value="サスペンス">サスペンス</option>
-		<option value="ドラマ">ドラマ</option>
-	</select>
-</td>
-<td><input type="submit" value="検索"></td>
-</tr>
-</table>
-</form>
-
-</body>

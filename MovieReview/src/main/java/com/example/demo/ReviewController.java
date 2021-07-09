@@ -39,8 +39,7 @@ public class ReviewController {
 		List<Review> reviewList = reviewRepository.findByMoviecode(moviecode);
 		mv.addObject("reviews", reviewList);
 
-		//遷移先を指定
-		mv.setViewName("movies");
+		//レビュー一覧(reviews.html)を表示
 		mv.setViewName("reviews");
 		return mv;
 	}
@@ -101,7 +100,14 @@ public class ReviewController {
 	 **/
 	@RequestMapping("/myReviews")
 	public ModelAndView myReviews(ModelAndView mv) {
-		//ユーザーコード(usercode)検索で出た値を取得してリストに追加
+		//セッションスコープからユーザコードを取得
+		User userInfoBefore = (User) session.getAttribute("userInfo");
+		int usercode = userInfoBefore.getUsercode();
+
+		//ログインしているユーザのの全レビューの一覧を表示
+		//ユーザコード(usercode)検索
+		List<Review> reviewList = reviewRepository.findByUsercode(usercode);
+		mv.addObject("reviews", reviewList);
 
 		//マイレビュー一覧(myReviews.html)を表示
 		mv.setViewName("myReviews");

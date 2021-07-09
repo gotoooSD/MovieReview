@@ -2,35 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>映画詳細・レビュー</title>
+<title>マイレビュー</title>
 </head>
 <body>
+<h1>マイレビュー</h1>
 
 <span th:replace="menu"></span>
+<span th:replace="moviessarch"></span>
 
 
-<h1>映画詳細//ここは選択した映画のタイトル</h1>
-
-//ここに映画詳細
-
-
+<h2>マイレビュー一覧</h2>
 <br>
 
-<h2>レビュー一覧</h2>
-<br>
 <table border="1">
 	<tr>
+		<th>タイトル</th>
 		<th>評価</th>
 		<th>日付</th>
 		<th>レビュータイトル</th>
 		<th>レビュー本文</th>
 	</tr>
 	<tr th:each="review:${reviews}">
+		<td>//ここは後でControllerとEntityで処理</td>
 		<td th:text="${review.evaluation}"></td>
 		<td th:text="${review.date}"></td>
 		<td th:text="${review.title}"></td>
 		<td th:text="${review.text}"></td>
 	</tr>
 </table>
+
 </body>
 </html>

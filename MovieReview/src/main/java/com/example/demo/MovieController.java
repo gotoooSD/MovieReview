@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -35,25 +36,36 @@ public class MovieController {
 		return mv;
 	}
 
-//	/**
-//	  ジャンルで映画一覧画面
-//	 **/
-//	//http://localhost:8080/movies
-//	//ジャンルで映画一覧を表示する
-//	@RequestMapping("/movies/{genre}")
-//	public ModelAndView moviesGenre(
-//			@RequestParam("genru") String genru,
-//			ModelAndView mv) {
-//
-//		//検索を実行して表示
-//		List<Movie> movieList = movieRepository.findByGenru(genru);
-//		mv.addObject("movie", movieList);
-//
-//
-//		//遷移先を指定
-//		mv.setViewName("movies");
-//		return mv;
-//	}
+	/**
+	  キーワードで映画一覧画面
+	 **/
+	//http://localhost:8080/movies
+	//キーワードで映画一覧を表示する
+	@RequestMapping("/movies/search")
+	public ModelAndView moviesSearch(
+			@RequestParam("keyword") String keyword,
+			@RequestParam("genre") String genre,
+			ModelAndView mv) {
+		List<Movie> movieList = null;
+
+		if(keyword.equals("") && genre.equals("")) {
+			movieList = movieRepository.findAll();
+		}else if(keyword.equals("") && !genre.equals("")) {
+			 movieList = movieRepository.findByGenre(genre);
+		}else if(!keyword.equals("") && genre.equals("")) {
+			 movieList = movieRepository.findByTitleLike("%" + keyword + "%");
+		}else if(!keyword.equals("") && !genre.equals("")) {
+			 movieList = movieRepository.findByTitleLikeAndGenre("%" + keyword + "%", genre);
+		}
+
+		//検索を実行して表示
+		mv.addObject("movies", movieList);
+
+		//遷移先を指定
+		mv.setViewName("movies");
+		return mv;
+	}
+
 
 //	/**
 //	  国で映画一覧画面

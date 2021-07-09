@@ -14,10 +14,10 @@
 <a href="/logout">ログアウト</a>
 <a href="/myReviews">マイレビュー</a>
 
-<form action="/movies" method="get">
+<form action="/movies/search" method="get">
 <table>
 <tr>
-<td><input type="text" value="キーワードで探す"></td>
+<td><input type="text" name="keyword" placeholder="キーワードで探す"></td>
 <td>
 	<select name="genre">
 		<option value="">ジャンルで探す</option>

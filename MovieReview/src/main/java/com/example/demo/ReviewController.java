@@ -44,7 +44,7 @@ public class ReviewController {
 		List<Review> reviewList = reviewRepository.findByMoviecode(moviecode);
 
 			//ユーザコードからユーザ情報を検索してその情報も追加してallreviewListとして保存
-			List<Review> allreviewList = new ArrayList<>();;
+			List<Review> allreviewList = new ArrayList<>();
 			//拡張for文
 			for(Review review: reviewList) {
 				//その項のユーザーコードを取得

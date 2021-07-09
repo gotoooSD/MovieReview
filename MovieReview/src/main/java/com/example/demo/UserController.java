@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -248,8 +249,8 @@ public class UserController {
 		////空の入力なしの場合(大のelse)
 		}else {
 			///既存ユーザとの重複がないか調べる
-				List<User> addUser1 = null;
-				List<User> addUser2 = null;
+				List<User> addUser1 = new ArrayList<>();;
+				List<User> addUser2 = new ArrayList<>();;
 				//RequestParamで取得したemailとセッションのemailが異なる場合
 				if(!(email.equals(userInfoBefore.getEmail()))) {
 					//RequestParamで取得したemailでusersテーブルに検索をかける
@@ -289,8 +290,8 @@ public class UserController {
 				//変更が完了したことをメッセージで表示
 				mv.addObject("message", "変更が完了しました");
 
-				//マイページ画面(myPage.html)を表示
-				mv.setViewName("myPage");
+				//ユーザ登録情報編集画面(editUser.html)を表示
+				mv.setViewName("editUser");
 			}
 		}//大のelseの終端
 

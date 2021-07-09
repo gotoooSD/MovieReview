@@ -50,14 +50,28 @@ public class MovieController {
 		List<Movie> movieList = null;
 
 		if(keyword.equals("") && genre.equals("") && country.equals("")) {
+			//全部入力無いとき
 			movieList = movieRepository.findAll();
 		}else if(keyword.equals("") && !genre.equals("") && country.equals("")) {
+			//ジャンルのみで検索
 			 movieList = movieRepository.findByGenre(genre);
 		}else if(keyword.equals("") && genre.equals("") && !country.equals("")) {
+			//国のみで検索
 			movieList = movieRepository.findByCountry(country);
 		}else if(!keyword.equals("") && genre.equals("") && country.equals("")) {
+			//キーワードのみで探す
 			 movieList = movieRepository.findByTitleLike("%" + keyword + "%");
+		}else if(!keyword.equals("") && !genre.equals("") && country.equals("")) {
+			//キーワードとジャンルで検索
+			 movieList = movieRepository.findByTitleLikeAndGenre("%" + keyword + "%",genre);
+		}else if(!keyword.equals("") && genre.equals("") && !country.equals("")) {
+			//キーワードと国で検索
+			 movieList = movieRepository.findByTitleLikeAndCountry("%" + keyword + "%",country);
+		}else if(keyword.equals("") && !genre.equals("") && !country.equals("")) {
+			//ジャンルと国で検索
+			movieList = movieRepository.findByGenreAndCountry(genre,country);
 		}else if(!keyword.equals("") && !genre.equals("") && !country.equals("")) {
+			//全部で検索
 			 movieList = movieRepository.findByTitleLikeAndGenreAndCountry("%" + keyword + "%", genre, country);
 		}
 

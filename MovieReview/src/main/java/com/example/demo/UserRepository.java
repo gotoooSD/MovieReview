@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
-	//コード指定したやつだけ取得（便宜上Listを使うけど取得は一つだけ）
-//	List<User> findByUserode(int usercode);
+	//ユーザコードを指定して取得（便宜上Listを使うけど取得は一つだけ）
+	List<User> findByUsercode(int usercode);
 
 	//メールアドレスを指定して取得
 	List<User> findByEmail(String email);

@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +20,9 @@ public class ReviewController {
 	HttpSession session;
 
 	@Autowired
+	UserRepository userRepository;
+
+	@Autowired
 	MovieRepository movieRepository;
 
 	@Autowired
@@ -27,6 +31,7 @@ public class ReviewController {
 	/**
 	  レビュー一覧画面
 	 **/
+	@SuppressWarnings("null")
 	@RequestMapping("/reviews/{moviecode}")
 	public ModelAndView users(
 			@PathVariable("moviecode") int moviecode,
@@ -37,7 +42,27 @@ public class ReviewController {
 
 		//選択した映画の全レビューの一覧を表示
 		List<Review> reviewList = reviewRepository.findByMoviecode(moviecode);
-		mv.addObject("reviews", reviewList);
+
+			//それぞれのレビューにおいてユーザコードからユーザ情報を検索してその情報もallreviewListとして追加
+			List<Review> allreviewList = new ArrayList<>();;
+			//拡張for文
+			for(Review review: reviewList) {
+				//その項のユーザーコードを取得
+				int usercode = review.getUsercode();
+				//ユーザコードを指定してユーザを検索
+				List<User> reviewUser = userRepository.findByUsercode(usercode);
+				User userInfo = reviewUser.get(0);//レコードを取得
+				String name = userInfo.getName();//ユーザ名
+				String gender = userInfo.getGender();//性別
+				String age = userInfo.getAge();//年代
+
+				//ユーザ名、性別、年代を追加したもの(Review型)をallreviewListに追加
+				Review allreview = new Review(review.getReviewcode(),review.getMoviecode(),review.getUsercode(),review.getEvaluation(),review.getDate(),review.getTitle(),review.getText(),name,gender,age);
+				allreviewList.add(allreview);
+			}
+
+
+		mv.addObject("reviews", allreviewList);
 
 		//レビュー一覧(reviews.html)を表示
 		mv.setViewName("reviews");

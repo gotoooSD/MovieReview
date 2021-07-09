@@ -23,21 +23,23 @@
 <table border="1">
 	<tr>
 		<th>評価</th>
+		<th>ユーザー名</th>
+		<th>性別</th>
+		<th>年代</th>
 		<th>レビュータイトル</th>
 		<th>レビュー本文</th>
 		<th>日付</th>
-		<th>ユーザー名</th>
-		<th>性別</th>
-		<th>年代</th>
+
 	</tr>
 	<tr th:each="review:${reviews}">
 		<td th:text="${review.evaluation}"></td>
-		<td th:text="${review.date}"></td>
+		<td th:text="${review.name}"></td>
+		<td th:text="${review.gender}"></td>
+		<td th:text="${review.age}"></td>
 		<td th:text="${review.title}"></td>
 		<td th:text="${review.text}"></td>
-		<th>ユーザー名</th>
-		<th>性別</th>
-		<th>年代</th>
+		<td th:text="${review.date}"></td>
+
 	</tr>
 </table>
 </body>

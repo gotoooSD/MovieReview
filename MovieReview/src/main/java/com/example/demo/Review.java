@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="reviews")
@@ -25,8 +26,12 @@ public class Review {
 	private String title;
 	private String text;
 
-
-
+	@Transient
+	private String name;
+	@Transient
+	private String gender;
+	@Transient
+	private String age;
 
 	////コンストラクタ
 	public Review() {//デフォルトコンストラクタ
@@ -39,7 +44,10 @@ public class Review {
 			int evaluation,
 			Date date,
 			String title,
-			String text
+			String text,
+			String name,
+			String gender,
+			String age
 	) {
 		this.reviewcode = reviewcode;
 		this.moviecode = moviecode;
@@ -48,6 +56,9 @@ public class Review {
 		this.date = date;
 		this.title = title;
 		this.text = text;
+		this.name = name;
+		this.gender = gender;
+		this.age = age;
 	}
 
 	public Review(//評価、日付、タイトル、テキスト
@@ -62,6 +73,8 @@ public class Review {
 		this.text = text;
 	}
 
+
+
 	//::必要に応じてコンストラクタは追加する:://
 
 
@@ -69,29 +82,32 @@ public class Review {
 	public int getReviewcode() {
 		return reviewcode;
 	}
-
 	public int getMoviecode() {
 		return moviecode;
 	}
-
 	public int getUsercode() {
 		return usercode;
 	}
-
 	public int getEvaluation() {
 		return evaluation;
 	}
-
 	public Date getDate() {
 		return date;
 	}
-
 	public String getTitle() {
 		return title;
 	}
-
 	public String getText() {
 		return text;
+	}
+	public String getName() {
+		return name;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public String getAge() {
+		return age;
 	}
 
 }

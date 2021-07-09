@@ -2,11 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>映画レビュー</title>
+<title>映画一覧</title>
 </head>
 <body>
 	<span th:replace="menu"></span>
+	<span th:replace="moviessarch"></span>
 	<br>
+
+	<h3>映画一覧</h3>
+	//ここに並び替え表示用のform
+
 	<table border="1">
 	<tr>
 		<th>NO</th><th>タイトル</th><th>ジャンル</th><th>放送時間</th><th>邦画/洋画</th><th>制作年</th>

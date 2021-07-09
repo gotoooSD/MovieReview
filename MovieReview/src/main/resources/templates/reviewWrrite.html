@@ -6,5 +6,52 @@
 </head>
 <body>
 
+	<span th:replace="menu"></span>
+	<span th:replace="moviessearch"></span>
+
+	<h1>新規レビュー作成</h1>
+
+	<span th:text="${message}" style="color:rgb(255, 218, 4)"></span>
+
+	<form action="/review/wrrite" method="post">
+	<table>
+		<tr>
+			<th>映画タイトル</th>
+			<th>評価</th>
+			<th>日付</th>
+			<th>レビュータイトル</th>
+			<th>レビュー本文</th>
+		</tr>
+		<tr>
+			<td>
+				<select name="movietitle" th:each="${movie: movies}">
+					<option th:text="${movie.title}" th:selected="${movie.title == movietitle}"></option>
+				</select>
+			</td>
+			<td>
+				<select name="evaluation">
+					<option value="1" th:selected="${1 == evaluation}"></option>
+					<option value="2" th:selected="${2 == evaluation}"></option>
+					<option value="3" th:selected="${3 == evaluation}"></option>
+					<option value="4" th:selected="${4 == evaluation}"></option>
+					<option value="5" th:selected="${5 == evaluation}"></option>
+				</select>
+			</td>
+			<td>
+				<span th:text="${date}"></span>
+				<input type="hidden" name="date" th:value="${date}">
+			</td>
+			<td>
+				<input type="text" name="title"th:value="${title}"placeholder="30文字以内で入力してください"maxlength="30">
+			</td>
+			<td>
+				<textarea name="text"th:value="${text}"cols="40"rows="25"placeholder="1000文字以内で入力してください"maxlength="1000"></textarea>
+			</td>
+		</tr>
+	</table>
+	<input type="submit" value="新規作成">
+	</form>
+
+
 </body>
 </html>

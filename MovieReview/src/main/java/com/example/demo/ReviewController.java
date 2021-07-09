@@ -74,6 +74,14 @@ public class ReviewController {
 	 **/
 	@RequestMapping("/review/wrrite")
 	public ModelAndView reviewWrrite(ModelAndView mv) {
+//		//映画詳細画面から入った場合はmoviecodeを受け渡す
+
+
+		//選択用に映画一覧リストを受け渡す
+		List<Movie> movieList = movieRepository.findAll();
+		mv.addObject("movies", movieList);
+
+
 		//新規レビュー書き込み画面を表示
 		mv.setViewName("reviewWrrite");
 		return mv;
@@ -81,42 +89,69 @@ public class ReviewController {
 
 	@PostMapping("/review/wrrite")
 	public ModelAndView reviewWrrite(
+			@RequestParam("movietitle") String movietitle,
 			@RequestParam("evaluation") String evaluation,
 			@RequestParam("date") Date date,
 			@RequestParam("title") String title,
 			@RequestParam("text") String text,
 			ModelAndView mv
 	) {
-		////入力不備がある場合
-			///1.空欄がある場合＊タイトルは入力なしの場合「タイトルなし」でもいい？
-				//エラーメッセージを表示（未記入の項目があります）
-
-			///2.titleが？文字以内でない場合
-				//エラーメッセージを表示（タイトルは？文字以内で記述してください）
-
-			///3.text（レビュー本文）？文字以内でない場合
-				//エラーメッセージを表示（本文は？文字以内で記述してください）
-
-			//書き込み途中のものは保持
+		////入力不備がある場合(大のif)
+		///1.空欄がある場合＊タイトルは入力なしの場合「タイトルなし」でもいい？
+		if(movietitle.equals("")||evaluation.equals("")||date.equals("")||title.equals("")||text.equals("")) {
+			//エラーメッセージを表示
+			String message = "未記入の項目があります";
+			mv.addObject("message",message);
 
 			//レビュー書き込み画面(reviewWrrite.html)を表示して再度書き込ませる
 			mv.setViewName("reviewWrrite");
 
-		////入力不備がない場合
-			//書き込み情報を受け取ってDBに追加
+		////入力不備がない場合(大のelse)
+		}else {
+			//新規レビュー入力内容確認画面(reviewWrriteKakunin,html)を表示
+			mv.setViewName("reviewWrriteKakunin");
 
-			///マイページからの書き込みの場合
-				//ユーザーコード(usercode)検索で出た値を取得してリストに追加
+		}//大のelseの終端
 
-				//マイレビュー一覧画面(myReviews.html)を表示
-				mv.setViewName("myReviews");
+		//入力内容を受け渡す//書き込み途中のものは保持
+		mv.addObject("movietitle",movietitle);
+		mv.addObject("evaluation",evaluation);
+		mv.addObject("date",date);
+		mv.addObject("title",title);
+		mv.addObject("text",text);
 
-			///映画詳細画面からの書き込みの場合
-				//映画コード(moviecode)検索で出た値を取得してリストに追加
+		return mv;
+	}
 
-				//映画詳細内のレビュー一覧画面(reviews.html)を表示
-				mv.setViewName("reviwes");
+	/**
+	  新規レビュー入力内容確認画面
+	 **/
+	@PostMapping("/review/wrrite/kanryou")
+	public ModelAndView reviewWrriteKanryou(
+			@RequestParam("movietitle") String movietitle,
+			@RequestParam("evaluation") String evaluation,
+			@RequestParam("date") Date date,
+			@RequestParam("title") String title,
+			@RequestParam("text") String text,
+			ModelAndView mv
+	) {
+		////書き込み情報を受け取ってDBに追加
+			//movieテーブルからmovietitleを指定して映画コード(moviecode)を取得
 
+			//セッションスコープからユーザコード(usercode)を取得
+
+		//reviewテーブルにレコードを追加
+
+
+
+
+
+		//完了のメッセージを表示
+		String message = "レビューの投稿が完了しました";
+		mv.addObject("message",message);
+
+		//新規レビュー作成完了画面(reviewWrriteKanryou.html)を表示
+		mv.setViewName("reviewWrriteKanryou");
 		return mv;
 	}
 

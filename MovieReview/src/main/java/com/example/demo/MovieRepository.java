@@ -47,4 +47,7 @@ public interface MovieRepository extends JpaRepository<Movie, Integer>{
 
 	List<Movie> findByTitle(String movietitle);
 
+	List<Movie> findByGenreOrderByTitle(String genre);
+
+
 }

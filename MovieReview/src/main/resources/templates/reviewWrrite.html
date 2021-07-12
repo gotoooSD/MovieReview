@@ -20,7 +20,7 @@
 			<td>
 				<select name="movietitle" >
 					<option th:each="movie:${movies}" th:value="${movie.title}" th:selected="${movietitle == movie.title}">
-					<span th:text="${movie.title}"></span>
+						<span th:text="${movie.title}"></span>
 					</option>
 				</select>
 			</td>

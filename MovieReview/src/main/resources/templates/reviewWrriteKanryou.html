@@ -26,30 +26,30 @@
 			<td th:text="${session.userInfo.age}"></td>
 		</tr>
 		<tr>
-			<th>映画タイトル</th>
+			<th>映画タイトル：</th>
 			<td th:text="${movietitle}">
 		</tr>
 		<tr>
-			<th>評価</th>
+			<th>評価：</th>
 			<td th:text="${evaluation}">
 		</tr>
 		<tr>
-			<th>日付</th>
+			<th>日付：</th>
 			<td th:text="${date}">
 		</tr>
 		<tr>
-			<th>レビュータイトル</th>
+			<th>レビュータイトル：</th>
 			<td th:text="${title}">
 		</tr>
 		<tr>
-			<th>レビュー本文</th>
+			<th>レビュー本文：</th>
 			<td th:utext="${text}">
 		</tr>
 	</table>
 
-	<span th:text="${message}" style="color:rgb(255, 218, 4)"></span>
+	<span th:text="${message}" style="color:rgb(255, 218, 4)"></span><br>
 
-	<a href="/myReviews">マイレビューへ</a>
+	<a href="/myReviews">マイレビューへ</a><br>
 	<a th:href="'/reviews/'+${moviecode}" >映画詳細・レビュー一覧へ</a>
 
 

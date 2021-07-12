@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -92,7 +93,6 @@ public class ReviewController {
 			 // 日時情報を指定フォーマットの文字列で取得
 			 String display = format.format( dateObj );
 			mv.addObject("date", display);
-			mv.addObject("dateObj", dateObj);
 
 		//新規レビュー書き込み画面を表示
 		mv.setViewName("reviewWrrite");
@@ -116,9 +116,12 @@ public class ReviewController {
 		mv.addObject("movies", movieList);
 
 		//日付を受け渡す
-		long miliseconds = System.currentTimeMillis();
-        Date date = new Date(miliseconds);
-		mv.addObject("date", date);
+			// 現在日時情報で初期化されたインスタンスの生成
+			Date dateObj = new Date();
+			SimpleDateFormat format = new SimpleDateFormat( "yyyy/MM/dd" );
+			// 日時情報を指定フォーマットの文字列で取得
+			String display = format.format( dateObj );
+			mv.addObject("date", display);
 
 		//新規レビュー書き込み画面を表示
 		mv.setViewName("reviewWrrite");
@@ -129,12 +132,15 @@ public class ReviewController {
 	public ModelAndView reviewWrrite(
 			@RequestParam("movietitle") String movietitle,
 			@RequestParam("evaluation") String evaluation,
-			@RequestParam("date") Date date,
-			@RequestParam("dateObj") Date dateObj,
+			@RequestParam("date") String date,
 			@RequestParam("title") String title,
 			@RequestParam("text") String text,
 			ModelAndView mv
 	) {
+		//選択用に映画一覧リストを受け渡す
+		List<Movie> movieList = movieRepository.findAll();
+		mv.addObject("movies", movieList);
+
 		////入力不備がある場合(大のif)
 		///1.空欄がある場合//Dateは未入力なし
 		if(movietitle.equals("")||evaluation.equals("")||title.equals("")||text.equals("")) {
@@ -156,7 +162,6 @@ public class ReviewController {
 		mv.addObject("movietitle",movietitle);
 		mv.addObject("evaluation",evaluation);
 		mv.addObject("date",date);
-		mv.addObject("dateObj",dateObj);
 		mv.addObject("title",title);
 		mv.addObject("text",text);
 
@@ -170,8 +175,7 @@ public class ReviewController {
 	public ModelAndView reviewWrriteKanryou(
 			@RequestParam("movietitle") String movietitle,
 			@RequestParam("evaluation") int evaluation,
-			@RequestParam("date") Date date,
-			@RequestParam("dateObj") Date dateObj,
+			@RequestParam("date") String date,
 			@RequestParam("title") String title,
 			@RequestParam("text") String text,
 			ModelAndView mv
@@ -188,8 +192,19 @@ public class ReviewController {
 			User userInfo = (User) session.getAttribute("userInfo");
 			int usercode = userInfo.getUsercode();
 
+			//String型のdateをDate型のDateとして変換
+			//Parseメソッドは例外処理をしないといけないらしい
+			//初期値で今の日付入れたらわざわざ例外処理してまで日付を取得して代入しなくていいのでは？//うるさい！しらん！
+			Date Date = new Date();
+			try {
+				SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
+	            Date = sdFormat.parse(date);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+
 			//reviewテーブルにレコードを追加
-			Review reviewInfo = new Review(moviecode,usercode,evaluation,dateObj,title,text);
+			Review reviewInfo = new Review(moviecode,usercode,evaluation,Date,title,text);
 			reviewRepository.saveAndFlush(reviewInfo);
 
 		//完了のメッセージを表示
@@ -200,7 +215,6 @@ public class ReviewController {
 		mv.addObject("movietitle",movietitle);
 		mv.addObject("evaluation",evaluation);
 		mv.addObject("date",date);
-		mv.addObject("dateObj",dateObj);
 		mv.addObject("title",title);
 		mv.addObject("text",text);
 

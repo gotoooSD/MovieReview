@@ -18,8 +18,8 @@
 		<tr>
 			<th>映画タイトル</th>
 			<td>
-				<select name="movietitle" th:each="movie:${movies}">
-					<option th:value="${movie.title}" th:selected="${movietitle == movie.title}">
+				<select name="movietitle" >
+					<option th:each="movie:${movies}" th:value="${movie.title}" th:selected="${movietitle == movie.title}">
 					<span th:text="${movie.title}"></span>
 					</option>
 				</select>
@@ -41,7 +41,6 @@
 			<th>日付</th>
 			<td>
 				<span th:text="${date}"></span>
-				<input type="hidden" name="dateObj" th:value="${dateObj}">
 				<input type="hidden" name="date" th:value="${date}">
 			</td>
 		</tr>

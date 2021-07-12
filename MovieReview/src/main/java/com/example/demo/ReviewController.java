@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,6 +45,9 @@ public class ReviewController {
 
 		//選択した映画の全レビューの一覧を表示
 		List<Review> reviewList = reviewRepository.findByMoviecode(moviecode);
+		//何件あるか
+		int reviewsSize = reviewList.size();
+		mv.addObject("reviewsSize", reviewsSize);
 
 			//ユーザコードからユーザ情報を検索してその情報も追加してallreviewListとして保存
 			List<Review> allreviewList = new ArrayList<>();
@@ -80,6 +84,10 @@ public class ReviewController {
 		List<Movie> movieList = movieRepository.findAll();
 		mv.addObject("movies", movieList);
 
+		//日付を受け渡す
+		LocalDate date = LocalDate.now();
+		mv.addObject("date", date);
+
 		//新規レビュー書き込み画面を表示
 		mv.setViewName("reviewWrrite");
 		return mv;
@@ -90,8 +98,7 @@ public class ReviewController {
 				@PathVariable("moviecode") int moviecode,
 				ModelAndView mv
 		) {
-		//映画詳細画面から入った場合はmoviecodeを受け渡す
-		//選択した映画のタイトルを受け渡す
+		//映画詳細画面から入った場合は映画のtitleを受け渡す
 		List<Movie> m = movieRepository.findByMoviecode(moviecode);
 		Movie movieInfo = m.get(0);//レコードを取得
 		String movietitle = movieInfo.getTitle();//タイトル
@@ -100,6 +107,11 @@ public class ReviewController {
 		//選択用に映画一覧リストを受け渡す
 		List<Movie> movieList = movieRepository.findAll();
 		mv.addObject("movies", movieList);
+
+		//日付を受け渡す
+		long miliseconds = System.currentTimeMillis();
+        Date date = new Date(miliseconds);
+		mv.addObject("date", date);
 
 		//新規レビュー書き込み画面を表示
 		mv.setViewName("reviewWrrite");
@@ -116,8 +128,8 @@ public class ReviewController {
 			ModelAndView mv
 	) {
 		////入力不備がある場合(大のif)
-		///1.空欄がある場合＊タイトルは入力なしの場合「タイトルなし」でもいい？
-		if(movietitle.equals("")||evaluation.equals("")||date.equals("")||title.equals("")||text.equals("")) {
+		///1.空欄がある場合//Dateは未入力なし
+		if(movietitle.equals("")||evaluation.equals("")||title.equals("")||text.equals("")) {
 			//エラーメッセージを表示
 			String message = "未記入の項目があります";
 			mv.addObject("message",message);
@@ -148,7 +160,7 @@ public class ReviewController {
 	@PostMapping("/review/wrrite/kanryou")
 	public ModelAndView reviewWrriteKanryou(
 			@RequestParam("movietitle") String movietitle,
-			@RequestParam("evaluation") String evaluation,
+			@RequestParam("evaluation") int evaluation,
 			@RequestParam("date") Date date,
 			@RequestParam("title") String title,
 			@RequestParam("text") String text,
@@ -156,14 +168,19 @@ public class ReviewController {
 	) {
 		////書き込み情報を受け取ってDBに追加
 			//movieテーブルからmovietitleを指定して映画コード(moviecode)を取得
+			//映画詳細画面から入った場合は映画のtitleを受け渡す
+			List<Movie> m = movieRepository.findByTitle(movietitle);
+			Movie movieInfo = m.get(0);//レコードを取得
+			int moviecode = movieInfo.getMoviecode();//映画コード
+			mv.addObject("moviecode", moviecode);
 
 			//セッションスコープからユーザコード(usercode)を取得
+			User userInfo = (User) session.getAttribute("userInfo");
+			int usercode = userInfo.getUsercode();
 
-		//reviewテーブルにレコードを追加
-
-
-
-
+			//reviewテーブルにレコードを追加
+			Review reviewInfo = new Review(moviecode,usercode,evaluation,date,title,text);
+			reviewRepository.saveAndFlush(reviewInfo);
 
 		//完了のメッセージを表示
 		String message = "レビューの投稿が完了しました";

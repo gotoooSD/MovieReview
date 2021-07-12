@@ -10,19 +10,20 @@
 <span th:replace="moviessearch"></span>
 
 
-<h1>映画詳細//ここは選択した映画のタイトル</h1>
-
-//ここに映画詳細
+<h1><span th:text="${movieInfo.title}"></span></h1>
+<span th:text="${movieInfo.country}"></span><br>
+ジャンル：<span th:text="${movieInfo.genre}"></span><br>
+上映時間：<span th:text="${movieInfo.time}"></span>分<br>
+制作年：<span th:text="${movieInfo.year}"></span>年<br>
 
 
 <br>
 
 <h1>レビュー一覧</h1>
-
-//ここに並び替え表示用のform
+件数：<span th:text="${reviewsSize}"></span>
 <br>
 
-<a href="'/review/wrrite/'+${review.moviecode}">新規レビュー作成</a>
+<a th:href="'/review/wrrite/' + ${movieInfo.moviecode}">新規レビュー作成</a>
 <br>
 
 <table border="1">

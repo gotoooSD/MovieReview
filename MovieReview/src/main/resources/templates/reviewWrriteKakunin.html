@@ -15,6 +15,18 @@
 
 	<table>
 		<tr>
+			<th>ユーザ名：</th>
+			<td th:text="${session.userInfo.name}"></td>
+		</tr>
+		<tr>
+			<th>性別：</th>
+			<td th:text="${session.userInfo.gender}"></td>
+		</tr>
+		<tr>
+			<th>年代：</th>
+			<td th:text="${session.userInfo.age}"></td>
+		</tr>
+		<tr>
 			<th>映画タイトル</th>
 			<td th:text="${movietitle}">
 		</tr>

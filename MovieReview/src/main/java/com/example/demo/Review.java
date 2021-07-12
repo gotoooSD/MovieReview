@@ -64,6 +64,22 @@ public class Review {
 		this.age = age;
 	}
 
+	public Review(//テーブル内全部 レビューコードなし
+			int moviecode,
+			int usercode,
+			int evaluation,
+			Date date,
+			String title,
+			String text
+	) {
+		this.moviecode = moviecode;
+		this.usercode = usercode;
+		this.evaluation = evaluation;
+		this.date = date;
+		this.title = title;
+		this.text = text;
+	}
+
 	public Review(//テーブル内全部＋映画タイトル
 			int reviewcode,
 			int moviecode,

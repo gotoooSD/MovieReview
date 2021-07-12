@@ -4,12 +4,6 @@
 	<tr>
 		<td><input type="text" name="keyword" placeholder="キーワードで探す"  th:value="${keyword}"></td>
 		<td>
-			<select name="genre" >
-				<option value="">ジャンルで探す</option>
-				<option th:each="movie:${movies}" th:value="${movie.title}" th:selected="${genre == movie.title}">
-				<span th:text="${movie.title}"></span>
-				</option>
-			</select>
 			<select name="genre">
 				<option value="">ジャンルで探す</option>
 				<option value="アニメ" th:selected ="${genre == 'アニメ'}">アニメ</option>

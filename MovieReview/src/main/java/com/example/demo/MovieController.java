@@ -68,53 +68,89 @@ public class MovieController {
 			}
 
 		}else if(keyword.equals("") && !genre.equals("") && country.equals("")) {
+			if(sort.equals("")) {
 			//ジャンルのみで検索
-			 movieList = movieRepository.findByGenre(genre);
-		}else if(keyword.equals("") && !genre.equals("") && country.equals("")) {
+			movieList = movieRepository.findByGenre(genre);
+			}else if(sort.equals("year")) {
 			//ジャンルのみで検索・最新の制作年で表示
 			 movieList = movieRepository.findByGenreOrderByYearDesc(genre);
+			}else if(sort.equals("title")){
+			//ジャンルのみで検索・タイトル五十音順で表示
+			movieList = movieRepository.findByGenreOrderByTitle(genre);
+			}
 
 		}else if(keyword.equals("") && genre.equals("") && !country.equals("")) {
+			if(sort.equals("")) {
 			//国のみで検索
 			movieList = movieRepository.findByCountry(country);
-		}else if(keyword.equals("") && genre.equals("") && !country.equals("")) {
+			}else if(sort.equals("year")) {
 			//国のみで検索・最新の制作年で表示
 			movieList = movieRepository.findByCountryOrderByYearDesc(country);
+			}else if(sort.equals("title")){
+			//ジャンルのみで検索・タイトル五十音順で表示
+			movieList = movieRepository.findByGenreOrderByTitle(country);
+			}
 
 		}else if(!keyword.equals("") && genre.equals("") && country.equals("")) {
+			if(sort.equals("")) {
 			//キーワードのみで探す
 			 movieList = movieRepository.findByTitleLike("%" + keyword + "%");
-		}else if(!keyword.equals("") && genre.equals("") && country.equals("")) {
+			}else if(sort.equals("year")) {
 			//キーワードのみで探す・最新の制作年で表示
 			 movieList = movieRepository.findByTitleLikeOrderByYearDesc("%" + keyword + "%");
+			}else if(sort.equals("title")) {
+			//キーワードのみで探す・タイトル五十音順で表示
+			movieList = movieRepository.findByTitleLikeOrderByTitle("%" + keyword + "%");
+			}
 
 		}else if(!keyword.equals("") && !genre.equals("") && country.equals("")) {
-			//キーワードとジャンルで検索
-			 movieList = movieRepository.findByTitleLikeAndGenre("%" + keyword + "%",genre);
-		}else if(!keyword.equals("") && !genre.equals("") && country.equals("")) {
-			//キーワードとジャンルで検索・最新の制作年で表示
-			 movieList = movieRepository.findByTitleLikeAndGenreOrderByYearDesc("%" + keyword + "%",genre);
+			if(sort.equals("")) {
+				//キーワードとジャンルで検索
+				 movieList = movieRepository.findByTitleLikeAndGenre("%" + keyword + "%",genre);
+			}else if(sort.equals("year")) {
+				//キーワードとジャンルで検索・最新の制作年で表示
+				 movieList = movieRepository.findByTitleLikeAndGenreOrderByYearDesc("%" + keyword + "%",genre);
+			}else if(sort.equals("title")) {
+				//キーワードとジャンルで検索・タイトル五十音順で表示
+				 movieList = movieRepository.findByTitleLikeAndGenreOrderByTitle("%" + keyword + "%",genre);
+			}
 
 		}else if(!keyword.equals("") && genre.equals("") && !country.equals("")) {
-			//キーワードと国で検索
-			 movieList = movieRepository.findByTitleLikeAndCountry("%" + keyword + "%",country);
-		}else if(!keyword.equals("") && genre.equals("") && !country.equals("")) {
-			//キーワードと国で検索・最新の制作年で表示
-			 movieList = movieRepository.findByTitleLikeAndCountryOrderByYearDesc("%" + keyword + "%",country);
+			if(sort.equals("")) {
+				//キーワードと国で検索
+				 movieList = movieRepository.findByTitleLikeAndCountry("%" + keyword + "%",country);
+			}else if(sort.equals("year")) {
+				//キーワードと国で検索・最新の制作年で表示
+				 movieList = movieRepository.findByTitleLikeAndCountryOrderByYearDesc("%" + keyword + "%",country);
+			}else if(sort.equals("title")) {
+				//キーワードとジャンルで検索・タイトル五十音順で表示
+				 movieList = movieRepository.findByTitleLikeAndCountryOrderByTitle("%" + keyword + "%",country);
+			}
+
 
 		}else if(keyword.equals("") && !genre.equals("") && !country.equals("")) {
-			//ジャンルと国で検索
-			movieList = movieRepository.findByGenreAndCountry(genre,country);
-		}else if(keyword.equals("") && !genre.equals("") && !country.equals("")) {
-			//ジャンルと国で検索・最新の制作年で表示
-			movieList = movieRepository.findByGenreAndCountryOrderByYearDesc(genre,country);
+			if(sort.equals("")) {
+				//ジャンルと国で検索
+				movieList = movieRepository.findByGenreAndCountry(genre,country);
+			}else if(sort.equals("year")) {
+				//ジャンルと国で検索・最新の制作年で表示
+				movieList = movieRepository.findByGenreAndCountryOrderByYearDesc(genre,country);
+			}else if(sort.equals("title")) {
+				//ジャンルと国で検索・タイトル五十音順で表示
+				movieList = movieRepository.findByGenreAndCountryOrderByTitle(genre,country);
+			}
 
 		}else if(!keyword.equals("") && !genre.equals("") && !country.equals("")) {
-			//全部で検索
-			 movieList = movieRepository.findByTitleLikeAndGenreAndCountry("%" + keyword + "%", genre, country);
-		}else if(!keyword.equals("") && !genre.equals("") && !country.equals("")) {
-			//全部で検索・最新の制作年で表示
-			 movieList = movieRepository.findByTitleLikeAndGenreAndCountryOrderByYearDesc("%" + keyword + "%", genre, country);
+			if(sort.equals("")) {
+				//全部で検索
+				 movieList = movieRepository.findByTitleLikeAndGenreAndCountry("%" + keyword + "%", genre, country);
+			}else if(sort.equals("year")) {
+				//全部で検索・最新の制作年で表示
+				 movieList = movieRepository.findByTitleLikeAndGenreAndCountryOrderByYearDesc("%" + keyword + "%", genre, country);
+			}else if(sort.equals("title")) {
+				//全部で検索・タイトル五十音順で表示
+				 movieList = movieRepository.findByTitleLikeAndGenreAndCountryOrderByTitle("%" + keyword + "%", genre, country);
+			}
 		}
 
 		//検索を実行して表示

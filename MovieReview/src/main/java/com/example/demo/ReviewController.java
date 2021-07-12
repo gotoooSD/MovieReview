@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import java.time.LocalDate;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -78,6 +78,7 @@ public class ReviewController {
 	/**
 	  新規レビュー書き込み画面
 	 **/
+	///マイページのメニューから入った場合(moviecodoを指定しない場合)
 	@RequestMapping("/review/wrrite")
 	public ModelAndView reviewWrrite(ModelAndView mv) {
 		//選択用に映画一覧リストを受け渡す
@@ -85,14 +86,20 @@ public class ReviewController {
 		mv.addObject("movies", movieList);
 
 		//日付を受け渡す
-		LocalDate date = LocalDate.now();
-		mv.addObject("date", date);
+			 // 現在日時情報で初期化されたインスタンスの生成
+			 Date dateObj = new Date();
+			 SimpleDateFormat format = new SimpleDateFormat( "yyyy/MM/dd" );
+			 // 日時情報を指定フォーマットの文字列で取得
+			 String display = format.format( dateObj );
+			mv.addObject("date", display);
+			mv.addObject("dateObj", dateObj);
 
 		//新規レビュー書き込み画面を表示
 		mv.setViewName("reviewWrrite");
 		return mv;
 	}
 
+	///映画詳細画面から入った場合(moviecodoを指定する場合)
 	@RequestMapping("/review/wrrite/{moviecode}")
 	public ModelAndView reviewWrrite(
 				@PathVariable("moviecode") int moviecode,
@@ -123,6 +130,7 @@ public class ReviewController {
 			@RequestParam("movietitle") String movietitle,
 			@RequestParam("evaluation") String evaluation,
 			@RequestParam("date") Date date,
+			@RequestParam("dateObj") Date dateObj,
 			@RequestParam("title") String title,
 			@RequestParam("text") String text,
 			ModelAndView mv
@@ -148,6 +156,7 @@ public class ReviewController {
 		mv.addObject("movietitle",movietitle);
 		mv.addObject("evaluation",evaluation);
 		mv.addObject("date",date);
+		mv.addObject("dateObj",dateObj);
 		mv.addObject("title",title);
 		mv.addObject("text",text);
 
@@ -162,6 +171,7 @@ public class ReviewController {
 			@RequestParam("movietitle") String movietitle,
 			@RequestParam("evaluation") int evaluation,
 			@RequestParam("date") Date date,
+			@RequestParam("dateObj") Date dateObj,
 			@RequestParam("title") String title,
 			@RequestParam("text") String text,
 			ModelAndView mv
@@ -179,12 +189,20 @@ public class ReviewController {
 			int usercode = userInfo.getUsercode();
 
 			//reviewテーブルにレコードを追加
-			Review reviewInfo = new Review(moviecode,usercode,evaluation,date,title,text);
+			Review reviewInfo = new Review(moviecode,usercode,evaluation,dateObj,title,text);
 			reviewRepository.saveAndFlush(reviewInfo);
 
 		//完了のメッセージを表示
 		String message = "レビューの投稿が完了しました";
 		mv.addObject("message",message);
+
+		//入力内容を受け渡す//書き込み途中のものは保持
+		mv.addObject("movietitle",movietitle);
+		mv.addObject("evaluation",evaluation);
+		mv.addObject("date",date);
+		mv.addObject("dateObj",dateObj);
+		mv.addObject("title",title);
+		mv.addObject("text",text);
 
 		//新規レビュー作成完了画面(reviewWrriteKanryou.html)を表示
 		mv.setViewName("reviewWrriteKanryou");

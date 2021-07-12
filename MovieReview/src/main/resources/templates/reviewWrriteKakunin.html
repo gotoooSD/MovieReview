@@ -44,7 +44,7 @@
 		</tr>
 		<tr>
 			<th>レビュー本文</th>
-			<td th:text="${text}">
+			<td th:utext="${text}">
 		</tr>
 	</table>
 
@@ -52,6 +52,7 @@
 		<input type="hidden" name="movietitle" th:value="${movietitle}">
 		<input type="hidden" name="evaluation" th:value="${evaluation}">
 		<input type="hidden" name="date" th:value="${date}">
+		<input type="hidden" name="dateObj" th:value="${dateObj}">
 		<input type="hidden" name="title" th:value="${title}">
 		<input type="hidden" name="text" th:value="${text}">
 		<input type="submit" value="投稿">
@@ -61,6 +62,7 @@
 		<input type="hidden" name="movietitle" th:value="${movietitle}">
 		<input type="hidden" name="evaluation" th:value="${evaluation}">
 		<input type="hidden" name="date" th:value="${date}">
+		<input type="hidden" name="dateObj" th:value="$dateObj}">
 		<input type="hidden" name="title" th:value="${title}">
 		<input type="hidden" name="text" th:value="${text}">
 		<input type="submit" value="編集に戻る">

@@ -37,7 +37,9 @@ public class ReviewController {
 			@PathVariable("moviecode") int moviecode,
 			ModelAndView mv) {
 		//選択した映画の詳細を表示する
-		List<Movie> movieInfo = movieRepository.findByMoviecode(moviecode);
+		List<Movie> m = movieRepository.findByMoviecode(moviecode);
+		Movie movieInfo = m.get(0);//レコードを取得
+
 		mv.addObject("movieInfo", movieInfo);
 
 		//選択した映画の全レビューの一覧を表示
@@ -74,13 +76,30 @@ public class ReviewController {
 	 **/
 	@RequestMapping("/review/wrrite")
 	public ModelAndView reviewWrrite(ModelAndView mv) {
-//		//映画詳細画面から入った場合はmoviecodeを受け渡す
-
-
 		//選択用に映画一覧リストを受け渡す
 		List<Movie> movieList = movieRepository.findAll();
 		mv.addObject("movies", movieList);
 
+		//新規レビュー書き込み画面を表示
+		mv.setViewName("reviewWrrite");
+		return mv;
+	}
+
+	@RequestMapping("/review/wrrite/{moviecode}")
+	public ModelAndView reviewWrrite(
+				@PathVariable("moviecode") int moviecode,
+				ModelAndView mv
+		) {
+		//映画詳細画面から入った場合はmoviecodeを受け渡す
+		//選択した映画のタイトルを受け渡す
+		List<Movie> m = movieRepository.findByMoviecode(moviecode);
+		Movie movieInfo = m.get(0);//レコードを取得
+		String movietitle = movieInfo.getTitle();//タイトル
+		mv.addObject("movietitle", movietitle);
+
+		//選択用に映画一覧リストを受け渡す
+		List<Movie> movieList = movieRepository.findAll();
+		mv.addObject("movies", movieList);
 
 		//新規レビュー書き込み画面を表示
 		mv.setViewName("reviewWrrite");

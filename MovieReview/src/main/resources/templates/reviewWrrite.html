@@ -24,8 +24,8 @@
 		</tr>
 		<tr>
 			<td>
-				<select name="movietitle" th:each="${movie: movies}">
-					<option th:text="${movie.title}" th:selected="${movie.title == movietitle}"></option>
+				<select name="movietitle" th:each="${m: movies}">
+					<option th:text="${m.title}" th:selected="${m.title == movie.title}"></option>
 				</select>
 			</td>
 			<td>

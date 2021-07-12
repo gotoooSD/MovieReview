@@ -42,6 +42,7 @@ public interface MovieRepository extends JpaRepository<Movie, Integer>{
 
 	List<Movie> findByTitleLikeAndGenreAndCountryOrderByYearDesc(String keyword, String genre, String country);
 
+	//項目ごとの検索をかけ、また五十音順で並び替え(title)
 	List<Movie> findAllByOrderByTitle();
 
 	List<Movie> findByTitle(String movietitle);

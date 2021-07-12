@@ -25,11 +25,16 @@ public class MovieController {
 	//http://localhost:8080/movies
 	//全映画の一覧を表示する
 	@RequestMapping("/movies")
+
 	public ModelAndView movies(ModelAndView mv) {
 
 		//全件検索を実行して表示
 		List<Movie> movieList = movieRepository.findAll();
 		mv.addObject("movies", movieList);
+
+		mv.addObject("keyword", "");
+		mv.addObject("genre", "");
+		mv.addObject("country", "");
 
 		//遷移先を指定
 		mv.setViewName("movies");
@@ -58,6 +63,7 @@ public class MovieController {
 				//全部入力無いときで検索・最新の制作年で表示
 				movieList = movieRepository.findAllByOrderByYearDesc();
 			}else if(sort.equals("title")){
+				//全部入力無いときで検索・タイトル五十音順で表示
 				movieList = movieRepository.findAllByOrderByTitle();
 			}
 

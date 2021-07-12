@@ -111,7 +111,7 @@ public class UserController {
 
 
 					//映画一覧画面(movies.html)を表示
-					mv.setViewName("movies");
+					mv.setViewName("redirect:/movies");
 				}///小のelseの終端
 			}///中のelseの終端
 		}////大のelseの終端

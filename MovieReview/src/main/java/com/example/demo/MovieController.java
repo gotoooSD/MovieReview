@@ -51,29 +51,64 @@ public class MovieController {
 		List<Movie> movieList = null;
 
 		if(keyword.equals("") && genre.equals("") && country.equals("")) {
-			//全部入力無いときで検索・最新の制作年で表示
-			movieList = movieRepository.findAllByOrderByYearDesc();
+			if(sort.equals("")) {
+				//全部入力無いときで検索
+				movieList = movieRepository.findAll();
+			}else if(sort.equals("year")){
+				//全部入力無いときで検索・最新の制作年で表示
+				movieList = movieRepository.findAllByOrderByYearDesc();
+			}else if(sort.equals("title")){
+				movieList = movieRepository.findAllByOrderByTitle();
+			}
+
 		}else if(keyword.equals("") && !genre.equals("") && country.equals("")) {
 			//ジャンルのみで検索
+			 movieList = movieRepository.findByGenre(genre);
+		}else if(keyword.equals("") && !genre.equals("") && country.equals("")) {
+			//ジャンルのみで検索・最新の制作年で表示
 			 movieList = movieRepository.findByGenreOrderByYearDesc(genre);
+
 		}else if(keyword.equals("") && genre.equals("") && !country.equals("")) {
 			//国のみで検索
 			movieList = movieRepository.findByCountry(country);
+		}else if(keyword.equals("") && genre.equals("") && !country.equals("")) {
+			//国のみで検索・最新の制作年で表示
+			movieList = movieRepository.findByCountryOrderByYearDesc(country);
+
 		}else if(!keyword.equals("") && genre.equals("") && country.equals("")) {
 			//キーワードのみで探す
 			 movieList = movieRepository.findByTitleLike("%" + keyword + "%");
+		}else if(!keyword.equals("") && genre.equals("") && country.equals("")) {
+			//キーワードのみで探す・最新の制作年で表示
+			 movieList = movieRepository.findByTitleLikeOrderByYearDesc("%" + keyword + "%");
+
 		}else if(!keyword.equals("") && !genre.equals("") && country.equals("")) {
 			//キーワードとジャンルで検索
 			 movieList = movieRepository.findByTitleLikeAndGenre("%" + keyword + "%",genre);
+		}else if(!keyword.equals("") && !genre.equals("") && country.equals("")) {
+			//キーワードとジャンルで検索・最新の制作年で表示
+			 movieList = movieRepository.findByTitleLikeAndGenreOrderByYearDesc("%" + keyword + "%",genre);
+
 		}else if(!keyword.equals("") && genre.equals("") && !country.equals("")) {
 			//キーワードと国で検索
 			 movieList = movieRepository.findByTitleLikeAndCountry("%" + keyword + "%",country);
+		}else if(!keyword.equals("") && genre.equals("") && !country.equals("")) {
+			//キーワードと国で検索・最新の制作年で表示
+			 movieList = movieRepository.findByTitleLikeAndCountryOrderByYearDesc("%" + keyword + "%",country);
+
 		}else if(keyword.equals("") && !genre.equals("") && !country.equals("")) {
 			//ジャンルと国で検索
 			movieList = movieRepository.findByGenreAndCountry(genre,country);
+		}else if(keyword.equals("") && !genre.equals("") && !country.equals("")) {
+			//ジャンルと国で検索・最新の制作年で表示
+			movieList = movieRepository.findByGenreAndCountryOrderByYearDesc(genre,country);
+
 		}else if(!keyword.equals("") && !genre.equals("") && !country.equals("")) {
 			//全部で検索
 			 movieList = movieRepository.findByTitleLikeAndGenreAndCountry("%" + keyword + "%", genre, country);
+		}else if(!keyword.equals("") && !genre.equals("") && !country.equals("")) {
+			//全部で検索・最新の制作年で表示
+			 movieList = movieRepository.findByTitleLikeAndGenreAndCountryOrderByYearDesc("%" + keyword + "%", genre, country);
 		}
 
 		//検索を実行して表示
@@ -88,55 +123,5 @@ public class MovieController {
 		mv.setViewName("movies");
 		return mv;
 	}
-
-
-//
-//	/**
-//	  映画の検索結果の一覧画面
-//	 **/
-//	//http://localhost:8080/movies/kensaku
-//	//映画の検索結果を一覧で表示する
-//	@PostMapping("/movies/kensaku")
-//	public ModelAndView moviesKensaku(ModelAndView mv) {
-//
-//
-//		//遷移先を指定
-//		mv.setViewName("movies");
-//		return mv;
-//	}
-//
-//	/**
-//	  映画の並び替えの一覧画面
-//	 **/
-//	//http://localhost:8080/movies/sort
-//	//映画の並び替えをして一覧で表示する
-//	@PostMapping("/movies/sort")
-//	public ModelAndView moviesSort(ModelAndView mv) {
-//		//全件検索を実行して表示
-//				List<Movie> movieList = movieRepository.findAll();
-//				mv.addObject("movie", movieList);
-//
-//
-//		//遷移先を指定
-//		mv.setViewName("movies");
-//		return mv;
-//	}
-//
-//	/**
-//	  全映画の一覧画面
-//	 **/
-//	//http://localhost:8080/movies
-//	//全映画の一覧を表示する
-//	@RequestMapping("/movies/{moviecode}")
-//	public ModelAndView moviesCode(ModelAndView mv) {
-//
-//		//全件検索を実行して表示
-//		List<Movie> movieList = movieRepository.findAll();
-//		mv.addObject("movie", movieList);
-//
-//		//遷移先を指定
-//		mv.setViewName("movies");
-//		return mv;
-//	}
 
 }

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Integer>{
+
+	//項目ごとの検索をかける
 	List<Movie> findByTitleLike(String keyword);
 
 	List<Movie> findByTitleLikeAndGenreAndCountry(String keyword, String genre, String country);
@@ -23,10 +25,23 @@ public interface MovieRepository extends JpaRepository<Movie, Integer>{
 
 	List<Movie> findByGenreAndCountry(String genre, String country);
 
-	List<Movie> findAllByOrderByYearAsc();
-
+	//項目ごとの検索をかけ、また最新の年を出す(year)
 	List<Movie> findAllByOrderByYearDesc();
 
 	List<Movie> findByGenreOrderByYearDesc(String genre);
+
+	List<Movie> findByCountryOrderByYearDesc(String country);
+
+	List<Movie> findByTitleLikeOrderByYearDesc(String keyword);
+
+	List<Movie> findByTitleLikeAndGenreOrderByYearDesc(String keyword, String genre);
+
+	List<Movie> findByTitleLikeAndCountryOrderByYearDesc(String keyword, String country);
+
+	List<Movie> findByGenreAndCountryOrderByYearDesc(String genre, String country);
+
+	List<Movie> findByTitleLikeAndGenreAndCountryOrderByYearDesc(String keyword, String genre, String country);
+
+	List<Movie> findAllByOrderByTitle();
 
 }

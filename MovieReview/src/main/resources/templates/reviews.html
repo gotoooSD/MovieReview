@@ -44,7 +44,7 @@
 		<td th:text="${review.age}"></td>
 		<td th:text="${review.title}"></td>
 		<td th:text="${review.text}"></td>
-		<td th:text="${review.date}"></td>
+		<td th:text="${#dates.format(review.date, 'yyyy/MM/dd')}"></td>
 
 	</tr>
 </table>

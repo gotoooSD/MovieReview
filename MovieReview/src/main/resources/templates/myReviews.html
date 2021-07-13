@@ -24,7 +24,7 @@
 	<tr th:each="review:${reviews}">
 		<td th:text="${review.movieTitle}"></td>
 		<td th:text="${review.evaluation}"></td>
-		<td th:text="${review.date}"></td>
+		<td th:text="${#dates.format(review.date, 'yyyy/MM/dd')}"></td>
 		<td th:text="${review.title}"></td>
 		<td th:text="${review.text}"></td>
 	</tr>

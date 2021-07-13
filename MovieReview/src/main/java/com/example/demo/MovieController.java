@@ -55,6 +55,10 @@ public class MovieController {
 		mv.addObject("genre", "");
 		mv.addObject("country", "");
 
+		//セッションにジャンル一覧を保存(検索条件を選択できるように)
+		List<Genre> genres = genreRepository.findAll();
+		session.setAttribute("genres", genres);
+
 		//遷移先を指定
 		mv.setViewName("movies");
 		return mv;

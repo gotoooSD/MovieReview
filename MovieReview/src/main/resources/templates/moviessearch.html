@@ -4,11 +4,11 @@
 	<tr>
 		<td><input type="text" name="keyword" placeholder="キーワードで探す"  th:value="${keyword}"></td>
 		<td>
-			<select name="genre">
+			<select name="genre" >
 				<option value="">ジャンルで探す</option>
-				<option value="アニメ" th:selected ="${genre == 'アニメ'}">アニメ</option>
-				<option value="サスペンス" th:selected ="${genre == 'サスペンス'}">サスペンス</option>
-				<option value="ドラマ" th:selected ="${genre == 'ドラマ'}">ドラマ</option>
+				<option th:each="g:${session.genres}" th:value="${g.genre}" th:selected="${genre == g.genre}">
+				<span th:text="${g.genre}"></span>
+				</option>
 			</select>
 		</td>
 		<td>

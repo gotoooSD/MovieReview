@@ -21,6 +21,8 @@ public class Movie {
 	private int time;
 	private String country;
 	private int year;
+	@Column(name="evaluation")
+	private double totalEvaluation;
 
 	@Transient
 	private String genre;
@@ -31,13 +33,14 @@ public class Movie {
 	}
 
 	//DBからのデータ取得の時に使う
-	public Movie(int moviecode,String title, int genrecode, int time, String country,int year) {//テーブル内の全て
+	public Movie(int moviecode,String title, int genrecode, int time, String country,int year,double totalEvaluation) {//テーブル内の全て
 		this.moviecode = moviecode;
 		this.title = title;
 		this.genrecode = genrecode;
 		this.time = time;
 		this.country = country;
 		this.year = year;
+		this.totalEvaluation = totalEvaluation;
 	}
 
 //	public Movie(String title, int genrecode, int time, String country,int year) {//テーブル内のmoviecode以外
@@ -57,13 +60,14 @@ public class Movie {
 //	}
 
 	//htmlに表示するときに使う
-	public Movie(int moviecode, String title, String genre, int time, String country,int year) {//テーブル内の全て,genrecodeをgenreに置き換え
+	public Movie(int moviecode, String title, String genre, int time, String country,int year,double totalEvaluation) {//テーブル内の全て,genrecodeをgenreに置き換え
 		this.moviecode = moviecode;
 		this.title = title;
 		this.genre = genre;
 		this.time = time;
 		this.country = country;
 		this.year = year;
+		this.totalEvaluation = totalEvaluation;
 	}
 
 	//ゲッタ＆セッタのインスタンスを生成
@@ -71,56 +75,34 @@ public class Movie {
 		return moviecode;
 	}
 
-	public void setMoivecode(int moviecode) {
-		this.moviecode = moviecode;
-	}
-
 	public String getTitle() {
 		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
 	}
 
 	public int getGenrecode() {
 		return genrecode;
 	}
 
-	public void setGenrecode(int genrecode) {
-		this.genrecode = genrecode;
-	}
-
 	public int getTime() {
 		return time;
-	}
-
-	public void setTime(int time) {
-		this.time = time;
 	}
 
 	public String getCountry() {
 		return country;
 	}
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
 	public int getYear() {
 		return year;
-	}
-
-	public void setYear(int year) {
-		this.year = year;
 	}
 
 	public String getGenre() {
 		return genre;
 	}
 
-	public void setGenre(String genre) {
-		this.genre = genre;
+	public double getTotalEvaluation() {
+		return totalEvaluation;
 	}
+
+
 
 }

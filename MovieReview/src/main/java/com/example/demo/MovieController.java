@@ -46,7 +46,7 @@ public class MovieController {
 				String genre = _genreInfo.getGenre();//ジャンル名
 
 				//genrecodeをgenreに置き換えたもの(Movie型)をmovieListに追加
-				Movie movieInfo = new Movie(movie.getMoviecode(),movie.getTitle(),genre,movie.getTime(),movie.getCountry(),movie.getYear());
+				Movie movieInfo = new Movie(movie.getMoviecode(),movie.getTitle(),genre,movie.getTime(),movie.getCountry(),movie.getYear(),movie.getTotalEvaluation());
 				movieList.add(movieInfo);
 			}
 		mv.addObject("movies", movieList);
@@ -193,7 +193,7 @@ public class MovieController {
 				String _genre = _movieInfo.getGenre();//ジャンル名
 
 				//genrecodeをgenreに置き換えたもの(Movie型)をmovieListに追加
-				Movie movieInfo = new Movie(movie.getMoviecode(),movie.getTitle(),_genre,movie.getTime(),movie.getCountry(),movie.getYear());
+				Movie movieInfo = new Movie(movie.getMoviecode(),movie.getTitle(),_genre,movie.getTime(),movie.getCountry(),movie.getYear(),movie.getTotalEvaluation());
 				movieList.add(movieInfo);
 			}
 

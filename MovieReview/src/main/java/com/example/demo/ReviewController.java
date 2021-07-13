@@ -184,8 +184,8 @@ public class ReviewController {
 			//movieテーブルからmovietitleを指定して映画コード(moviecode)を取得
 			//映画詳細画面から入った場合は映画のtitleを受け渡す
 			List<Movie> m = movieRepository.findByTitle(movietitle);
-			Movie movieInfo = m.get(0);//レコードを取得
-			int moviecode = movieInfo.getMoviecode();//映画コード
+			Movie _movieInfo = m.get(0);//レコードを取得
+			int moviecode = _movieInfo.getMoviecode();//映画コード
 			mv.addObject("moviecode", moviecode);
 
 			//セッションスコープからユーザコード(usercode)を取得
@@ -206,6 +206,21 @@ public class ReviewController {
 			//reviewテーブルにレコードを追加
 			Review reviewInfo = new Review(moviecode,usercode,evaluation,Date,title,text);
 			reviewRepository.saveAndFlush(reviewInfo);
+
+		////movieテーブルに評価を平均して記録する処理
+			//作成した映画のmoviecodeの全レビューをreviewテーブルからリストを取得
+			List<Review> evaluationList = reviewRepository.findByMoviecode(moviecode);
+
+			//これらのレビューのevaluationを取り出して平均を求める(totalEvaluation)
+			int total =0;
+			for(Review e:evaluationList) {
+				total += e.getEvaluation();
+			}
+			double totalEvaluation =((double)Math.round(( total / evaluationList.size())* 10))/10;//小数点第2位を四捨五入
+
+			//totalEvaluationを変更してmovieテーブルのレコードを更新
+			Movie movieInfo = new Movie(_movieInfo.getMoviecode(),_movieInfo.getTitle(),_movieInfo.getGenrecode(),_movieInfo.getTime(),_movieInfo.getCountry(),_movieInfo.getYear(),totalEvaluation);
+			movieRepository.saveAndFlush(movieInfo);
 
 		//完了のメッセージを表示
 		String message = "レビューの投稿が完了しました";

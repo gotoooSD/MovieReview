@@ -13,7 +13,7 @@
 		</td>
 		<td>
 			<select name="country">
-				<option value="" >邦画/洋画</option>
+				<option value="" th:selected ="${country == ''}">邦画/洋画</option>
 				<option value="邦画" th:selected ="${country == '邦画'}">邦画</option>
 				<option value="洋画" th:selected ="${country == '洋画'}">洋画</option>
 			</select>

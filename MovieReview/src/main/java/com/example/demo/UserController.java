@@ -100,10 +100,6 @@ public class UserController {
 					//そのユーザ情報（ユーザコード含）をセッションに保存
 					session.setAttribute("userInfo", userInfo);
 
-					//movieテーブルから全件検索を実行して表示
-					List<Movie> movieList = movieRepository.findAll();
-					mv.addObject("movies", movieList);
-
 					//マイページ表示用
 					//ユーザコード(usercode)検索
 					List<Review> myreviewList = reviewRepository.findByUsercode(userInfo.getUsercode());

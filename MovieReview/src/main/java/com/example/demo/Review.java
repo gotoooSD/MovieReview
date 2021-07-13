@@ -112,9 +112,27 @@ public class Review {
 		this.text = text;
 	}
 
-
+	public Review(//テーブル内全部
+			int reviewcode,
+			int moviecode,
+			int usercode,
+			int evaluation,
+			Date date,
+			String title,
+			String text
+	) {
+		this.reviewcode = reviewcode;
+		this.moviecode = moviecode;
+		this.usercode = usercode;
+		this.evaluation = evaluation;
+		this.date = date;
+		this.title = title;
+		this.text = text;
+	}
 
 	//::必要に応じてコンストラクタは追加する:://
+
+
 
 
 	////ゲッター

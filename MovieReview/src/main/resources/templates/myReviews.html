@@ -12,7 +12,13 @@
 
 
 <h1>マイレビュー</h1>
+
 件数：<span th:text="${reviewsSize}"></span>
+<br>
+
+<a href="/review/wrrite">新規レビュー作成</a>
+<br>
+
 <table border="1">
 	<tr>
 		<th>タイトル</th>
@@ -20,6 +26,8 @@
 		<th>日付</th>
 		<th>レビュータイトル</th>
 		<th>レビュー本文</th>
+		<th></th>
+
 	</tr>
 	<tr th:each="review:${reviews}">
 		<td th:text="${review.movieTitle}"></td>
@@ -27,6 +35,10 @@
 		<td th:text="${#dates.format(review.date, 'yyyy/MM/dd')}"></td>
 		<td th:text="${review.title}"></td>
 		<td th:text="${review.text}"></td>
+		<td>
+			<a th:href="'/review/edit/' + ${review.reviewcode}">編集</a>
+			<a th:href="'/review/edit/' + ${review.reviewcode}">削除</a>
+		</td>
 	</tr>
 </table>
 

@@ -68,13 +68,15 @@ public class ReviewController {
 				allreviewList.add(allreview);
 			}
 
-
 		mv.addObject("reviews", allreviewList);
 
 		//レビュー一覧(reviews.html)を表示
 		mv.setViewName("reviews");
 		return mv;
 	}
+
+
+
 
 	/**
 	  新規レビュー書き込み画面
@@ -122,6 +124,7 @@ public class ReviewController {
 			// 日時情報を指定フォーマットの文字列で取得
 			String display = format.format( dateObj );
 			mv.addObject("date", display);
+
 
 		//新規レビュー書き込み画面を表示
 		mv.setViewName("reviewWrrite");
@@ -237,6 +240,156 @@ public class ReviewController {
 		mv.setViewName("reviewWrriteKanryou");
 		return mv;
 	}
+
+
+
+	/**
+	  マイレビュー編集画面
+	 **/
+	///reviewコードを指定して飛んでくる
+	@RequestMapping("/review/edit/{reviewcode}")
+	public ModelAndView reviewEdit(
+			@PathVariable("reviewcode") int reviewcode,
+			ModelAndView mv
+		) {
+		//選択用に映画一覧リストを受け渡す
+		List<Movie> movieList = movieRepository.findAll();
+		mv.addObject("movies", movieList);
+
+		//レビューコードからレビュー情報を取得して受け渡す
+		List<Review> reviewList = reviewRepository.findByReviewcode(reviewcode);
+		Review editReview = reviewList.get(0);
+
+		//movieコードから映画titleを割り出す
+		List<Movie> moviewList = movieRepository.findByMoviecode(editReview.getMoviecode());
+		Movie editMovie = moviewList.get(0);
+		String movieTitle = editMovie.getTitle();
+
+		mv.addObject("movietitle",movieTitle);
+		mv.addObject("evaluation",editReview.getEvaluation());
+		mv.addObject("date",editReview.getDate());
+		mv.addObject("title",editReview.getTitle());
+		mv.addObject("text",editReview.getText());
+		mv.addObject("reviewcode",reviewcode);
+
+		//マイレビュー編集画面を表示
+		mv.setViewName("reviewEdit");
+		return mv;
+	}
+	@PostMapping("/review/edit")
+	public ModelAndView reviewEdit(
+			@RequestParam("reviewcode") String reviewcode,
+			@RequestParam("movietitle") String movietitle,
+			@RequestParam("evaluation") String evaluation,
+			@RequestParam("date") String date,
+			@RequestParam("title") String title,
+			@RequestParam("text") String text,
+			ModelAndView mv
+	) {
+		//選択用に映画一覧リストを受け渡す
+		List<Movie> movieList = movieRepository.findAll();
+		mv.addObject("movies", movieList);
+
+		////入力不備がある場合(大のif)
+		///1.空欄がある場合//Dateは未入力なし
+		if(movietitle.equals("")||evaluation.equals("")||title.equals("")||text.equals("")) {
+			//エラーメッセージを表示
+			String message = "未記入の項目があります";
+			mv.addObject("message",message);
+
+			//マイレビュー編集画面(reviewWrrite.html)を表示して再度書き込ませる
+			mv.setViewName("reviewEdit");
+
+		////入力不備がない場合(大のelse)
+		}else {
+			//マイレビュー編集入力内容確認画面(reviewEditKakunin,html)を表示
+			mv.setViewName("reviewEditKakunin");
+
+		}//大のelseの終端
+
+		//入力内容を受け渡す//書き込み途中のものは保持
+		mv.addObject("movietitle",movietitle);
+		mv.addObject("evaluation",evaluation);
+		mv.addObject("date",date);
+		mv.addObject("title",title);
+		mv.addObject("text",text);
+		mv.addObject("reviewcode",reviewcode);
+
+		return mv;
+	}
+
+	/**
+	  マイレビュー編集入力内容確認画面
+	 **/
+	@PostMapping("/review/edit/kanryou")
+	public ModelAndView reviewEditKanryou(
+			@RequestParam("reviewcode") int reviewcode,
+			@RequestParam("movietitle") String movietitle,
+			@RequestParam("evaluation") int evaluation,
+			@RequestParam("date") String date,
+			@RequestParam("title") String title,
+			@RequestParam("text") String text,
+			ModelAndView mv
+	) {
+		////書き込み情報を受け取ってDBに追加
+			//movieテーブルからmovietitleを指定して映画コード(moviecode)を取得
+			//映画詳細画面から入った場合は映画のtitleを受け渡す
+			List<Movie> m = movieRepository.findByTitle(movietitle);
+			Movie _movieInfo = m.get(0);//レコードを取得
+			int moviecode = _movieInfo.getMoviecode();//映画コード
+			mv.addObject("moviecode", moviecode);
+
+			//セッションスコープからユーザコード(usercode)を取得
+			User userInfo = (User) session.getAttribute("userInfo");
+			int usercode = userInfo.getUsercode();
+
+			//String型のdateをDate型のDateとして変換
+			//Parseメソッドは例外処理をしないといけないらしい
+			//初期値で今の日付入れたらわざわざ例外処理してまで日付を取得して代入しなくていいのでは？//うるさい！しらん！
+			Date Date = new Date();
+			try {
+				SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
+	            Date = sdFormat.parse(date);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+
+			//reviewテーブルでレビューコードを指定してレコードを変更
+			Review reviewInfo = new Review(reviewcode,moviecode,usercode,evaluation,Date,title,text);
+			reviewRepository.saveAndFlush(reviewInfo);
+
+		////movieテーブルに評価を平均して記録する処理
+			//作成した映画のmoviecodeの全レビューをreviewテーブルからリストを取得
+			List<Review> evaluationList = reviewRepository.findByMoviecode(moviecode);
+
+			//これらのレビューのevaluationを取り出して平均を求める(totalEvaluation)
+			int total =0;
+			for(Review e:evaluationList) {
+				total += e.getEvaluation();
+			}
+			double totalEvaluation =((double)Math.round(( total / evaluationList.size())* 10))/10;//小数点第2位を四捨五入
+
+			//totalEvaluationを変更してmovieテーブルのレコードを更新
+			Movie movieInfo = new Movie(_movieInfo.getMoviecode(),_movieInfo.getTitle(),_movieInfo.getGenrecode(),_movieInfo.getTime(),_movieInfo.getCountry(),_movieInfo.getYear(),totalEvaluation);
+			movieRepository.saveAndFlush(movieInfo);
+
+		//完了のメッセージを表示
+		String message = "レビューの編集が完了しました";
+		mv.addObject("message",message);
+
+		//入力内容を受け渡す//書き込み途中のものは保持
+		mv.addObject("movietitle",movietitle);
+		mv.addObject("evaluation",evaluation);
+		mv.addObject("date",date);
+		mv.addObject("title",title);
+		mv.addObject("text",text);
+
+		//マイレビュー編集完了画面(reviewEditKanryou.html)を表示
+		mv.setViewName("reviewEditKanryou");
+		return mv;
+	}
+
+
 
 	/**
 	  マイレビュー画面

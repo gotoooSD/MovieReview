@@ -2,18 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>新規レビュー作成</title>
+<title>マイレビュー編集</title>
 </head>
 <body>
 
 	<span th:replace="menu"></span>
 	<span th:replace="moviessearch"></span>
 
-	<h1>新規レビュー作成</h1>
+	<h1>マイレビュー編集</h1>
 
 	<span th:text="${message}" style="color:rgb(255, 218, 4)"></span>
 
-	<form action="/review/wrrite" method="post">
+	<form action="/review/edit" method="post">
 	<table>
 		<tr>
 			<th>映画タイトル</th>
@@ -40,7 +40,7 @@
 		<tr>
 			<th>日付</th>
 			<td>
-				<span th:text="${date}"></span>
+				<span th:text="${#dates.format(date, 'yyyy/MM/dd')}"></span>
 				<input type="hidden" name="date" th:value="${date}">
 			</td>
 		</tr>
@@ -53,14 +53,16 @@
 		<tr>
 			<th>レビュー本文</th>
 			<td>
-				<textarea name="text" cols="100" rows="20" placeholder="1000文字以内で入力してください" maxlength="1000">
-					<span th:text="${text}"></span>
-				</textarea>
+				<textarea name="text"cols="100" rows="20" placeholder="1000文字以内で入力してください" maxlength="1000"><span th:text="${text}"></span></textarea>
 			</td>
 		</tr>
 	</table>
+	<input type="hidden" name="reviewcode" th:value="${reviewcode}">
 	<input type="submit" value="確認画面へ">
 	</form>
+	<br>
+
+	<a href="/myReviews">キャンセル</a>
 
 
 </body>

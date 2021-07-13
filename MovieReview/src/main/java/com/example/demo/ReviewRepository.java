@@ -14,4 +14,7 @@ public interface ReviewRepository extends JpaRepository<Review, Integer>{
 	//ユーザコード検索
 	List<Review> findByUsercode(int usercode);
 
+	//レビューコード検索
+	List<Review> findByReviewcode(int reviewcode);
+
 }

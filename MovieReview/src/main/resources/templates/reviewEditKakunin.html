@@ -2,16 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>新規レビュー入力内容確認</title>
+<title>マイレビュー編集入力内容確認</title>
 </head>
 <body>
 
 	<span th:replace="menu"></span>
 	<span th:replace="moviessearch"></span>
 
-	<h1>新規レビュー入力内容確認</h1>
+	<h1>マイレビュー編集入力内容確認</h1>
 
-	この内容でレビューを投稿しますか？
+	この内容でレビューの編集を完了しますか？
 
 	<table>
 		<tr>
@@ -48,7 +48,8 @@
 		</tr>
 	</table>
 
-	<form action="/review/wrrite/kanryou" method="post">
+	<form action="/review/edit/kanryou" method="post">
+		<input type="hidden" name="reviewcode" th:value="${reviewcode}">
 		<input type="hidden" name="movietitle" th:value="${movietitle}">
 		<input type="hidden" name="evaluation" th:value="${evaluation}">
 		<input type="hidden" name="date" th:value="${date}">
@@ -57,7 +58,8 @@
 		<input type="submit" value="完了">
 	</form>
 
-	<form action="/review/wrrite" method="post">
+	<form action="/review/edit" method="post">
+		<input type="hidden" name="reviewcode" th:value="${reviewcode}">
 		<input type="hidden" name="movietitle" th:value="${movietitle}">
 		<input type="hidden" name="evaluation" th:value="${evaluation}">
 		<input type="hidden" name="date" th:value="${date}">

@@ -76,11 +76,15 @@ public class MovieController {
 			@RequestParam("country") String country,
 			@RequestParam(name = "sort",defaultValue = "") String sort,
 			ModelAndView mv) {
-		//取得したgenreからgenrecordを割り出す
-		List<Genre> genrecodehoshii = genreRepository.findByGenre(genre);
-		Genre genreInfo = genrecodehoshii.get(0);
-		int genrecode = genreInfo.getGenrecode();
 
+		int genrecode = 0;
+
+		if(!genre.equals("")) {
+			//取得したgenreからgenrecordを割り出す
+			List<Genre> genrecodehoshii = genreRepository.findByGenre(genre);
+			Genre genreInfo = genrecodehoshii.get(0);
+			genrecode = genreInfo.getGenrecode();
+		}
 		List<Movie> _movieList = null;
 
 		if(keyword.equals("") && genre.equals("") && country.equals("")) {

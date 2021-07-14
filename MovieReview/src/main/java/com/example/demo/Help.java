@@ -21,17 +21,10 @@ public class Help {
 
 	}
 
-	public Help(String q,String a) {
+	public Help(String q) {
 		this.q = q;
-		this.a = a;
 	}
 
-	public Help(int code, String q, String a) {
-		this.code = code;
-		this.q = q;
-		this.a = a;
-
-	}
 
 	public int getCode() {
 		return code;

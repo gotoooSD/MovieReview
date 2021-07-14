@@ -5,19 +5,17 @@
 <title>ヘルプ</title>
 </head>
 <body>
+<span th:replace="menu"></span>
 <h1>ヘルプ</h1>
 <hr>
 <h2>Q&A</h2>
 
-・　<a href="/helpAnswer" >レビューの書き方を知りたい</a>
-<br>
-・　<a href="/helpAnswer">レビューする映画を追加してほしい</a>
-<br>
-・　<a href="/helpAnswer">お家でみた映画でもレビューしていいの？</a>
+<ul th:each="help:${quetionlist}">
+	<li><a th:href="'/helpAnswer/' + ${help.code}" ><span  th:text = "${help.q}"></span></a></li>
+</ul>
 <br>
 <br>
 <br>
-
 <a href="/toiawase">お問い合わせ</a>はこちらから
 </body>
 </html>

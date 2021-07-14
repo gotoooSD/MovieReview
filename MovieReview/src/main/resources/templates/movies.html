@@ -5,14 +5,34 @@
 <link rel="stylesheet" th:href="@{/style.css}">
 <title>映画一覧</title>
 </head>
+<style type="text/css">
+
+.asort:link { color: #ffffff; }
+.asort:visited { color: #ffffff; }
+.asort:hover { color: #ff0000; }
+.asort:active { color: #ff8000; }
+
+</style>
 <body>
 	<span th:replace="menu"></span>
 	<span th:replace="moviessearch"></span>
 
 	<h1>映画一覧</h1>
 
-	<a th:href="'/movies/search?keyword=' +${keyword} +'&genre='+ ${genre}+'&country='+ ${country} + '&sort=year'">制作年で並び替え</a>
-	<a th:href="'/movies/search?keyword=' +${keyword} +'&genre='+ ${genre}+'&country='+ ${country} + '&sort=title'">タイトルで並び替え</a>
+
+	<a class="asort" th:href="'/movies/search?keyword=' +${keyword} +'&genre='+ ${genre}+'&country='+ ${country} + '&sort=year'">
+		<span class="sort">
+			<img src="/images/sort.png" width="250" height="120" alt="制作年で並び替え">
+			<span class="sortmoji" size="70">制作年で並び替え</span>
+		</span>
+	</a>
+		<a class="asort" th:href="'/movies/search?keyword=' +${keyword} +'&genre='+ ${genre}+'&country='+ ${country} + '&sort=title'">
+		<span class="sort">
+			<img src="/images/sort.png" width="250" height="120" alt="タイトルで並び替え">
+			<span class="sortmoji" size="70">タイトルで並び替え</span>
+		</span>
+	</a>
+
 	<br>
 
 	件数：<span th:text="${moviesSize}"></span><br>
@@ -25,9 +45,9 @@
 		<td><a th:href="'/reviews/'+${movie.moviecode}" ><span th:text="${movie.title}"></span></a></td>
 		<td th:text="${movie.totalEvaluation}"></td>
 		<td th:text="${movie.genre}"></td>>
-		<td th:text="${movie.time}"></td>
+		<td><span th:text="${movie.time}"></span>分</td>
 		<td th:text="${movie.country}"></td>
-		<td th:text="${movie.year}"></td>
+		<td><span th:text="${movie.year}"></span>年</td>
 	</tr>
 	</table>
 

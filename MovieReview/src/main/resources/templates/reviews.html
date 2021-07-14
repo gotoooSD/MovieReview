@@ -10,13 +10,13 @@
 <span th:replace="menu"></span>
 <span th:replace="moviessearch"></span>
 
-
+<div class="movieInfo">
 <h1><span th:text="${movieInfo.title}"></span></h1>
 <span th:text="${movieInfo.country}"></span><br>
 ジャンル：<span th:text="${movieInfo.genre}"></span><br>
 上映時間：<span th:text="${movieInfo.time}"></span>分<br>
 制作年：<span th:text="${movieInfo.year}"></span>年<br>
-
+</div>
 
 <br>
 
@@ -24,7 +24,7 @@
 件数：<span th:text="${reviewsSize}"></span>
 <br>
 
-<a th:href="'/review/wrrite/' + ${movieInfo.moviecode}">新規レビュー作成</a>
+<a class="a3" th:href="'/review/wrrite/' + ${movieInfo.moviecode}">新規レビュー作成</a>
 <br>
 
 <table border="1">

@@ -40,7 +40,9 @@ public class ReviewController {
 			ModelAndView mv) {
 		//選択した映画の詳細を表示する
 		List<Movie> m = movieRepository.findByMoviecode(moviecode);
-		Movie movieInfo = m.get(0);//レコードを取得
+		Movie _movieInfo = m.get(0);//レコードを取得
+
+		//genrecodeをgenreに変換して表示
 
 		mv.addObject("movieInfo", movieInfo);
 
@@ -62,6 +64,8 @@ public class ReviewController {
 				String name = userInfo.getName();//ユーザ名
 				String gender = userInfo.getGender();//性別
 				String age = userInfo.getAge();//年代
+
+
 
 				//ユーザ名、性別、年代を追加したもの(Review型)をallreviewListに追加
 				Review allreview = new Review(review.getReviewcode(),review.getMoviecode(),review.getUsercode(),review.getEvaluation(),review.getDate(),review.getTitle(),review.getText(),name,gender,age);

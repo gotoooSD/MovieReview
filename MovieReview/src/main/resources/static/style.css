@@ -4,54 +4,114 @@
 
 
 body{
-	background-color: rgb(247, 247, 247);
+	/*background-color: rgb(20, 20, 20)*/
+	min-height: 100%;
+	background-image:url("/images/curtain.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
 
-	font-size: 20px;
-	color: rgb(20, 20, 20);
+	/*font-size: 20px;*/
+	color: rgb(247, 247, 247);
 	font-family:'Sawarabi Gothic';
   	text-align: center;
 }
-table{
-	background-color: rgb(20, 20, 20);
 
-	color:rgb(247, 247, 247);
+table{
+	background-color: rgb(247, 247, 247);
+
+	color:rgb(20, 20, 20);
 
 
 	margin-left: auto;
     margin-right: auto;
 }
 
+
+.sort{
+	position: relative;
+}
+
+.sortmoji{
+	 position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  padding: 0;
+}
+
+
+.movieInfo{
+	background-color: rgb(247, 247, 247);
+
+	color:rgb(20, 20, 20);
+
+
+	margin-left: auto;
+    margin-right: auto;
+}
+
+
+.a1:link { color: #ffffff; }
+.a1:visited { color: #ffffff; }
+.a1:hover { color: #ff0000; }
+.a1:active { color: #ff8000; }
+
+.a2:link { color: rgb(171, 171, 171); }
+.a2:visited { color: rgb(171, 171, 171); }
+.a2:hover { color: #ff0000; }
+.a2:active { color: #ff8000; }
+
+.menu{
+	background-color:#000000;
+
+}
+
+
+
+
+
+
+
+
+
 .koumoku{
 	background-color: rgb(169, 175, 177);
 }
 
 
-.submit{
-	background-color: rgb(245, 241, 201);
-	color: rgb(116, 113, 54);
-	border-radius: 20% ;
-	transition: 0.2s;
-}
-
-.submit:active {
-  transform: translateY(2px);
-}
 
 
-.btn-square-pop {
+
+
+
+.a3 {
   position: relative;
   display: inline-block;
   padding: 0.25em 0.5em;
   text-decoration: none;
   color: #FFF;
-  background: rgb(122, 114, 173);/*背景色*/
-  border-bottom: solid 2px rgb(128, 128, 255);/*少し濃い目の色に*/
+  background: rgb(37, 72, 177);/*背景色*/
+  border-bottom: solid 3px rgb(122, 114, 173);/*少し濃い目の色に*/
+  border-radius: 4px;/*角の丸み*/
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  font-weight: bold;
+}
+.a3:hover {
+  position: relative;
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  color: #FFF;
+  background: rgb(0, 128, 255);/*背景色*/
+  border-bottom: solid 3px rgb(128, 128, 255);/*少し濃い目の色に*/
   border-radius: 4px;/*角の丸み*/
   box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
   font-weight: bold;
 }
 
-.btn-square-pop:active {
+.a3:active {
   border-bottom: solid 2px rgb(128, 128, 255);
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
 }

@@ -1,0 +1,95 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css?family=Sawarabi+Gothic');
+
+
+body{
+	background-color: rgb(247, 247, 247);
+
+	font-size: 20px;
+	color: rgb(20, 20, 20);
+	font-family:'Sawarabi Gothic';
+  	text-align: center;
+}
+table{
+	background-color: rgb(20, 20, 20);
+
+	color:rgb(247, 247, 247);
+
+
+	margin-left: auto;
+    margin-right: auto;
+}
+
+.koumoku{
+	background-color: rgb(169, 175, 177);
+}
+
+
+.submit{
+	background-color: rgb(245, 241, 201);
+	color: rgb(116, 113, 54);
+	border-radius: 20% ;
+	transition: 0.2s;
+}
+
+.submit:active {
+  transform: translateY(2px);
+}
+
+
+.btn-square-pop {
+  position: relative;
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  color: #FFF;
+  background: rgb(122, 114, 173);/*背景色*/
+  border-bottom: solid 2px rgb(128, 128, 255);/*少し濃い目の色に*/
+  border-radius: 4px;/*角の丸み*/
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  font-weight: bold;
+}
+
+.btn-square-pop:active {
+  border-bottom: solid 2px rgb(128, 128, 255);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
+}
+
+
+.btn-square-pop2 {
+  position: relative;
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  color: rgb(116, 113, 54);
+  background: rgb(245, 241, 201);/*背景色*/
+  border-bottom: solid 2px rgb(255, 128, 0);/*少し濃い目の色に*/
+  border-radius: 4px;/*角の丸み*/
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  font-weight: bold;
+}
+
+.btn-square-pop2:active {
+  border-bottom: solid 2px rgb(245, 241, 201);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.19);
+}
+
+
+.btn-square-pop3 {
+  position: relative;
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  background: rgb(233, 131, 92);/*背景色*/
+  border-bottom: solid 2px rgb(191, 64, 134);/*少し濃い目の色に*/
+  border-radius: 4px;/*角の丸み*/
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  font-weight: bold;
+}
+
+.btn-square-pop3:active {
+  border-bottom: solid 2px rgb(233, 131, 92);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
+}

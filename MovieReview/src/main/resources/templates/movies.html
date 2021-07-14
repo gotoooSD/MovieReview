@@ -2,33 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/style.css}">
 <title>映画一覧</title>
 </head>
 <body>
 	<span th:replace="menu"></span>
 	<span th:replace="moviessearch"></span>
-	<br>
 
 	<h1>映画一覧</h1>
 
 	<a th:href="'/movies/search?keyword=' +${keyword} +'&genre='+ ${genre}+'&country='+ ${country} + '&sort=year'">制作年で並び替え</a>
 	<a th:href="'/movies/search?keyword=' +${keyword} +'&genre='+ ${genre}+'&country='+ ${country} + '&sort=title'">タイトルで並び替え</a>
+	<br>
 
-	<hr>
+	件数：<span th:text="${moviesSize}"></span><br>
+
 	<table border="1">
 	<tr>
-		<th>NO</th><th>タイトル</th><th>ジャンル</th><th>評価</th><th>放送時間</th><th>邦画/洋画</th><th>制作年</th>
+		<th>タイトル</th><th>評価</th><th>ジャンル</th><th>放送時間</th><th>邦画/洋画</th><th>制作年</th>
 	</tr>
 	<tr th:each="movie:${movies}">
-		<td th:text="${movie.moviecode}"></td>
-		<td th:text="${movie.title}"></td>
-		<td th:text="${movie.genre}"></td>
+		<td><a th:href="'/reviews/'+${movie.moviecode}" ><span th:text="${movie.title}"></span></a></td>
 		<td th:text="${movie.totalEvaluation}"></td>
+		<td th:text="${movie.genre}"></td>>
 		<td th:text="${movie.time}"></td>
 		<td th:text="${movie.country}"></td>
 		<td th:text="${movie.year}"></td>
-		<td><a th:href="'/reviews/'+${movie.moviecode}" >レビューを見る</a></td>
 	</tr>
 	</table>
+
 </body>
 </html>

@@ -46,7 +46,7 @@ public class ReviewController {
 
 		//選択した映画の全レビューの一覧を表示
 		List<Review> reviewList = reviewRepository.findByMoviecode(moviecode);
-		//何件あるか
+		//何件あるかを表示
 		int reviewsSize = reviewList.size();
 		mv.addObject("reviewsSize", reviewsSize);
 

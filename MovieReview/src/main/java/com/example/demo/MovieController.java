@@ -32,7 +32,9 @@ public class MovieController {
 	public ModelAndView movies(ModelAndView mv) {
 		//全件検索を実行して表示
 		List<Movie> _movieList = movieRepository.findAll();
-
+		//何件あるかを表示
+		int moviesSize = _movieList.size();
+		mv.addObject("moviesSize", moviesSize);
 
 			//genrecordをgenre名に置き換える作業
 			List<Movie> movieList = new ArrayList<>();
@@ -200,6 +202,10 @@ public class MovieController {
 				Movie movieInfo = new Movie(movie.getMoviecode(),movie.getTitle(),_genre,movie.getTime(),movie.getCountry(),movie.getYear(),movie.getTotalEvaluation());
 				movieList.add(movieInfo);
 			}
+
+		//検索結果が何件あるかを表示
+		int moviesSize = _movieList.size();
+		mv.addObject("moviesSize", moviesSize);
 
 		//検索を実行して表示
 		mv.addObject("movies", movieList);

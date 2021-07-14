@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/style.css}">
+<title>マイレビュー削除確認</title>
+</head>
+<body>
+
+	<span th:replace="menu"></span>
+	<span th:replace="moviessearch"></span>
+
+	<h1>マイレビュー削除確認</h1>
+
+	このレビューを削除しますか？
+
+	<table>
+		<tr>
+			<th>ユーザ名：</th>
+			<td th:text="${session.userInfo.name}"></td>
+		</tr>
+		<tr>
+			<th>性別：</th>
+			<td th:text="${session.userInfo.gender}"></td>
+		</tr>
+		<tr>
+			<th>年代：</th>
+			<td th:text="${session.userInfo.age}"></td>
+		</tr>
+		<tr>
+			<th>映画タイトル：</th>
+			<td th:text="${movietitle}">
+		</tr>
+		<tr>
+			<th>評価：</th>
+			<td th:text="${evaluation}">
+		</tr>
+		<tr>
+			<th>日付：</th>
+			<td th:text="${date}">
+		</tr>
+		<tr>
+			<th>レビュータイトル：</th>
+			<td th:text="${title}">
+		</tr>
+		<tr>
+			<th>レビュー本文：</th>
+			<td th:utext="${text}">
+		</tr>
+	</table>
+
+	<form action="/review/delete/kanryou" method="post">
+		<input type="hidden" name="reviewcode" th:value="${reviewcode}">
+		<input type="hidden" name="movietitle" th:value="${movietitle}">
+		<input type="hidden" name="evaluation" th:value="${evaluation}">
+		<input type="hidden" name="date" th:value="${date}">
+		<input type="hidden" name="title" th:value="${title}">
+		<input type="hidden" name="text" th:value="${text}">
+		<input type="submit" value="削除">
+	</form>
+
+	<a class="a1" href="/myReviews">キャンセル</a>
+
+
+
+
+
+</body>
+</html>

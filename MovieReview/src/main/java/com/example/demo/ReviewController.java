@@ -75,8 +75,6 @@ public class ReviewController {
 				String gender = userInfo.getGender();//性別
 				String age = userInfo.getAge();//年代
 
-
-
 				//ユーザ名、性別、年代を追加したもの(Review型)をallreviewListに追加
 				Review allreview = new Review(review.getReviewcode(),review.getMoviecode(),review.getUsercode(),review.getEvaluation(),review.getDate(),review.getTitle(),review.getText(),name,gender,age);
 				allreviewList.add(allreview);
@@ -403,6 +401,92 @@ public class ReviewController {
 		return mv;
 	}
 
+	/**
+	  マイレビュー削除確認画面
+	 **/
+	///reviewコードを指定して飛んでくる
+		@RequestMapping("/review/delete/{reviewcode}")
+		public ModelAndView reviewDelete(
+				@PathVariable("reviewcode") int reviewcode,
+				ModelAndView mv
+			) {
+			//レビューコードからレビュー情報を取得して受け渡す
+			List<Review> reviewList = reviewRepository.findByReviewcode(reviewcode);
+			Review editReview = reviewList.get(0);
+
+			//movieコードから映画titleを割り出す
+			List<Movie> moviewList = movieRepository.findByMoviecode(editReview.getMoviecode());
+			Movie editMovie = moviewList.get(0);
+			String movieTitle = editMovie.getTitle();
+
+			mv.addObject("movietitle",movieTitle);
+			mv.addObject("evaluation",editReview.getEvaluation());
+			mv.addObject("date",editReview.getDate());
+			mv.addObject("title",editReview.getTitle());
+			mv.addObject("text",editReview.getText());
+			mv.addObject("reviewcode",reviewcode);
+
+			//マイレビュー削除確認画面を表示
+			mv.setViewName("reviewDeleteKakunin");
+			return mv;
+		}
+
+		/**
+		  マイレビュー削除容確認画面
+		 **/
+		@PostMapping("/review/delete/kanryou")
+		public ModelAndView reviewDeleteKanryou(
+				@RequestParam("reviewcode") int reviewcode,
+				@RequestParam("movietitle") String movietitle,
+				@RequestParam("evaluation") int evaluation,
+				@RequestParam("date") String date,
+				@RequestParam("title") String title,
+				@RequestParam("text") String text,
+				ModelAndView mv
+		) {
+			////受け取ったreviewコードのレビューをDBから削除
+				reviewRepository.deleteById(reviewcode);
+
+			////movieテーブルに評価を平均して記録する処理
+				//movieテーブルからmovietitleを指定して映画コード(moviecode)を取得
+				List<Movie> m = movieRepository.findByTitle(movietitle);
+				Movie _movieInfo = m.get(0);//レコードを取得
+
+				//作成した映画のmoviecodeの全レビューをreviewテーブルからリストを取得
+				List<Review> evaluationList = reviewRepository.findByMoviecode(_movieInfo.getMoviecode());
+
+				//その映画のレビューが0になると評価には0を入力
+				double totalEvaluation = 0;
+				if(evaluationList.size() != 0) {
+					//これらのレビューのevaluationを取り出して平均を求める(totalEvaluation)
+					int total =0;
+					for(Review e:evaluationList) {
+						total += e.getEvaluation();
+					}
+					totalEvaluation =((double)Math.round(( total / evaluationList.size())* 10))/10;//小数点第2位を四捨五入
+				}
+
+
+
+				//totalEvaluationを変更してmovieテーブルのレコードを更新
+				Movie movieInfo = new Movie(_movieInfo.getMoviecode(),_movieInfo.getTitle(),_movieInfo.getGenrecode(),_movieInfo.getTime(),_movieInfo.getCountry(),_movieInfo.getYear(),totalEvaluation);
+				movieRepository.saveAndFlush(movieInfo);
+
+			//完了のメッセージを表示
+			String message = "レビューの削除が完了しました";
+			mv.addObject("message",message);
+
+			//入力内容を受け渡す//書き込み途中のものは保持
+			mv.addObject("movietitle",movietitle);
+			mv.addObject("evaluation",evaluation);
+			mv.addObject("date",date);
+			mv.addObject("title",title);
+			mv.addObject("text",text);
+
+			//マイレビュー削除完了画面(reviewDeleteKanryou.html)を表示
+			mv.setViewName("reviewEditKanryou");
+			return mv;
+		}
 
 
 	/**

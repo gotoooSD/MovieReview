@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/style.css}">
+<title>マイレビュー削除完了</title>
+</head>
+<body>
+
+	<span th:replace="menu"></span>
+	<span th:replace="moviessearch"></span>
+
+	<h1>マイレビュー削除完了</h1>
+
+
+	<table>
+		<tr>
+			<th>ユーザ名：</th>
+			<td th:text="${session.userInfo.name}"></td>
+		</tr>
+		<tr>
+			<th>性別：</th>
+			<td th:text="${session.userInfo.gender}"></td>
+		</tr>
+		<tr>
+			<th>年代：</th>
+			<td th:text="${session.userInfo.age}"></td>
+		</tr>
+		<tr>
+			<th>映画タイトル：</th>
+			<td th:text="${movietitle}">
+		</tr>
+		<tr>
+			<th>評価：</th>
+			<td th:text="${evaluation}">
+		</tr>
+		<tr>
+			<th>日付：</th>
+			<td th:text="${date}">
+		</tr>
+		<tr>
+			<th>レビュータイトル：</th>
+			<td th:text="${title}">
+		</tr>
+		<tr>
+			<th>レビュー本文：</th>
+			<td th:utext="${text}">
+		</tr>
+	</table>
+
+	<span th:text="${message}" style="color:rgb(255, 218, 4)"></span><br>
+
+	<a class="a1" href="/myReviews">マイレビューへ</a><br>
+
+
+
+
+
+</body>
+</html>

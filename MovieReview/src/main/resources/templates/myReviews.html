@@ -38,6 +38,7 @@
 		<td th:text="${review.text}"></td>
 		<td>
 			<a th:href="'/review/edit/' + ${review.reviewcode}">編集</a>
+			<a th:href="'/review/delete/' + ${review.reviewcode}">削除</a>
 		</td>
 	</tr>
 </table>

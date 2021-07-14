@@ -5,14 +5,6 @@
 <link rel="stylesheet" th:href="@{/style.css}">
 <title>映画一覧</title>
 </head>
-<style type="text/css">
-
-.asort:link { color: #ffffff; }
-.asort:visited { color: #ffffff; }
-.asort:hover { color: #ff0000; }
-.asort:active { color: #ff8000; }
-
-</style>
 <body>
 	<span th:replace="menu"></span>
 	<span th:replace="moviessearch"></span>
@@ -22,14 +14,12 @@
 
 	<a class="asort" th:href="'/movies/search?keyword=' +${keyword} +'&genre='+ ${genre}+'&country='+ ${country} + '&sort=year'">
 		<span class="sort">
-			<img src="/images/sort.png" width="250" height="120" alt="制作年で並び替え">
-			<span class="sortmoji" size="70">制作年で並び替え</span>
+			<img src="/images/sortyear.png" width="180" height="80" alt="制作年で並び替え">
 		</span>
 	</a>
 		<a class="asort" th:href="'/movies/search?keyword=' +${keyword} +'&genre='+ ${genre}+'&country='+ ${country} + '&sort=title'">
 		<span class="sort">
-			<img src="/images/sort.png" width="250" height="120" alt="タイトルで並び替え">
-			<span class="sortmoji" size="70">タイトルで並び替え</span>
+			<img src="/images/sorttitle.png" width="180" height="80" alt="タイトルで並び替え">
 		</span>
 	</a>
 

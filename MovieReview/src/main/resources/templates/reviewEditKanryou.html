@@ -36,7 +36,7 @@
 		</tr>
 		<tr>
 			<th>日付：</th>
-			<td th:text="${date}">
+			<td th:text="${#dates.format(date, 'yyyy/MM/dd')}">
 		</tr>
 		<tr>
 			<th>レビュータイトル：</th>

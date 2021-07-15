@@ -37,7 +37,7 @@
 		</tr>
 		<tr>
 			<th>日付：</th>
-			<td th:text="${date}">
+			<td th:text="${#dates.format(date, 'yyyy/MM/dd')}">
 		</tr>
 		<tr>
 			<th>レビュータイトル：</th>
@@ -53,17 +53,15 @@
 		<input type="hidden" name="reviewcode" th:value="${reviewcode}">
 		<input type="hidden" name="movietitle" th:value="${movietitle}">
 		<input type="hidden" name="evaluation" th:value="${evaluation}">
-		<input type="hidden" name="date" th:value="${date}">
 		<input type="hidden" name="title" th:value="${title}">
 		<input type="hidden" name="text" th:value="${text}">
 		<input type="submit" value="完了">
 	</form>
 
-	<form action="/review/edit" method="post">
+	<form th:action="'/review/edit/' + ${reviewcode}" method="post">
 		<input type="hidden" name="reviewcode" th:value="${reviewcode}">
 		<input type="hidden" name="movietitle" th:value="${movietitle}">
 		<input type="hidden" name="evaluation" th:value="${evaluation}">
-		<input type="hidden" name="date" th:value="${date}">
 		<input type="hidden" name="title" th:value="${title}">
 		<input type="hidden" name="text" th:value="${text}">
 		<input type="submit" value="編集に戻る">

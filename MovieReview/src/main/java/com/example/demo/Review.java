@@ -130,45 +130,100 @@ public class Review {
 		this.text = text;
 	}
 
+	public int getReviewcode() {
+		return reviewcode;
+	}
+
+	public void setReviewcode(int reviewcode) {
+		this.reviewcode = reviewcode;
+	}
+
+	public int getMoviecode() {
+		return moviecode;
+	}
+
+	public void setMoviecode(int moviecode) {
+		this.moviecode = moviecode;
+	}
+
+	public int getUsercode() {
+		return usercode;
+	}
+
+	public void setUsercode(int usercode) {
+		this.usercode = usercode;
+	}
+
+	public int getEvaluation() {
+		return evaluation;
+	}
+
+	public void setEvaluation(int evaluation) {
+		this.evaluation = evaluation;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
+	}
+
+	public String getMovieTitle() {
+		return movieTitle;
+	}
+
+	public void setMovieTitle(String movieTitle) {
+		this.movieTitle = movieTitle;
+	}
+
 	//::必要に応じてコンストラクタは追加する:://
 
 
 
 
 	////ゲッター
-	public int getReviewcode() {
-		return reviewcode;
-	}
-	public int getMoviecode() {
-		return moviecode;
-	}
-	public int getUsercode() {
-		return usercode;
-	}
-	public int getEvaluation() {
-		return evaluation;
-	}
-	public Date getDate() {
-		return date;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public String getText() {
-		return text;
-	}
-	public String getName() {
-		return name;
-	}
-	public String getGender() {
-		return gender;
-	}
-	public String getAge() {
-		return age;
-	}
-	public String getMovieTitle() {
-		return movieTitle;
-	}
 
 
 

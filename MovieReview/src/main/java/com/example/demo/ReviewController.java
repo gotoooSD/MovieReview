@@ -1,9 +1,9 @@
 package com.example.demo;
 
-import java.text.ParseException;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -100,13 +100,12 @@ public class ReviewController {
 		List<Movie> movieList = movieRepository.findAll();
 		mv.addObject("movies", movieList);
 
-		//日付を受け渡す
-			 // 現在日時情報で初期化されたインスタンスの生成
-			 Date dateObj = new Date();
-			 SimpleDateFormat format = new SimpleDateFormat( "yyyy/MM/dd" );
-			 // 日時情報を指定フォーマットの文字列で取得
-			 String display = format.format( dateObj );
-			mv.addObject("date", display);
+		//現在の日付を呼び出す
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String str = sdFormat.format(timestamp);
+		Date date = Date.valueOf(str);
+		mv.addObject("date", date);
 
 		//新規レビュー書き込み画面を表示
 		mv.setViewName("reviewWrrite");
@@ -129,14 +128,12 @@ public class ReviewController {
 		List<Movie> movieList = movieRepository.findAll();
 		mv.addObject("movies", movieList);
 
-		//日付を受け渡す
-			// 現在日時情報で初期化されたインスタンスの生成
-			Date dateObj = new Date();
-			SimpleDateFormat format = new SimpleDateFormat( "yyyy/MM/dd" );
-			// 日時情報を指定フォーマットの文字列で取得
-			String display = format.format( dateObj );
-			mv.addObject("date", display);
-
+		//現在の日付を呼び出す
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String str = sdFormat.format(timestamp);
+		Date date = Date.valueOf(str);
+		mv.addObject("date", date);
 
 		//新規レビュー書き込み画面を表示
 		mv.setViewName("reviewWrrite");
@@ -147,7 +144,6 @@ public class ReviewController {
 	public ModelAndView reviewWrrite(
 			@RequestParam("movietitle") String movietitle,
 			@RequestParam("evaluation") String evaluation,
-			@RequestParam("date") String date,
 			@RequestParam("title") String title,
 			@RequestParam("text") String text,
 			ModelAndView mv
@@ -155,6 +151,12 @@ public class ReviewController {
 		//選択用に映画一覧リストを受け渡す
 		List<Movie> movieList = movieRepository.findAll();
 		mv.addObject("movies", movieList);
+
+		//現在の日付を呼び出す
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String str = sdFormat.format(timestamp);
+		Date date = Date.valueOf(str);
 
 		////入力不備がある場合(大のif)
 		///1.空欄がある場合//Dateは未入力なし
@@ -190,7 +192,6 @@ public class ReviewController {
 	public ModelAndView reviewWrriteKanryou(
 			@RequestParam("movietitle") String movietitle,
 			@RequestParam("evaluation") int evaluation,
-			@RequestParam("date") String date,
 			@RequestParam("title") String title,
 			@RequestParam("text") String text,
 			ModelAndView mv
@@ -207,19 +208,14 @@ public class ReviewController {
 			User userInfo = (User) session.getAttribute("userInfo");
 			int usercode = userInfo.getUsercode();
 
-			//String型のdateをDate型のDateとして変換
-			//Parseメソッドは例外処理をしないといけないらしい
-			//初期値で今の日付入れたらわざわざ例外処理してまで日付を取得して代入しなくていいのでは？//うるさい！しらん！
-			Date Date = new Date();
-			try {
-				SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
-	            Date = sdFormat.parse(date);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			//現在の日付を呼び出す
+			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+			SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
+			String str = sdFormat.format(timestamp);
+			Date date = Date.valueOf(str);
 
 			//reviewテーブルにレコードを追加
-			Review reviewInfo = new Review(moviecode,usercode,evaluation,Date,title,text);
+			Review reviewInfo = new Review(moviecode,usercode,evaluation,date,title,text);
 			reviewRepository.saveAndFlush(reviewInfo);
 
 		////movieテーブルに評価を平均して記録する処理
@@ -290,10 +286,9 @@ public class ReviewController {
 	}
 	@PostMapping("/review/edit")
 	public ModelAndView reviewEdit(
-			@RequestParam("reviewcode") String reviewcode,
+			@RequestParam("reviewcode") int reviewcode,
 			@RequestParam("movietitle") String movietitle,
 			@RequestParam("evaluation") String evaluation,
-			@RequestParam("date") String date,
 			@RequestParam("title") String title,
 			@RequestParam("text") String text,
 			ModelAndView mv
@@ -301,6 +296,10 @@ public class ReviewController {
 		//選択用に映画一覧リストを受け渡す
 		List<Movie> movieList = movieRepository.findAll();
 		mv.addObject("movies", movieList);
+
+		//レビューコードからレビュー情報を取得して受け渡す
+		List<Review> reviewList = reviewRepository.findByReviewcode(reviewcode);
+		Review editReview = reviewList.get(0);
 
 		////入力不備がある場合(大のif)
 		///1.空欄がある場合//Dateは未入力なし
@@ -322,7 +321,7 @@ public class ReviewController {
 		//入力内容を受け渡す//書き込み途中のものは保持
 		mv.addObject("movietitle",movietitle);
 		mv.addObject("evaluation",evaluation);
-		mv.addObject("date",date);
+		mv.addObject("date",editReview.getDate());
 		mv.addObject("title",title);
 		mv.addObject("text",text);
 		mv.addObject("reviewcode",reviewcode);
@@ -338,7 +337,6 @@ public class ReviewController {
 			@RequestParam("reviewcode") int reviewcode,
 			@RequestParam("movietitle") String movietitle,
 			@RequestParam("evaluation") int evaluation,
-			@RequestParam("date") String date,
 			@RequestParam("title") String title,
 			@RequestParam("text") String text,
 			ModelAndView mv
@@ -355,20 +353,18 @@ public class ReviewController {
 			User userInfo = (User) session.getAttribute("userInfo");
 			int usercode = userInfo.getUsercode();
 
-			//String型のdateをDate型のDateとして変換
-			//Parseメソッドは例外処理をしないといけないらしい
-			//初期値で今の日付入れたらわざわざ例外処理してまで日付を取得して代入しなくていいのでは？//うるさい！しらん！
-			Date Date = new Date();
-			try {
-				SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
-	            Date = sdFormat.parse(date);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			//レビューコードからレビュー情報を取得して受け渡す
+			//日付以外のフィールドを変更
+			List<Review> reviewList = reviewRepository.findByReviewcode(reviewcode);
+			Review editReview = reviewList.get(0);
+			editReview.setMoviecode(moviecode);
+			editReview.setUsercode(usercode);
+			editReview.setEvaluation(evaluation);
+			editReview.setTitle(title);
+			editReview.setText(text);
 
 			//reviewテーブルでレビューコードを指定してレコードを変更
-			Review reviewInfo = new Review(reviewcode,moviecode,usercode,evaluation,Date,title,text);
-			reviewRepository.saveAndFlush(reviewInfo);
+			reviewRepository.saveAndFlush(editReview);
 
 		////movieテーブルに評価を平均して記録する処理
 			//作成した映画のmoviecodeの全レビューをreviewテーブルからリストを取得
@@ -392,7 +388,7 @@ public class ReviewController {
 		//入力内容を受け渡す//書き込み途中のものは保持
 		mv.addObject("movietitle",movietitle);
 		mv.addObject("evaluation",evaluation);
-		mv.addObject("date",date);
+		mv.addObject("date",editReview.getDate());
 		mv.addObject("title",title);
 		mv.addObject("text",text);
 
@@ -439,11 +435,14 @@ public class ReviewController {
 				@RequestParam("reviewcode") int reviewcode,
 				@RequestParam("movietitle") String movietitle,
 				@RequestParam("evaluation") int evaluation,
-				@RequestParam("date") String date,
 				@RequestParam("title") String title,
 				@RequestParam("text") String text,
 				ModelAndView mv
 		) {
+			//レビューコードからレビュー情報を取得して受け渡す
+			List<Review> reviewList = reviewRepository.findByReviewcode(reviewcode);
+			Review editReview = reviewList.get(0);
+
 			////受け取ったreviewコードのレビューをDBから削除
 				reviewRepository.deleteById(reviewcode);
 
@@ -466,9 +465,7 @@ public class ReviewController {
 					totalEvaluation =((double)Math.round(( total / evaluationList.size())* 10))/10;//小数点第2位を四捨五入
 				}
 
-
-
-				//totalEvaluationを変更してmovieテーブルのレコードを更新
+			//totalEvaluationを変更してmovieテーブルのレコードを更新
 				Movie movieInfo = new Movie(_movieInfo.getMoviecode(),_movieInfo.getTitle(),_movieInfo.getGenrecode(),_movieInfo.getTime(),_movieInfo.getCountry(),_movieInfo.getYear(),totalEvaluation);
 				movieRepository.saveAndFlush(movieInfo);
 
@@ -479,7 +476,7 @@ public class ReviewController {
 			//入力内容を受け渡す//書き込み途中のものは保持
 			mv.addObject("movietitle",movietitle);
 			mv.addObject("evaluation",evaluation);
-			mv.addObject("date",date);
+			mv.addObject("date",editReview.getDate());
 			mv.addObject("title",title);
 			mv.addObject("text",text);
 

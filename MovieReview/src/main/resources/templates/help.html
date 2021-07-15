@@ -5,13 +5,22 @@
 <link rel="stylesheet" th:href="@{/style.css}">
 <title>ヘルプ</title>
 <style>
-	h2{
-	font-size: 200%;
-	}
-	a{
-	color:white;
-	font-size: 130%;
-	}
+	a:link {
+		color: #ffffff;
+		font-size: 130%;
+		}
+	a:visited {
+		color: #ffffff;
+		font-size: 130%;
+		}
+	a:hover {
+		color: #ff0000;
+		font-size: 130%;
+		}
+	a:active {
+		color: #ff8000;
+		font-size: 130%;
+		}
 
 </style>
 </head>
@@ -19,7 +28,7 @@
 <span th:replace="menu"></span>
 <h1>ヘルプ</h1>
 <hr>
-<h2>Q&A</h2>
+<h1>Q&A</h1>
 
 <div th:each="help:${quetionlist}" >
 	<a th:href="'/helpAnswer/' + ${help.code}" >

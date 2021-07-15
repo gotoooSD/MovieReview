@@ -5,6 +5,25 @@
 <link rel="stylesheet" th:href="@{/style.css}">
 <title>マイページ</title>
 </head>
+<style>
+	a:link {
+		color: #ffffff;
+		font-size: 130%;
+		}
+	a:visited {
+		color: #ffffff;
+		font-size: 130%;
+		}
+	a:hover {
+		color: #ff0000;
+		font-size: 130%;
+		}
+	a:active {
+		color: #ff8000;
+		font-size: 130%;
+		}
+
+</style>
 <body>
 	<span th:replace="menu"></span>
 	<span th:replace="moviessearch"></span>
@@ -35,12 +54,12 @@
 </table>
 
 
-	<ul>
-		<li><a class="a1" href="/myReviews">マイレビュー</a></li>
-		<li><a class="a1" href="/review/wrrite">新規レビュー作成</a></li>
-		<li><a class="a1" href="/editUser">ユーザ情報編集</a></li>
-		<li><a class="a2" href="/logout">ログアウト</a></li>
-	</ul>
+	<div>
+		<a href="/myReviews">マイレビュー</a><br>
+		<a href="/review/wrrite">新規レビュー作成</a><br>
+		<a href="/editUser">ユーザ情報編集</a><br>
+		<a class="a2" href="/logout">ログアウト</a><br>
+	</div>
 
 	<br>
 	<br>

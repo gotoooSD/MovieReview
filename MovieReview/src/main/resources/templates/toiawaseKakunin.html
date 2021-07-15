@@ -15,9 +15,18 @@
 <table border="1">
 <tr><th>お問い合わせ内容</th></tr>
 		<tr>
-			<th>ユーザ名：</th>
-			<td th:text="${session.userInfo.name}"></td>
+			<th>タイトル：</th>
+			<td th:text="${title}"></td>
+		</tr>
+		<tr>
+			<th>お問い合わせ内容：</th>
+			<td th:text="${text}"></td>
 		</tr>
 </table>
+<form action="/toiawaseKanryo" method="post">
+		<input type="hidden" name="title" th:value="${title}">
+		<input type="hidden" name="text" th:value="${text}">
+		<input type="submit" value="完了">
+</form>
 </body>
 </html>

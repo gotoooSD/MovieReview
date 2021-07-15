@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>お問い合わせ完了</title>
+</head>
+<body>
+<table class="table1">
+		<tr><th>お問い合わせ内容</th></tr>
+		<tr>
+			<th>タイトル：</th>
+			<td th:text="${title}"></td>
+		</tr>
+		<tr>
+			<th>お問い合わせ内容：</th>
+			<td th:text="${text}"></td>
+		</tr>
+</table>
+<span th:text="${message}" style="color:rgb(255, 218, 4)"></span><br>
+</body>
+</html>

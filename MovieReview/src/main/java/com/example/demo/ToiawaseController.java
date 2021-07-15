@@ -35,7 +35,7 @@ public class ToiawaseController {
 	 **/
 	//http://localhost:8080/toiawase
 	@PostMapping("/toiawase")
-	public ModelAndView reviewWrrite(
+	public ModelAndView toiawase(
 			@RequestParam("title") String title,
 			@RequestParam("text") String text,
 			ModelAndView mv
@@ -47,15 +47,15 @@ public class ToiawaseController {
 			String message = "未記入の項目があります";
 			mv.addObject("message",message);
 
-			//レビュー書き込み画面(reviewWrrite.html)を表示して再度書き込ませる
+			//レビュー書き込み画面(toiawase.html)を表示して再度書き込ませる
 			mv.setViewName("toiawase");
 
-		////入力不備がない場合(大のelse)
+		////入力不備がない場合
 		}else {
-			//新規レビュー入力内容確認画面(reviewWrriteKakunin,html)を表示
+			//新規レビュー入力内容確認画面(toiawaseKakunin,html)を表示
 			mv.setViewName("toiawaseKakunin");
 
-		}//大のelseの終端
+		}
 
 		//入力内容を受け渡す//書き込み途中のものは保持
 		mv.addObject("title",title);
@@ -64,4 +64,35 @@ public class ToiawaseController {
 		return mv;
 
 }
+	/**
+	  お問い合わせ内容完了画面
+	 **/
+	@PostMapping("/toiawaseKanryou")
+	public ModelAndView toiawaseKakunin(
+			@RequestParam("title") String title,
+			@RequestParam("text") String text,
+			ModelAndView mv
+	) {
+		////書き込み情報を受け取ってDBに追加
+
+			//inquiriesテーブルにレコードを追加
+
+			Toiawase toiawaseInfo = new Toiawase(title,text);
+			toiawaseRepository.saveAndFlush(toiawaseInfo);
+
+			//完了のメッセージを表示
+
+			String message = "レビューの投稿が完了しました";
+			mv.addObject("message",message);
+
+			//入力内容を受け渡す//書き込み途中のものは保持
+
+			mv.addObject("title",title);
+			mv.addObject("text",text);
+
+			//新規レビュー作成完了画面(reviewWrriteKanryou.html)を表示
+			mv.setViewName("toiawaseKanryou");
+			return mv;
+		}
+
 }

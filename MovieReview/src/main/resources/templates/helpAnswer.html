@@ -4,15 +4,32 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" th:href="@{/style.css}">
 <title>ヘルプ</title>
+<style>
+	h2{
+	font-size: 200%;
+	}
+
+	span{
+	font-size: 150%;
+	}
+
+	a{
+	font-size: 120%;
+	}
+
+</style>
 </head>
 <body>
 <h1>ヘルプ</h1>
 <hr>
 <h2>Q&A</h2>
+<br>
 　Q　<span th:text= "${HelpInfo.q}"></span>
 <br>
 <br>
+<br>
 　A　<span th:text="${HelpInfo.a}"></span>
+<br>
 <br>
 <br>
 <br>

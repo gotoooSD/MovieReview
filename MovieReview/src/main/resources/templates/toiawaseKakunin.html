@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>お問い合わせ内容確認</h1>
+<br>
+<br>
+<br>
+<div>この内容で宜しいでしょうか？</div>
+<br>
+<br>
+<table border="1">
+<tr><th>お問い合わせ内容</th></tr>
+		<tr>
+			<th>ユーザ名：</th>
+			<td th:text="${session.userInfo.name}"></td>
+		</tr>
+</table>
+</body>
+</html>

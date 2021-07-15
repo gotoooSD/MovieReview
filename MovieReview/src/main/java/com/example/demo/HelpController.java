@@ -57,17 +57,5 @@ public class HelpController {
 		return mv;
 	}
 
-	/**
-	  お問い合わせ
-	 **/
-	//http://localhost:8080/toiawase
-	@RequestMapping("/toiawase")
-	public ModelAndView toiawase(ModelAndView mv) {
-
-
-		//お問い合わせページ(toiawase.html)を表示
-		mv.setViewName("toiawase");
-		return mv;
-	}
 
 }

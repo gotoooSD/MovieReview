@@ -7,18 +7,26 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="helps")
-public class Help {
+@Table(name="inquiries")
+public class Toiawase {
+
 	//フィールド
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int code;
-	private String q;
-	private String a;
+	private String title;
+	private String text;
 
 ////コンストラクタ
-	public Help() {
+	public Toiawase() {
 
+	}
+
+////コンストラクタ
+	public Toiawase(String title, String text) {
+
+		this.title = title;
+		this.text = text;
 	}
 
 //ゲッタ＆セッタ
@@ -30,20 +38,20 @@ public class Help {
 		this.code = code;
 	}
 
-	public String getQ() {
-		return q;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setQ(String q) {
-		this.q = q;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getA() {
-		return a;
+	public String getText() {
+		return text;
 	}
 
-	public void setA(String a) {
-		this.a = a;
+	public void setText(String text) {
+		this.text = text;
 	}
 
 

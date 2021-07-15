@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" th:href="@{/style.css}">
@@ -7,15 +7,27 @@
 <h1>お問い合わせ</h1>
 </head>
 <body>
-<table>
+<br>
+<br>
+<br>
+<form action="/toiawaseKakunin" method="post">
+<table class="table1">
 	<tr>
 		<th>お問い合わせ内容</th>
+		</tr>
+		<tr>
+		<td><input type="text" name="title" th:value="${title}" placeholder="タイトル30文字以内で入力してください" maxlength="30" size="58"></td>
+		</tr>
+		<tr>
 		<td>
 			<textarea name="text" th:text="${text}" cols="100" rows="10" placeholder="500文字以内で入力してください" maxlength="500">
 			</textarea>
 		</td>
 	</tr>
 </table>
+<br>
+<br>
 <input type="submit" value="確認画面へ">
+</form>
 </body>
 </html>

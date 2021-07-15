@@ -20,6 +20,7 @@
 
 <div class="movieInfo">
 	<span class="movieTitle" th:text="${movieInfo.title}"></span><br>
+	評価：<span th:text="${movieInfo.totalEvaluation}"></span><br>
 	<span th:text="${movieInfo.country}"></span><br>
 	ジャンル：<span th:text="${movieInfo.genre}"></span><br>
 	上映時間：<span th:text="${movieInfo.time}"></span>分<br>

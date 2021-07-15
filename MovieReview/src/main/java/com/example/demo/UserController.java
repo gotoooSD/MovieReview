@@ -300,6 +300,85 @@ public class UserController {
 	}
 
 	/**
+	  退会（ユーザ）削除
+	 **/
+		@RequestMapping("/deleteUser")
+		public ModelAndView deleteUser(
+				ModelAndView mv
+			) {
+			//セッションスコープからユーザ情報を取得
+			User userInfo = (User) session.getAttribute("userInfo");
+
+			//レビュー件数も表示したい
+				//ユーザコード(usercode)検索
+				List<Review> reviewList = reviewRepository.findByUsercode(userInfo.getUsercode());
+				//何件あるか
+				int reviewsSize = reviewList.size();
+
+				mv.addObject("reviewsSize",reviewsSize);
+
+			//マイレビュー削除確認画面を表示
+			mv.setViewName("deleteUserKakunin");
+			return mv;
+		}
+
+
+		@RequestMapping("/deleteUser/kanryou")
+		public ModelAndView deketeUserKanryou(
+				ModelAndView mv
+		) {
+			//セッションスコープからユーザ情報を取得
+			User userInfo = (User) session.getAttribute("userInfo");
+
+
+			////そのユーザーが投稿したレビューを削除
+			//レビューのユーザコード(usercode)検索
+			List<Review> reviewList = reviewRepository.findByUsercode(userInfo.getUsercode());
+				//レビューが一件もなければ何もしない
+				if(reviewList.size()==0) {
+				}else {
+					for(Review review: reviewList) {
+						//レビューコードを指定してレビューを順番に削除
+						reviewRepository.deleteById(review.getReviewcode());
+
+						////movieテーブルに評価を平均して記録する処理
+							//movieテーブルからmovietitleを指定して映画コード(moviecode)を取得
+							List<Movie> m = movieRepository.findByMoviecode(review.getMoviecode());
+							Movie _movieInfo = m.get(0);//レコードを取得
+
+							//作成した映画のmoviecodeの全レビューをreviewテーブルからリストを取得
+							List<Review> evaluationList = reviewRepository.findByMoviecode(_movieInfo.getMoviecode());
+
+							//その映画のレビューが0になると評価には0を入力
+							double totalEvaluation = 0;
+							if(evaluationList.size() != 0) {
+								//これらのレビューのevaluationを取り出して平均を求める(totalEvaluation)
+								int total =0;
+								for(Review e:evaluationList) {
+									total += e.getEvaluation();
+								}
+								totalEvaluation =((double)Math.round(( total / evaluationList.size())* 10))/10;//小数点第2位を四捨五入
+							}
+
+							//totalEvaluationを変更してmovieテーブルのレコードを更新
+							Movie movieInfo = new Movie(_movieInfo.getMoviecode(),_movieInfo.getTitle(),_movieInfo.getGenrecode(),_movieInfo.getTime(),_movieInfo.getCountry(),_movieInfo.getYear(),totalEvaluation);
+							movieRepository.saveAndFlush(movieInfo);
+					}
+				}
+
+			////そのユーザーを削除
+			userRepository.deleteById(userInfo.getUsercode());
+
+			//完了のメッセージを表示
+			String message = "退会処理が完了しました";
+			mv.addObject("message",message);
+
+			//マイレビュー削除完了画面(deleteUserKanryou.html)を表示
+			mv.setViewName("deleteUserKanryou");
+			return mv;
+		}
+
+	/**
 	  マイページ
 	 **/
 	@RequestMapping("/myPage")

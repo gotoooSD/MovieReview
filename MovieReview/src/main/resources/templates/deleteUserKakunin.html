@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/style.css}">
+<title>退会</title>
+</head>
+<body>
+
+	<span th:replace="menu"></span>
+
+	<hr>
+
+	<h3>退会</h3>
+	<hr>
+
+	本当に退会しますか？<br>
+	<br>
+	現在<span th:text="${session.name}">さんは
+	</span><span th:text="${reviewsSize}"></span>件のレビューを投稿していますが、<br>
+	退会すれば全て消えてしまいます。<br>
+	<br>
+	<br>
+	<a class="a2" href="/deleteUser/kanryou">退会する</a>
+	<a class="a1" href="/myPage">キャンセル</a>
+
+</body>
+</html>

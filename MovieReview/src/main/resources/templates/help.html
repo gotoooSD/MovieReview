@@ -25,21 +25,21 @@
 </style>
 </head>
 <body>
-<span th:replace="menu"></span>
-<h1>ヘルプ</h1>
-<hr>
-<h1>Q&A</h1>
+	<span th:replace="menu"></span>
+	<h1>ヘルプ</h1>
+	<hr>
 
-<div th:each="help:${quetionlist}" >
-	<a th:href="'/helpAnswer/' + ${help.code}" >
-		・<span  th:text = "${help.q}"></span>
-	</a>
-<br>
-<br>
-</div>
-<br>
-<br>
-<br>
-<a  class="a1" href="/toiawase">お問い合わせ</a>はこちらから
+	<h1>Q&A</h1>
+
+	<table class="table2">
+		<tr th:each="help:${quetionlist}" >
+			<th align="left">
+				・<a th:href="'/helpAnswer/' + ${help.code}" ><span  th:text = "${help.q}"></span></a>
+			</th>
+		</tr>
+	</table>
+	<br>
+	<br>
+	<a  class="a1" href="/toiawase">お問い合わせ</a>はこちらから
 </body>
 </html>

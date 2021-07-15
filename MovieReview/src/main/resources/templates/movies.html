@@ -5,6 +5,14 @@
 <link rel="stylesheet" th:href="@{/style.css}">
 <title>映画一覧</title>
 </head>
+<style>
+
+	a:link {color: rgb(20, 20, 20);font-size: 110%;}
+	a:visited {color: rgb(20, 20, 20);font-size: 110%;}
+	a:hover {color: #ff0000;font-size: 110%;}
+	a:active {color: #ff8000;font-size: 110%;}
+
+</style>
 <body>
 	<span th:replace="menu"></span>
 	<span th:replace="moviessearch"></span>
@@ -33,7 +41,7 @@
 
 	件数：<span th:text="${moviesSize}"></span><br>
 
-	<table border="1">
+	<table class="table1" border="1">
 	<tr>
 		<th>タイトル</th><th>評価</th><th>ジャンル</th><th>放送時間</th><th>邦画/洋画</th><th>制作年</th>
 	</tr>

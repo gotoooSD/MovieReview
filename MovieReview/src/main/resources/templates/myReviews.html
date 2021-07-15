@@ -5,6 +5,18 @@
 <link rel="stylesheet" th:href="@{/style.css}">
 <title>マイレビュー</title>
 </head>
+<style>
+	.a2:link {color: rgb(171, 171, 171);font-size: 130%;}
+	.a2:visited {color: rgb(171, 171, 171);font-size: 130%;}
+	.a2:hover {color: #ff0000;font-size: 130%;}
+	.a2:active {color: #ff8000;font-size: 130%;}
+
+	a:link {color: rgb(20, 20, 20);font-size: 130%;}
+	a:visited {color: rgb(20, 20, 20);font-size: 130%;}
+	a:hover {color: #ff0000;font-size: 130%;}
+	a:active {color: #ff8000;font-size: 130%;}
+
+</style>
 <body>
 
 
@@ -20,7 +32,7 @@
 <a class="a3" href="/review/wrrite">新規レビュー作成</a>
 <br>
 
-<table border="1">
+<table  class="table1" border="1">
 	<tr>
 		<th>タイトル</th>
 		<th>評価</th>
@@ -38,7 +50,7 @@
 		<td th:text="${review.text}"></td>
 		<td>
 			<a th:href="'/review/edit/' + ${review.reviewcode}">編集</a>
-			<a th:href="'/review/delete/' + ${review.reviewcode}">削除</a>
+			<a class="a2" th:href="'/review/delete/' + ${review.reviewcode}">削除</a>
 		</td>
 	</tr>
 </table>

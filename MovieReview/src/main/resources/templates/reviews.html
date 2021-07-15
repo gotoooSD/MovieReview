@@ -8,8 +8,8 @@
 <style type="text/css">
 
 .movieTitle{
-	color: #ff8000;
-	font-size: 70px;
+	color: #ff0000;
+	font-size: 250%;
  }
 
 </style>
@@ -19,7 +19,7 @@
 <span th:replace="moviessearch"></span>
 
 <div class="movieInfo">
-	<span th:text="${movieInfo.title}"></span><br>
+	<span class="movieTitle" th:text="${movieInfo.title}"></span><br>
 	<span th:text="${movieInfo.country}"></span><br>
 	ジャンル：<span th:text="${movieInfo.genre}"></span><br>
 	上映時間：<span th:text="${movieInfo.time}"></span>分<br>
@@ -35,7 +35,7 @@
 <a class="a3" th:href="'/review/wrrite/' + ${movieInfo.moviecode}">新規レビュー作成</a>
 <br>
 
-<table border="1">
+<table class="table1" border="1">
 	<tr>
 		<th>評価</th>
 		<th>ユーザー名</th>

@@ -17,11 +17,17 @@ body{
   	text-align: center;
 }
 
-table{
+.table1{
 	background-color: rgb(247, 247, 247);
 
 	color:rgb(20, 20, 20);
 
+	margin-left: auto;
+    margin-right: auto;
+}
+
+.table2{
+	color:rgb(247, 247, 247);
 
 	margin-left: auto;
     margin-right: auto;
@@ -48,15 +54,15 @@ table{
 }
 
 
-.a1:link { color: #ffffff; }
-.a1:visited { color: #ffffff; }
-.a1:hover { color: #ff0000; }
-.a1:active { color: #ff8000; }
+.a1:link { color: #ffffff;font-size: 130%; }
+.a1:visited { color: #ffffff;font-size: 130%; }
+.a1:hover { color: #ff0000; font-size: 130%;}
+.a1:active { color: #ff8000;font-size: 130%; }
 
-.a2:link { color: rgb(171, 171, 171); }
-.a2:visited { color: rgb(171, 171, 171); }
-.a2:hover { color: #ff0000; }
-.a2:active { color: #ff8000; }
+.a2:link { color: rgb(171, 171, 171);font-size: 130%; }
+.a2:visited { color: rgb(171, 171, 171); font-size: 130%;}
+.a2:hover { color: #ff0000; font-size: 130%;}
+.a2:active { color: #ff8000; font-size: 130%;}
 
 .menu{
 	background-color:#000000;

@@ -6,21 +6,23 @@
 <title>マイページ</title>
 </head>
 <style>
+	.table1{font-size: 130%;}
+
 	a:link {
 		color: #ffffff;
-		font-size: 130%;
+		font-size: 150%;
 		}
 	a:visited {
 		color: #ffffff;
-		font-size: 130%;
+		font-size: 150%;
 		}
 	a:hover {
 		color: #ff0000;
-		font-size: 130%;
+		font-size: 150%;
 		}
 	a:active {
 		color: #ff8000;
-		font-size: 130%;
+		font-size: 150%;
 		}
 
 </style>
@@ -30,35 +32,49 @@
 
 	<h1>マイページ</h1>
 
-<table>
+<table class="table1">
 	<tr>
-		<th>ユーザ名：</th>
-		<td th:text="${session.userInfo.name}"></td>
+		<td>ユーザ名：</td>
+		<th align="left" th:text="${session.userInfo.name}"></th>
 	</tr>
 	<tr>
-		<th>性別：</th>
-		<td th:text="${session.userInfo.gender}"></td>
+		<td>性別：</td>
+		<th align="left" th:text="${session.userInfo.gender}"></th>
 	</tr>
 	<tr>
-		<th>年代：</th>
-		<td th:text="${session.userInfo.age}"></td>
+		<td>年代：</td>
+		<th align="left" th:text="${session.userInfo.age}"></th>
 	</tr>
 	<tr>
-		<th>メールアドレス：</th>
-		<td th:text="${session.userInfo.email}"></td>
+		<td>メールアドレス：</td>
+		<th align="left" th:text="${session.userInfo.email}"></th>
 	</tr>
 	<tr>
-		<th>今までにレビューした本数：</th>
-		<td th:text="${session.reviewsSize}"></td>
+		<td>今までにレビューした本数：</td>
+		<th align="left" th:text="${session.reviewsSize}"></th>
 	</tr>
 </table>
 
+<table class="table2">
+	<tr>
+		<th>●<a href="/myReviews">マイレビュー</a></th>
+	</tr>
+	<tr>
+		<th>●<a href="/review/wrrite">新規レビュー作成</a></th>
+	</tr>
+	<tr>
+		<th>●<a href="/editUser">ユーザ情報編集</a></th>
+	</tr>
+	<tr>
+		<th>●<a class="a2" href="/logout">ログアウト</a></th>
+	</tr>
 
+</table>
 	<div>
-		<a href="/myReviews">マイレビュー</a><br>
-		<a href="/review/wrrite">新規レビュー作成</a><br>
-		<a href="/editUser">ユーザ情報編集</a><br>
-		<a class="a2" href="/logout">ログアウト</a><br>
+		<br>
+		<br>
+		<br>
+		<br>
 	</div>
 
 	<br>

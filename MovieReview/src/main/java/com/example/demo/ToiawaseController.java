@@ -16,7 +16,7 @@ public class ToiawaseController {
 	HttpSession session;
 
 	@Autowired
-	ToiawaseRepository toiawaseRepository;
+	InquiryRepository toiawaseRepository;
 
 	/**
 	  お問い合わせ
@@ -77,7 +77,7 @@ public class ToiawaseController {
 
 			//inquiriesテーブルにレコードを追加
 
-			Toiawase toiawaseInfo = new Toiawase(title,text);
+			Inquiry toiawaseInfo = new Inquiry(title,text);
 			toiawaseRepository.saveAndFlush(toiawaseInfo);
 
 			//完了のメッセージを表示

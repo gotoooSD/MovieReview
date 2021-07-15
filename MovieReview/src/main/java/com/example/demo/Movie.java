@@ -70,6 +70,18 @@ public class Movie {
 		this.totalEvaluation = totalEvaluation;
 	}
 
+	//管理者ページに表示するときに使う
+	public Movie(int moviecode, String title, int genrecode, String genre, int time, String country,int year,double totalEvaluation) {//テーブル内の全て,genrecodeをgenreに置き換え
+		this.moviecode = moviecode;
+		this.title = title;
+		this.genrecode = genrecode;
+		this.genre = genre;
+		this.time = time;
+		this.country = country;
+		this.year = year;
+		this.totalEvaluation = totalEvaluation;
+	}
+
 	//ゲッタ＆セッタのインスタンスを生成
 	public int getMoviecode() {
 		return moviecode;

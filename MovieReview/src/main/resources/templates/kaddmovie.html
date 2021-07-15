@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/style.css}">
+<title>管理者ページ</title>
+</head>
+<body>
+	<span th:replace="kmenu"></span>
+	<h1>映画追加登録</h1>
+	<hr>
+
+	<form action="/kaddmovie" method="post">
+		<table class="table1">
+		<tr>
+			<td>映画タイトル</td>
+			<td>
+				<input type="text" name="title" th:value="${title}">
+			</td>
+			<td><span th:text="${message2}" style="color:rgb(255, 218, 4)"></span></td>
+		</tr>
+		<tr>
+			<td>ジャンル</td>
+			<td>
+			<select name="genre" >
+				<option th:each="g:${session.genres}" th:value="${g.genre}" th:selected="${genre == g.genre}">
+					<span th:text="${g.genre}"></span>
+				</option>
+			</select>
+			</td>
+			<td><a class="a1" href="/kaddgenre">ジャンルの追加登録</a></td>
+		</tr>
+		<tr>
+			<td>放送時間</td>
+			<td>
+				<input type="text" name="time" th:value="${time}">
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>邦画/洋画</td>
+			<td>
+				<select name="country">
+					<option value="邦画" th:selected ="${country == '邦画'}">邦画</option>
+					<option value="洋画" th:selected ="${country == '洋画'}">洋画</option>
+				</select>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>制作年</td>
+			<td><input type="text" name="year" th:value="${year}"></td>
+		</tr>
+		<td></td>
+		</table>
+		<input type="submit" value="登録">
+	</form>
+
+	<span th:text="${message}" style="color:rgb(255, 218, 4)"></span><br>
+
+
+</body>
+</html>

@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="inquiries")
-public class Toiawase {
+public class Inquiry {
 
 	//フィールド
 	@Id
@@ -18,12 +18,12 @@ public class Toiawase {
 	private String text;
 
 ////コンストラクタ
-	public Toiawase() {
+	public Inquiry() {
 
 	}
 
 ////コンストラクタ
-	public Toiawase(String title, String text) {
+	public Inquiry(String title, String text) {
 
 		this.title = title;
 		this.text = text;

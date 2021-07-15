@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/style.css}">
+<title>管理者ページ</title>
+</head>
+<body>
+	<span th:replace="kmenu"></span>
+	<h1>問い合わせ一覧</h1>
+	<hr>
+
+	件数：<span th:text="${inquiriesSize}"></span><br>
+
+	<table class="table1" border="1">
+	<tr>
+		<th>管理番号</th><th>タイトル</th><th>内容</th>
+	</tr>
+	<tr th:each="k:${inquiries}">
+		<td th:text="${k.code}"></td>
+		<td th:text="${k.title}"></td>
+		<td th:text="${k.text}"></td>
+	</tr>
+	</table>
+</body>
+</html>

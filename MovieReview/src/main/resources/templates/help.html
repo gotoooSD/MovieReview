@@ -4,6 +4,16 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" th:href="@{/style.css}">
 <title>ヘルプ</title>
+<style>
+	h2{
+	font-size: 200%;
+	}
+	a{
+	color:white;
+	font-size: 130%;
+	}
+
+</style>
 </head>
 <body>
 <span th:replace="menu"></span>
@@ -11,9 +21,13 @@
 <hr>
 <h2>Q&A</h2>
 
-<ul th:each="help:${quetionlist}">
-	<li><a th:href="'/helpAnswer/' + ${help.code}" ><span  th:text = "${help.q}"></span></a></li>
-</ul>
+<div th:each="help:${quetionlist}" >
+	<a th:href="'/helpAnswer/' + ${help.code}" >
+		・<span  th:text = "${help.q}"></span>
+	</a>
+<br>
+<br>
+</div>
 <br>
 <br>
 <br>

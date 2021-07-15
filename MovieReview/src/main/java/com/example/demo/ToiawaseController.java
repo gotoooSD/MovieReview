@@ -47,12 +47,12 @@ public class ToiawaseController {
 			String message = "未記入の項目があります";
 			mv.addObject("message",message);
 
-			//レビュー書き込み画面(toiawase.html)を表示して再度書き込ませる
+			//書き込み画面(toiawase.html)を表示して再度書き込ませる
 			mv.setViewName("toiawase");
 
 		////入力不備がない場合
 		}else {
-			//新規レビュー入力内容確認画面(toiawaseKakunin,html)を表示
+			//確認画面(toiawaseKakunin,html)を表示
 			mv.setViewName("toiawaseKakunin");
 
 		}
@@ -68,7 +68,7 @@ public class ToiawaseController {
 	  お問い合わせ内容完了画面
 	 **/
 	@PostMapping("/toiawaseKanryou")
-	public ModelAndView toiawaseKakunin(
+	public ModelAndView toiawaseKanryou(
 			@RequestParam("title") String title,
 			@RequestParam("text") String text,
 			ModelAndView mv

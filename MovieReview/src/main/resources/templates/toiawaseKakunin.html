@@ -23,6 +23,16 @@
 			<td th:text="${text}"></td>
 		</tr>
 </table>
+<form action="/toiawaseKanryou" method="post">
 <input type="submit" value="完了">
+<input type="hidden" name="title" th:value="${title}">
+<input type="hidden" name="text" th:value="${text}">
+</form>
+
+<form action="/toiawase" method="post">
+<input type="submit" value="編集に戻る">
+<input type="hidden" name="title" th:value="${title}">
+<input type="hidden" name="text" th:value="${text}">
+</form>
 </body>
 </html>

@@ -56,6 +56,7 @@ public class MovieController {
 		mv.addObject("keyword", "");
 		mv.addObject("genre", "");
 		mv.addObject("country", "");
+		mv.addObject("totalEvaluation", "");
 
 		//セッションにジャンル一覧を保存(検索条件を選択できるように)
 		List<Genre> genres = genreRepository.findAll();
@@ -99,6 +100,9 @@ public class MovieController {
 			}else if(sort.equals("title")){
 				//全部入力無いときで検索・タイトル五十音順で表示
 				_movieList = movieRepository.findAllByOrderByTitle();
+			}else if(sort.equals("totalEvaluation")){
+				//全部入力無いときで検索・評価の高い順で表示
+				_movieList = movieRepository.findAllByOrderByTotalEvaluationDesc();
 			}
 
 		}else if(keyword.equals("") && !genre.equals("") && country.equals("")) {
@@ -111,6 +115,9 @@ public class MovieController {
 			}else if(sort.equals("title")){
 			//ジャンルのみで検索・タイトル五十音順で表示
 			_movieList = movieRepository.findByGenrecodeOrderByTitle(genrecode);
+			}else if(sort.equals("totalEvaluation")){
+			//ジャンルのみで検索で検索・評価の高い順で表示
+			_movieList = movieRepository.findByGenrecodeOrderByTotalEvaluationDesc(genrecode);
 			}
 
 		}else if(keyword.equals("") && genre.equals("") && !country.equals("")) {
@@ -123,6 +130,9 @@ public class MovieController {
 			}else if(sort.equals("title")){
 			//国のみで検索・タイトル五十音順で表示
 			_movieList = movieRepository.findByCountryOrderByTitle(country);
+			}else if(sort.equals("totalEvaluation")){
+			//国のみで検索で検索・評価の高い順で表示
+			_movieList = movieRepository.findByCountryOrderByTotalEvaluationDesc(country);
 			}
 
 		}else if(!keyword.equals("") && genre.equals("") && country.equals("")) {
@@ -135,6 +145,9 @@ public class MovieController {
 			}else if(sort.equals("title")) {
 			//キーワードのみで探す・タイトル五十音順で表示
 			_movieList = movieRepository.findByTitleLikeOrderByTitle("%" + keyword + "%");
+			}else if(sort.equals("totalEvaluation")){
+			//キーワードのみで検索で検索・評価の高い順で表示
+			_movieList = movieRepository.findByTitleLikeOrderByTotalEvaluationDesc("%" + keyword + "%");
 			}
 
 		}else if(!keyword.equals("") && !genre.equals("") && country.equals("")) {
@@ -147,6 +160,9 @@ public class MovieController {
 			}else if(sort.equals("title")) {
 				//キーワードとジャンルで検索・タイトル五十音順で表示
 				 _movieList = movieRepository.findByTitleLikeAndGenrecodeOrderByTitle("%" + keyword + "%",genrecode);
+			}else if(sort.equals("totalEvaluation")){
+				//キーワードとジャンルで検索で検索・評価の高い順で表示
+				_movieList = movieRepository.findByTitleLikeAndGenrecodeOrderByTotalEvaluationDesc("%" + keyword + "%",genrecode);
 			}
 
 		}else if(!keyword.equals("") && genre.equals("") && !country.equals("")) {
@@ -157,8 +173,11 @@ public class MovieController {
 				//キーワードと国で検索・最新の制作年で表示
 				 _movieList = movieRepository.findByTitleLikeAndCountryOrderByYearDesc("%" + keyword + "%",country);
 			}else if(sort.equals("title")) {
-				//キーワードとジャンルで検索・タイトル五十音順で表示
+				//キーワードと国で検索・タイトル五十音順で表示
 				 _movieList = movieRepository.findByTitleLikeAndCountryOrderByTitle("%" + keyword + "%",country);
+			}else if(sort.equals("totalEvaluation")){
+				//キーワードと国で検索で検索・評価の高い順で表示
+				_movieList = movieRepository.findByTitleLikeAndCountryOrderByTotalEvaluationDesc("%" + keyword + "%",country);
 			}
 
 
@@ -172,7 +191,11 @@ public class MovieController {
 			}else if(sort.equals("title")) {
 				//ジャンルと国で検索・タイトル五十音順で表示
 				_movieList = movieRepository.findByGenrecodeAndCountryOrderByTitle(genrecode,country);
+			}else if(sort.equals("totalEvaluation")){
+				//ジャンルと国で検索で検索・評価の高い順で表示
+				_movieList = movieRepository.findByGenrecodeAndCountryOrderByTotalEvaluationDesc(genrecode,country);
 			}
+
 
 		}else if(!keyword.equals("") && !genre.equals("") && !country.equals("")) {
 			if(sort.equals("")) {
@@ -184,7 +207,10 @@ public class MovieController {
 			}else if(sort.equals("title")) {
 				//全部で検索・タイトル五十音順で表示
 				 _movieList = movieRepository.findByTitleLikeAndGenrecodeAndCountryOrderByTitle("%" + keyword + "%", genrecode, country);
-			}
+			}else if(sort.equals("totalEvaluation")){
+				//全部で検索で検索・評価の高い順で表示
+				_movieList = movieRepository.findByTitleLikeAndGenrecodeAndCountryOrderByTotalEvaluationDesc("%" + keyword + "%", genrecode, country);
+		}
 		}
 
 			//genrecordをgenre名に置き換える作業

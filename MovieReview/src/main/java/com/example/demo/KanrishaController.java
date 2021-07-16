@@ -47,7 +47,7 @@ public class KanrishaController {
 			ModelAndView mv
 		) {
 		//パスワード１を渡して次の画面へ遷移
-		mv.addObject("password1", "password1");
+		mv.addObject("password1", password1);
 		mv.setViewName("klogin2");
 		return mv;
 	}

@@ -263,7 +263,7 @@ public class ReviewController {
 			for(Review e:evaluationList) {
 				total += e.getEvaluation();
 			}
-			double totalEvaluation =((double)Math.round(( total / evaluationList.size())* 10))/10;//小数点第2位を四捨五入
+			double totalEvaluation =((double)Math.round(( total / evaluationList.size())* 100))/10;//小数点第2位を四捨五入
 
 			//totalEvaluationを変更してmovieテーブルのレコードを更新
 			Movie movieInfo = new Movie(_movieInfo.getMoviecode(),_movieInfo.getTitle(),_movieInfo.getGenrecode(),_movieInfo.getTime(),_movieInfo.getCountry(),_movieInfo.getYear(),totalEvaluation);
@@ -440,11 +440,11 @@ public class ReviewController {
 			List<Review> evaluationList = reviewRepository.findByMoviecode(moviecode);
 
 			//これらのレビューのevaluationを取り出して平均を求める(totalEvaluation)
-			int total =0;
+			double total =0;
 			for(Review e:evaluationList) {
 				total += e.getEvaluation();
 			}
-			double totalEvaluation =((double)Math.round(( total / evaluationList.size())* 10))/10;//小数点第2位を四捨五入
+			double totalEvaluation = ((double)Math.round(( total / evaluationList.size())* 100))/100;//小数点第2位を四捨五入
 
 			//totalEvaluationを変更してmovieテーブルのレコードを更新
 			Movie movieInfo = new Movie(_movieInfo.getMoviecode(),_movieInfo.getTitle(),_movieInfo.getGenrecode(),_movieInfo.getTime(),_movieInfo.getCountry(),_movieInfo.getYear(),totalEvaluation);
@@ -455,6 +455,7 @@ public class ReviewController {
 		mv.addObject("message",message);
 
 		//入力内容を受け渡す//書き込み途中のものは保持
+		mv.addObject("moviecode",moviecode);
 		mv.addObject("movietitle",movietitle);
 		mv.addObject("evaluation",evaluation);
 		mv.addObject("date",editReview.getDate());

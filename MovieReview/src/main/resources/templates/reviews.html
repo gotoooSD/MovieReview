@@ -23,7 +23,7 @@
 <table align="center">
 <tr>
 	<td colspan="4"><span class="movieTitle" th:text="${movieInfo.title}"></span></td><tr>
-	<td rowspan="6"><img src="/images/animation.png" width="200" height="150"></td><tr>
+	<td rowspan="6"><img th:src="'/images/' + ${genrecode} +'.png'" width="200" height="150"></td><tr>
 	<th>評価：</th><td><span th:text="${movieInfo.totalEvaluation}"></span></td><tr>
 	<td><td><span th:text="${movieInfo.country}"></span></td><tr>
 	<th>ジャンル：</th><td><span th:text="${movieInfo.genre}"></span></td><tr>

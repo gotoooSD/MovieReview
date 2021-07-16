@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/style.css}">
+<title>管理者ログイン</title>
+</head>
+<body>
+	<h1>管理者ログイン</h1>
+	<hr>
+
+	<form action="/klogin" method="post">
+		<input type="password" name="password" placeholder="パスワード" th:value="${password}"><br>
+		<input type="submit" value="ログイン">
+		<br>
+	</form>
+
+	<span th:text="${message}" style="color:rgb(255, 218, 4)"></span><br>
+
+	<a class="a1" href="/">トップに戻る</a>
+
+</body>
+</html>

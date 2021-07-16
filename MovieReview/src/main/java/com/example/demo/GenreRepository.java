@@ -12,4 +12,5 @@ public interface GenreRepository extends JpaRepository<Genre, Integer>{
 
 	//ジャンル名を指定して取得（便宜上Listを使うけど取得は一つだけ）
 	List<Genre> findByGenre(String genre);
+
 }

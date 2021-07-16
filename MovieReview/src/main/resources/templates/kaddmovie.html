@@ -5,6 +5,14 @@
 <link rel="stylesheet" th:href="@{/style.css}">
 <title>管理者ページ</title>
 </head>
+<style>
+
+	a:link {color: rgb(20, 20, 20);font-size: 110%;}
+	a:visited {color: rgb(20, 20, 20);font-size: 110%;}
+	a:hover {color: #ff0000;font-size: 110%;}
+	a:active {color: #ff8000;font-size: 110%;}
+
+</style>
 <body>
 	<span th:replace="kmenu"></span>
 	<h1>映画追加登録</h1>
@@ -17,7 +25,7 @@
 			<td>
 				<input type="text" name="title" th:value="${title}">
 			</td>
-			<td><span th:text="${message2}" style="color:rgb(255, 218, 4)"></span></td>
+			<td><span th:text="${message1}" style="color:rgb(255, 218, 4)"></span></td>
 		</tr>
 		<tr>
 			<td>ジャンル</td>
@@ -28,12 +36,12 @@
 				</option>
 			</select>
 			</td>
-			<td><a class="a1" href="/kaddgenre">ジャンルの追加登録</a></td>
+			<td><a href="/kaddgenre">ジャンルがない場合：ジャンルの追加登録</a></td>
 		</tr>
 		<tr>
 			<td>放送時間</td>
 			<td>
-				<input type="text" name="time" th:value="${time}">
+				<input type="text" name="time" th:value="${time}"size="6">分
 			</td>
 			<td></td>
 		</tr>
@@ -49,7 +57,7 @@
 		</tr>
 		<tr>
 			<td>制作年</td>
-			<td><input type="text" name="year" th:value="${year}"></td>
+			<td><input type="text" name="year" th:value="${year}"size="6">年</td>
 		</tr>
 		<td></td>
 		</table>

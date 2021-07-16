@@ -43,6 +43,16 @@ public class Movie {
 		this.totalEvaluation = totalEvaluation;
 	}
 
+	//DBへの登録（管理者ページ）の時に使う
+	public Movie(String title, int genrecode, int time, String country,int year,double totalEvaluation) {
+		this.title = title;
+		this.genrecode = genrecode;
+		this.time = time;
+		this.country = country;
+		this.year = year;
+		this.totalEvaluation = totalEvaluation;
+	}
+
 //	public Movie(String title, int genrecode, int time, String country,int year) {//テーブル内のmoviecode以外
 //		this.title = title;
 //		this.genrecode = genrecode;

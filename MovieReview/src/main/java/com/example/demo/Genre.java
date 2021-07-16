@@ -23,6 +23,11 @@ public class Genre {
 
 	}
 
+	public Genre(String genre) {
+		this.genre = genre;
+
+	}
+
 	//ゲッタ＆セッタのインスタンスを生成
 	public int getGenrecode() {
 		return genrecode;

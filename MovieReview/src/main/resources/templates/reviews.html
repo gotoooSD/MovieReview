@@ -17,14 +17,19 @@
 
 <span th:replace="menu"></span>
 <span th:replace="moviessearch"></span>
-
+<br>
+<br>
 <div class="movieInfo">
-	<span class="movieTitle" th:text="${movieInfo.title}"></span><br>
-	評価：<span th:text="${movieInfo.totalEvaluation}"></span><br>
-	<span th:text="${movieInfo.country}"></span><br>
-	ジャンル：<span th:text="${movieInfo.genre}"></span><br>
-	上映時間：<span th:text="${movieInfo.time}"></span>分<br>
-	制作年：<span th:text="${movieInfo.year}"></span>年<br>
+<table align="center">
+<tr>
+	<td colspan="4"><span class="movieTitle" th:text="${movieInfo.title}"></span></td><tr>
+	<td rowspan="6"><img src="/images/animation.png" width="200" height="150"></td><tr>
+	<th>評価：</th><td><span th:text="${movieInfo.totalEvaluation}"></span></td><tr>
+	<td><td><span th:text="${movieInfo.country}"></span></td><tr>
+	<th>ジャンル：</th><td><span th:text="${movieInfo.genre}"></span></td><tr>
+	<th>上映時間：</th><td><span th:text="${movieInfo.time}"></span></td><th>分</th><tr>
+	<th>制作年：</th><td><span th:text="${movieInfo.year}"></span></td><th>年</th><tr>
+</table>
 </div>
 
 <br>

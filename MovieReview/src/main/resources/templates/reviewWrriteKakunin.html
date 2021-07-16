@@ -29,23 +29,29 @@
 		</tr>
 		<tr>
 			<th>映画タイトル：</th>
-			<td th:text="${movietitle}">
+			<td th:text="${movietitle}"></td>
 		</tr>
 		<tr>
 			<th>評価：</th>
-			<td th:text="${evaluation}">
+			<td>
+				<span th:if="${evaluation == 1}"><font color="red">★</font></span>
+				<span th:if="${evaluation == 2}"><font color="red">★★</font></span>
+				<span th:if="${evaluation == 3}"><font color="red">★★★</font></span>
+				<span th:if="${evaluation == 4}"><font color="red">★★★★</font></span>
+				<span th:if="${evaluation == 5}"><font color="red">★★★★★</font></span>
+			</td>
 		</tr>
 		<tr>
 			<th>日付：</th>
-			<td th:text="${date}">
+			<td th:text="${date}"></td>
 		</tr>
 		<tr>
 			<th>レビュータイトル：</th>
-			<td th:text="${title}">
+			<td th:text="${title}"></td>
 		</tr>
 		<tr>
 			<th>レビュー本文：</th>
-			<td th:utext="${text}">
+			<td th:utext="${text}"></td>
 		</tr>
 	</table>
 

@@ -46,7 +46,7 @@ public class ReviewController {
 		Movie _movieInfo = m.get(0);//レコードを取得
 
 		 //ジャンルで画像処理
-		
+
 			//genrecordをgenre名に置き換える作業
 			int genrecode = _movieInfo.getGenrecode();
 			//ジャンルコードを指定してジャンルを検索

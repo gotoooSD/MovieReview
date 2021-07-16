@@ -16,12 +16,17 @@ public class Help {
 	private String q;
 	private String a;
 
-////コンストラクタ
+	////コンストラクタ
 	public Help() {
 
 	}
 
-//ゲッタ＆セッタ
+	public Help(String q, String a) {
+		this.q = q;
+		this.a = a;
+	}
+
+	//ゲッタ＆セッタ
 	public int getCode() {
 		return code;
 	}

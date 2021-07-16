@@ -10,6 +10,8 @@
 	<h1>ジャンル追加登録</h1>
 	<hr>
 
+	件数：<span th:text="${genresSize}"></span><br>
+
 	<form action="/kaddgenre" method="post">
 		<table class="table1">
 		<tr>
@@ -23,7 +25,8 @@
 	</form>
 	<span th:text="${message}" style="color:rgb(255, 218, 4)"></span><br>
 
-	ジャンル一覧
+	<hr>
+	<h3>ジャンル一覧</h3>
 		<table class="table1" border="1">
 	<tr>
 		<th>ジャンルコード</th><th>ジャンル名</th>

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +32,9 @@ public class KanrishaController {
 
 	@Autowired
 	InquiryRepository inquiryRepository;
+
+	@Autowired
+	HelpRepository helpRepository;
 
 	/**
 	  管理者ログイン画面
@@ -146,6 +150,21 @@ public class KanrishaController {
 		return mv;
 	}
 
+	//問い合わせを削除
+	@RequestMapping("/kinquiries/delete/{code}")
+	public ModelAndView kinquiriesdelete(
+			@PathVariable("code") int code,
+			ModelAndView mv
+		) {
+		////Q&Aをhelpsテーブルから削除
+		inquiryRepository.deleteById(code);
+
+		//Q&A一覧画面(kaddQA.html)を表示
+		mv.setViewName("redirect:/kinquiries");
+
+		return mv;
+		}
+
 
 	/**
 	  映画登録
@@ -231,6 +250,9 @@ public class KanrishaController {
 		//セッションにジャンル一覧を保存(一覧を見れるように)
 		List<Genre> genres = genreRepository.findAll();
 		session.setAttribute("genres", genres);
+		//何件あるかを表示
+		int genresSize = genres.size();
+		mv.addObject("genresSize", genresSize);
 
 		//遷移先を指定
 		mv.setViewName("kaddgenre");
@@ -243,8 +265,6 @@ public class KanrishaController {
 			@RequestParam("genre") String genre,
 			ModelAndView mv
 		) {
-
-
 
 		////空の入力がある場合
 		if(genre.equals("")) {
@@ -280,6 +300,81 @@ public class KanrishaController {
 		//セッションにジャンル一覧を保存(一覧を見れるように)
 		List<Genre> genres = genreRepository.findAll();
 		session.setAttribute("genres", genres);
+		//何件あるかを表示
+		int genresSize = genres.size();
+		mv.addObject("genresSize", genresSize);
+
+		return mv;
+		}
+
+	/**
+	  Q&A登録
+	 **/
+	//Q&A登録情報記入画面を表示する
+	@RequestMapping("/kaddQA")
+	public ModelAndView kaddQA(ModelAndView mv) {
+		//Q&A一覧を表示
+		List<Help> helps = helpRepository.findAll();
+		mv.addObject("helps",helps);
+		//何件あるかを表示
+		int helpsSize = helps.size();
+		mv.addObject("helpsSize", helpsSize);
+
+		//遷移先を指定
+		mv.setViewName("kaddQA");
+		return mv;
+	}
+
+	//記入内容を判定しQ&Aを登録
+	@PostMapping("/kaddQA")
+	public ModelAndView kaddQA(
+			@RequestParam("q") String q,
+			@RequestParam("a") String a,
+			ModelAndView mv
+		) {
+		////空の入力がある場合
+		if(q.equals("")||a.equals("")) {
+			//エラーメッセージを表示
+			mv.addObject("message", "未入力の項目があります");
+			//新規登録情報入力画面(kaddQA.html)を表示して再度書き込ませる
+			mv.setViewName("kaddQA");
+
+		}else {
+			////Q&Aをhelpsテーブルに登録
+			Help helpInfo = new Help(q, a);
+			helpRepository.saveAndFlush(helpInfo);
+
+			//登録が完了したことをメッセージで表示
+			mv.addObject("message", "Q&Aの追加が完了しました");
+			//Q&A一覧画面(kaddQA.html)を表示
+			mv.setViewName("redirect:/kaddQA");
+		}
+
+		//Q&A一覧を表示
+		List<Help> helps = helpRepository.findAll();
+		//何件あるかを表示
+		int helpsSize = helps.size();
+		mv.addObject("helpsSize", helpsSize);
+
+		//書き込み途中のものは保持して表示
+		mv.addObject("q",q);
+		mv.addObject("a",a);
+		mv.addObject("helps",helps);
+
+		return mv;
+		}
+
+	//Q&Aを削除
+	@RequestMapping("/kaddQA/delete/{code}")
+	public ModelAndView deleteQA(
+			@PathVariable("code") int code,
+			ModelAndView mv
+		) {
+			////Q&Aをhelpsテーブルから削除
+			helpRepository.deleteById(code);
+
+		//Q&A一覧画面(kaddQA.html)を表示
+		mv.setViewName("redirect:/kaddQA");
 
 		return mv;
 		}

@@ -44,7 +44,13 @@
 	</tr>
 	<tr th:each="review:${reviews}">
 		<td><a class="a4" th:href="'/reviews/'+${review.moviecode}" ><span th:text="${review.movieTitle}"></span></a></td>
-		<td th:text="${review.evaluation}"></td>
+		<td>
+			<span th:if="${review.evaluation == 1}"><font color="red">★</font></span>
+			<span th:if="${review.evaluation == 2}"><font color="red">★★</font></span>
+			<span th:if="${review.evaluation == 3}"><font color="red">★★★</font></span>
+			<span th:if="${review.evaluation == 4}"><font color="red">★★★★</font></span>
+			<span th:if="${review.evaluation == 5}"><font color="red">★★★★★</font></span>
+		</td>
 		<td th:text="${#dates.format(review.date, 'yyyy/MM/dd')}"></td>
 		<td th:text="${review.title}"></td>
 		<td th:text="${review.text}"></td>

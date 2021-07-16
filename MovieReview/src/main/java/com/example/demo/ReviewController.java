@@ -158,6 +158,40 @@ public class ReviewController {
 		String str = sdFormat.format(timestamp);
 		Date date = Date.valueOf(str);
 
+		///確認画面から戻ってきてレビュー書き込み画面(reviewWrrite.html)を表示して再度書き込ませる
+		mv.setViewName("reviewWrrite");
+
+		//入力内容を受け渡す//書き込み途中のものは保持
+		mv.addObject("movietitle",movietitle);
+		mv.addObject("evaluation",evaluation);
+		mv.addObject("date",date);
+		mv.addObject("title",title);
+		mv.addObject("text",text);
+
+		return mv;
+	}
+
+	/**
+	  新規レビュー入力不備判定->確認
+	 **/
+	@PostMapping("/review/wrrite/gudge")
+	public ModelAndView reviewWrriteGudge(
+			@RequestParam("movietitle") String movietitle,
+			@RequestParam("evaluation") String evaluation,
+			@RequestParam("title") String title,
+			@RequestParam("text") String text,
+			ModelAndView mv
+	) {
+		//選択用に映画一覧リストを受け渡す
+		List<Movie> movieList = movieRepository.findAll();
+		mv.addObject("movies", movieList);
+
+		//現在の日付を呼び出す
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String str = sdFormat.format(timestamp);
+		Date date = Date.valueOf(str);
+
 		////入力不備がある場合(大のif)
 		///1.空欄がある場合//Dateは未入力なし
 		if(movietitle.equals("")||evaluation.equals("")||title.equals("")||text.equals("")) {
@@ -175,6 +209,8 @@ public class ReviewController {
 
 		}//大のelseの終端
 
+
+
 		//入力内容を受け渡す//書き込み途中のものは保持
 		mv.addObject("movietitle",movietitle);
 		mv.addObject("evaluation",evaluation);
@@ -186,7 +222,7 @@ public class ReviewController {
 	}
 
 	/**
-	  新規レビュー入力内容確認画面
+	  新規レビュー入力確認->完了
 	 **/
 	@PostMapping("/review/wrrite/kanryou")
 	public ModelAndView reviewWrriteKanryou(
@@ -284,8 +320,41 @@ public class ReviewController {
 		mv.setViewName("reviewEdit");
 		return mv;
 	}
+
 	@PostMapping("/review/edit")
 	public ModelAndView reviewEdit(
+			@RequestParam("reviewcode") int reviewcode,
+			@RequestParam("movietitle") String movietitle,
+			@RequestParam("evaluation") String evaluation,
+			@RequestParam("title") String title,
+			@RequestParam("text") String text,
+			ModelAndView mv
+	) {
+		//選択用に映画一覧リストを受け渡す
+		List<Movie> movieList = movieRepository.findAll();
+		mv.addObject("movies", movieList);
+
+		//レビューコードからレビュー情報を取得して受け渡す
+		List<Review> reviewList = reviewRepository.findByReviewcode(reviewcode);
+		Review editReview = reviewList.get(0);
+
+		///確認画面から戻ってきてマイレビュー編集画面(reviewEdit.html)を表示して再度書き込ませる
+		mv.setViewName("reviewEdit");
+
+		//入力内容を受け渡す//書き込み途中のものは保持
+		mv.addObject("movietitle",movietitle);
+		mv.addObject("evaluation",evaluation);
+		mv.addObject("date",editReview.getDate());
+		mv.addObject("title",title);
+		mv.addObject("text",text);
+		mv.addObject("reviewcode",reviewcode);
+
+		return mv;
+	}
+
+
+	@PostMapping("/review/edit/gudge")
+	public ModelAndView reviewEditGudge(
 			@RequestParam("reviewcode") int reviewcode,
 			@RequestParam("movietitle") String movietitle,
 			@RequestParam("evaluation") String evaluation,

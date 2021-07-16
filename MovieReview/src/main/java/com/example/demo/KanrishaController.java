@@ -41,14 +41,24 @@ public class KanrishaController {
 		mv.setViewName("klogin");
 		return mv;
 	}
-
-	@PostMapping("/klogin")
+	@PostMapping("/klogin1")
+	public ModelAndView klogin1(
+			@RequestParam("password1") String password1,
+			ModelAndView mv
+		) {
+		//パスワード１を渡して次の画面へ遷移
+		mv.addObject("password1", "password1");
+		mv.setViewName("klogin2");
+		return mv;
+	}
+	@PostMapping("/klogin2")
 	public ModelAndView klogin(
-			@RequestParam("password") String password,
+			@RequestParam("password1") String password1,
+			@RequestParam("password2") String password2,
 			ModelAndView mv
 		) {
 
-		if(password.equals("himitu")) {
+		if(password1.equals("himitu") && password2.equals("himitu")) {
 			//セッションにジャンル一覧を保存(選択できるように)
 			List<Genre> genres = genreRepository.findAll();
 			session.setAttribute("genres", genres);
@@ -58,13 +68,11 @@ public class KanrishaController {
 
 		}else {
 			//エラーメッセージを表示
-			mv.addObject("message", "パスワードが間違っています");
+			mv.addObject("message", "どちらかまたは両方のパスワードが間違っています");
 
 			//管理者ログイン情報入力画面(klogin.html)を表示
 			mv.setViewName("klogin");
 		}
-
-
 		return mv;
 	}
 

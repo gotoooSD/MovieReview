@@ -34,8 +34,8 @@ public class ToiawaseController {
 	  お問い合わせ・内容を書く
 	 **/
 	//http://localhost:8080/toiawase
-	@PostMapping("/toiawase")
-	public ModelAndView toiawase(
+	@PostMapping("/toiawase/gudge")
+	public ModelAndView toiawaseGudge(
 			@RequestParam("title") String title,
 			@RequestParam("text") String text,
 			ModelAndView mv
@@ -82,8 +82,11 @@ public class ToiawaseController {
 
 			//完了のメッセージを表示
 
-			String message = "レビューの投稿が完了しました";
-			mv.addObject("message",message);
+			String message1 = "メッセージ送信が完了しました!";
+			mv.addObject("message1",message1);
+
+			String message2 = "ご意見ありがとうございます！";
+			mv.addObject("message2",message2);
 
 			//入力内容を受け渡す//書き込み途中のものは保持
 

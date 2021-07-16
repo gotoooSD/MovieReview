@@ -2,37 +2,61 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/style.css}">
+<title>お問い合わせ確認</title>
+<style>
+	a{
+	color:white;
+	font-size:120%;
+	}
+
+	div{
+	font-size:120%;
+	}
+</style>
 </head>
 <body>
+<span th:replace="menu"></span>
 <h1>お問い合わせ内容確認</h1>
-<br>
+<hr>
 <br>
 <br>
 <div>この内容で宜しいでしょうか？</div>
 <br>
-<br>
-<table border="1">
+<table border="1" class="table1">
 <tr><th>お問い合わせ内容</th></tr>
 		<tr>
-			<th>タイトル：</th>
+			<th>タイトル</th>
 			<td th:text="${title}"></td>
 		</tr>
 		<tr>
-			<th>お問い合わせ内容：</th>
+			<th>お問い合わせ内容</th>
 			<td th:text="${text}"></td>
 		</tr>
 </table>
-<form action="/toiawaseKanryou" method="post">
-<input type="submit" value="完了">
+<br>
+<table align="center">
+<tr>
+<td><form action="/toiawaseKanryou" method="post">
+<input type="submit" value="完了" style="padding:5px;font-size:15px;">
 <input type="hidden" name="title" th:value="${title}">
 <input type="hidden" name="text" th:value="${text}">
 </form>
-
+</td>
+<td>
 <form action="/toiawase" method="post">
-<input type="submit" value="編集に戻る">
+<input type="submit" value="編集に戻る" style="padding:5px;font-size:15px;">
 <input type="hidden" name="title" th:value="${title}">
 <input type="hidden" name="text" th:value="${text}">
 </form>
+</td>
+</tr>
+</table>
+<br>
+<br>
+<a href="/help">ヘルプ一覧に戻る</a>
+<br>
+<br>
+<a href="/movies">映画一覧に戻る</a>
 </body>
 </html>

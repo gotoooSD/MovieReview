@@ -447,7 +447,10 @@ public class ReviewController {
 			for(Review e:evaluationList) {
 				total += e.getEvaluation();
 			}
-			double totalEvaluation = ((double)Math.round(( total / evaluationList.size())* 100))/100;//小数点第2位を四捨五入
+			double avarageEvaluation = total / evaluationList.size();
+
+			double totalEvaluation = Math.round(avarageEvaluation * 100.0)/100.0; //小数点第2位を四捨五入
+
 
 			//totalEvaluationを変更してmovieテーブルのレコードを更新
 			Movie movieInfo = new Movie(_movieInfo.getMoviecode(),_movieInfo.getTitle(),_movieInfo.getGenrecode(),_movieInfo.getTime(),_movieInfo.getCountry(),_movieInfo.getYear(),totalEvaluation);

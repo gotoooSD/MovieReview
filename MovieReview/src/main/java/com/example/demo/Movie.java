@@ -125,6 +125,10 @@ public class Movie {
 		return totalEvaluation;
 	}
 
+	//小数点切り上げ
+	public String getViewTotalEvaluation() {
+		return String.format("%.2f",totalEvaluation );
+	}
 
 
 }

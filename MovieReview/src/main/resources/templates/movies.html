@@ -48,7 +48,7 @@
 	<tr th:each="movie:${movies}">
 		<td><a th:href="'/reviews/'+${movie.moviecode}" ><span th:text="${movie.title}"></span></a></td>
 		<td>
-			(<span th:text="${movie.totalEvaluation}"></span>)
+			(<span th:text="${movie.viewTotalEvaluation}"></span>)
 		</td>
 		<td th:text="${movie.genre}"></td>
 		<td><span th:text="${movie.time}"></span>分</td>

@@ -53,7 +53,27 @@ body{
     margin-right: auto;
 }
 
+.a1{
+  position: relative;
+  display: inline-block;
+  transition: .3s;
+}
 
+.a1::after {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  content: '';
+  width: 0;
+  height: 2px;
+  background-color: #ff0000;
+  transition: .3s;
+  transform: translateX(-50%);
+}
+
+.a1:hover::after{
+  width: 100%;
+}
 .a1:link { color: #ffffff;font-size: 130%; }
 .a1:visited { color: #ffffff;font-size: 130%; }
 .a1:hover { color: #ff0000; font-size: 130%;}
@@ -74,12 +94,6 @@ body{
 
 
 
-
-
-
-.koumoku{
-	background-color: rgb(169, 175, 177);
-}
 
 
 

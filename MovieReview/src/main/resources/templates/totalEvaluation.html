@@ -1,0 +1,50 @@
+	<span th:if="${movieInfo.totalEvaluation <=0}">
+		<font>レビューなし</font>
+	</span>
+	<span th:if="${0 < movieInfo.totalEvaluation && movieInfo.totalEvaluation <= 1.2}">
+		<img src="/images/hoshi.png" width="20" height="20">
+	</span>
+	<span th:if="${1.2 < movieInfo.totalEvaluation && movieInfo.totalEvaluation <= 1.6}">
+		<img src="/images/hoshi.png" width="20" height="20">
+		<img src="/images/hoshiharf.png" width="20" height="20">
+	</span>
+	<span th:if="${1.6 < movieInfo.totalEvaluation && movieInfo.totalEvaluation <= 2.2}">
+		<img src="/images/hoshi.png" width="20" height="20">
+		<img src="/images/hoshi.png" width="20" height="20">
+	</span>
+	<span th:if="${2.2 < movieInfo.totalEvaluation && movieInfo.totalEvaluation <= 2.6}">
+		<img src="/images/hoshi.png" width="20" height="20">
+		<img src="/images/hoshi.png" width="20" height="20">
+		<img src="/images/hoshiharf.png" width="20" height="20">
+	</span>
+	<span th:if="${2.6 < movieInfo.totalEvaluation && movieInfo.totalEvaluation <= 3.2}">
+		<img src="/images/hoshi.png" width="20" height="20">
+		<img src="/images/hoshi.png" width="20" height="20">
+		<img src="/images/hoshi.png" width="20" height="20">
+	</span>
+	<span th:if="${3.2 < movieInfo.totalEvaluation && movieInfo.totalEvaluation <= 3.6}">
+		<img src="/images/hoshi.png" width="20" height="20">
+		<img src="/images/hoshi.png" width="20" height="20">
+		<img src="/images/hoshi.png" width="20" height="20">
+		<img src="/images/hoshiharf.png" width="20" height="20">
+	</span>
+	<span th:if="${3.6 < movieInfo.totalEvaluation && movieInfo.totalEvaluation <= 4.2}">
+		<img src="/images/hoshi.png" width="20" height="20">
+		<img src="/images/hoshi.png" width="20" height="20">
+		<img src="/images/hoshi.png" width="20" height="20">
+		<img src="/images/hoshi.png" width="20" height="20">
+	</span>
+		<span th:if="${4.2 < movieInfo.totalEvaluation && movieInfo.totalEvaluation <= 4.6}">
+		<img src="/images/hoshi.png" width="20" height="20">
+		<img src="/images/hoshi.png" width="20" height="20">
+		<img src="/images/hoshi.png" width="20" height="20">
+		<img src="/images/hoshi.png" width="20" height="20">
+		<img src="/images/hoshiharf.png" width="20" height="20">
+	</span>
+	<span th:if="${4.6 < movieInfo.totalEvaluation && movieInfo.totalEvaluation <= 5}">
+		<img src="/images/hoshi.png" width="20" height="20">
+		<img src="/images/hoshi.png" width="20" height="20">
+		<img src="/images/hoshi.png" width="20" height="20">
+		<img src="/images/hoshi.png" width="20" height="20">
+		<img src="/images/hoshi.png" width="20" height="20">
+	</span>

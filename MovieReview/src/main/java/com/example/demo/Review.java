@@ -218,13 +218,4 @@ public class Review {
 		this.movieTitle = movieTitle;
 	}
 
-	//::必要に応じてコンストラクタは追加する:://
-
-
-
-
-	////ゲッター
-
-
-
 }

@@ -127,7 +127,7 @@ public class Movie {
 
 	//小数点切り上げ
 	public String getViewTotalEvaluation() {
-		return String.format("%.2f",totalEvaluation );
+		return String.format("%.1f",totalEvaluation );
 	}
 
 

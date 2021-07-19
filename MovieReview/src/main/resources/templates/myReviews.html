@@ -10,12 +10,6 @@
 	.a5:visited {color: rgb(171, 171, 171);font-size: 110%;}
 	.a5:hover {color: #ff0000;font-size: 110%;}
 	.a5:active {color: #ff8000;font-size: 110%;}
-
-	.a4:link {color: rgb(20, 20, 20);font-size: 110%;}
-	.a4:visited {color: rgb(20, 20, 20);font-size: 110%;}
-	.a4:hover {color: #ff0000;font-size: 110%;}
-	.a4:active {color: #ff8000;font-size: 110%;}
-
 </style>
 <body>
 
@@ -55,8 +49,8 @@
 		<td th:text="${review.title}"></td>
 		<td th:text="${review.text}"></td>
 		<td>
-			<a class="a4" th:href="'/review/edit/' + ${review.reviewcode}">編集</a>
-			<a class="a5" th:href="'/review/delete/' + ${review.reviewcode}">削除</a>
+			<a class="a3" th:href="'/review/edit/' + ${review.reviewcode}">編集</a>
+			<a class="a7" th:href="'/review/delete/' + ${review.reviewcode}">削除</a>
 		</td>
 	</tr>
 </table>

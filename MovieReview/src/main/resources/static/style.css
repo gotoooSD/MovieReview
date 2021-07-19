@@ -53,12 +53,31 @@ body{
     margin-right: auto;
 }
 
-.a1{
-  position: relative;
-  display: inline-block;
-  transition: .3s;
+.menu{
+	background-color:#000000;
+
 }
 
+
+
+.a1:link { color: #ffffff;font-size: 130%; }
+.a1:visited { color: #ffffff;font-size: 130%; }
+.a1:hover { color: #ff0000; font-size: 130%;}
+.a1:active { color: #ff8000;font-size: 130%; }
+
+.a2:link { color: rgb(171, 171, 171);font-size: 130%; }
+.a2:visited { color: rgb(171, 171, 171); font-size: 130%;}
+.a2:hover { color: #ff0000; font-size: 130%;}
+.a2:active { color: #ff8000; font-size: 130%;}
+
+.a4:link {color: rgb(20, 20, 20);font-size: 100%;}
+.a4:visited {color: rgb(20, 20, 20);font-size: 100%;}
+.a4:hover {color: #ff0000;font-size: 100%;}
+.a4:active {color: #ff8000;font-size: 100%;}
+
+.a1{
+  position: relative;
+}
 .a1::after {
   position: absolute;
   bottom: 0;
@@ -70,31 +89,60 @@ body{
   transition: .3s;
   transform: translateX(-50%);
 }
-
 .a1:hover::after{
   width: 100%;
 }
-.a1:link { color: #ffffff;font-size: 130%; }
-.a1:visited { color: #ffffff;font-size: 130%; }
-.a1:hover { color: #ff0000; font-size: 130%;}
-.a1:active { color: #ff8000;font-size: 130%; }
 
-.a2:link { color: rgb(171, 171, 171);font-size: 130%; }
-.a2:visited { color: rgb(171, 171, 171); font-size: 130%;}
-.a2:hover { color: #ff0000; font-size: 130%;}
-.a2:active { color: #ff8000; font-size: 130%;}
+.a2{
+  position: relative;
+}
+.a2::after {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  content: '';
+  width: 0;
+  height: 2px;
+  background-color: #ff0000;
+  transition: .3s;
+  transform: translateX(-50%);
+}
+.a2:hover::after{
+  width: 100%;
+}
 
-.menu{
-	background-color:#000000;
-
+.a4{
+  position: relative;
+}
+.a4::after {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  content: '';
+  width: 0;
+  height: 2px;
+  background-color: #ff0000;
+  transition: .3s;
+  transform: translateX(-50%);
+}
+.a4:hover::after{
+  width: 100%;
 }
 
 
 
+.a6{
+  padding: 0 10px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 50%, rgb(20, 20, 20) 50%);
+  background-position: 0 0;
+  background-size: 200% auto;
+  transition: .3s;
+}
 
-
-
-
+.a6:hover{
+  background-position: -100% 0;
+  color: #ff0000;
+}
 
 
 
@@ -107,7 +155,7 @@ body{
   padding: 0.25em 0.5em;
   text-decoration: none;
   color: #ffffff ;
-  background: rgb(37, 72, 177);/*背景色*/
+  background: rgb(20, 20, 20)  ;/*背景色*/
   border-bottom: solid 3px rgb(122, 114, 173);/*少し濃い目の色に*/
   border-radius: 4px;/*角の丸み*/
   box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
@@ -119,7 +167,7 @@ body{
   padding: 0.25em 0.5em;
   text-decoration: none;
   color: #ffffff ;
-  background: rgb(37, 72, 177);/*背景色*/
+  background: rgb(20, 20, 20) ;/*背景色*/
   border-bottom: solid 3px rgb(122, 114, 173);/*少し濃い目の色に*/
   border-radius: 4px;/*角の丸み*/
   box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
@@ -131,55 +179,59 @@ body{
   padding: 0.25em 0.5em;
   text-decoration: none;
   color: #FFF;
-  background: rgb(0, 128, 255);/*背景色*/
-  border-bottom: solid 3px rgb(128, 128, 255);/*少し濃い目の色に*/
+  background: #ff0000;/*背景色*/
+  border-bottom: solid 3px #ff8000;/*少し濃い目の色に*/
   border-radius: 4px;/*角の丸み*/
   box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
   font-weight: bold;
 }
-
 .a3:active {
   border-bottom: solid 2px rgb(128, 128, 255);
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
 }
 
-
-.btn-square-pop2 {
+.a7 {
   position: relative;
   display: inline-block;
   padding: 0.25em 0.5em;
   text-decoration: none;
-  color: rgb(116, 113, 54);
-  background: rgb(245, 241, 201);/*背景色*/
-  border-bottom: solid 2px rgb(255, 128, 0);/*少し濃い目の色に*/
+  color: rgb(171, 171, 171) ;
+  background: rgb(20, 20, 20)  ;/*背景色*/
+  border-bottom: solid 3px rgb(122, 114, 173);/*少し濃い目の色に*/
   border-radius: 4px;/*角の丸み*/
   box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
   font-weight: bold;
 }
-
-.btn-square-pop2:active {
-  border-bottom: solid 2px rgb(245, 241, 201);
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.19);
-}
-
-
-.btn-square-pop3 {
+.a7:visited {
   position: relative;
   display: inline-block;
   padding: 0.25em 0.5em;
   text-decoration: none;
-  color: rgb(255, 255, 255);
-  background: rgb(233, 131, 92);/*背景色*/
-  border-bottom: solid 2px rgb(191, 64, 134);/*少し濃い目の色に*/
+  color: rgb(171, 171, 171) ;
+  background: rgb(20, 20, 20) ;/*背景色*/
+  border-bottom: solid 3px rgb(122, 114, 173);/*少し濃い目の色に*/
   border-radius: 4px;/*角の丸み*/
   box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
   font-weight: bold;
 }
-
-.btn-square-pop3:active {
-  border-bottom: solid 2px rgb(233, 131, 92);
+.a7:hover {
+  position: relative;
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  color: rgb(171, 171, 171);
+  background: #ff0000;/*背景色*/
+  border-bottom: solid 3px #ff8000;/*少し濃い目の色に*/
+  border-radius: 4px;/*角の丸み*/
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  font-weight: bold;
+}
+.a7:active {
+  border-bottom: solid 2px rgb(128, 128, 255);
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
 }
+
+
 
 a{
 	 text-decoration: none;

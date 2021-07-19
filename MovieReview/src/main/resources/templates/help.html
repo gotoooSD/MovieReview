@@ -34,7 +34,7 @@
 	<table class="table2">
 		<tr th:each="help:${quetionlist}" >
 			<th align="left">
-				・<a th:href="'/helpAnswer/' + ${help.code}" ><span  th:text = "${help.q}"></span></a>
+				・<a class="a6" th:href="'/helpAnswer/' + ${help.code}" ><span  th:text = "${help.q}"></span></a>
 			</th>
 		</tr>
 	</table>

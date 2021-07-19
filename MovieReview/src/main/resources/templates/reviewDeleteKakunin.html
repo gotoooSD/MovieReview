@@ -49,14 +49,16 @@
 		</tr>
 	</table>
 
+<br>
 	<form action="/review/delete/kanryou" method="post">
 		<input type="hidden" name="reviewcode" th:value="${reviewcode}">
 		<input type="hidden" name="movietitle" th:value="${movietitle}">
 		<input type="hidden" name="evaluation" th:value="${evaluation}">
 		<input type="hidden" name="title" th:value="${title}">
 		<input type="hidden" name="text" th:value="${text}">
-		<input type="submit" value="削除">
+		<input type="submit" value="削除" style="padding:5px;font-size:15px;">
 	</form>
+	<br>
 
 	<a class="a1" href="/myReviews">キャンセル</a>
 

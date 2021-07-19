@@ -55,23 +55,31 @@
 		</tr>
 	</table>
 
+<br>
+	<table align="center">
+	<tr>
+	<td>
 	<form action="/review/edit/kanryou" method="post">
 		<input type="hidden" name="reviewcode" th:value="${reviewcode}">
 		<input type="hidden" name="movietitle" th:value="${movietitle}">
 		<input type="hidden" name="evaluation" th:value="${evaluation}">
 		<input type="hidden" name="title" th:value="${title}">
 		<input type="hidden" name="text" th:value="${text}">
-		<input type="submit" value="完了">
+		<input type="submit" value="完了" style="padding:5px;font-size:15px;">
 	</form>
-
+	</td>
+	<td>
 	<form action="/review/edit" method="post">
 		<input type="hidden" name="reviewcode" th:value="${reviewcode}">
 		<input type="hidden" name="movietitle" th:value="${movietitle}">
 		<input type="hidden" name="evaluation" th:value="${evaluation}">
 		<input type="hidden" name="title" th:value="${title}">
 		<input type="hidden" name="text" th:value="${text}">
-		<input type="submit" value="編集に戻る">
+		<input type="submit" value="編集に戻る" style="padding:5px;font-size:15px;">
 	</form>
+	</td>
+	</tr>
+	</table>
 
 
 

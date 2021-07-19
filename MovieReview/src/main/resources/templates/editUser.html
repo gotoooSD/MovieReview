@@ -22,7 +22,7 @@
 			<td>
 				<input type="text" name="name" th:value="${name}">
 			</td>
-			<td><span th:text="${message1}" style="color:rgb(255, 218, 4)"></span></td>
+			<td></td>
 		</tr>
 		<tr>
 			<td>性別</td>
@@ -54,7 +54,7 @@
 			<td>
 				<input type="text" name="email" th:value="${email}">
 			</td>
-			<td><span th:text="${message1}" style="color:rgb(255, 218, 4)"></span></td>
+			<td></td>
 		</tr>
 		<tr>
 			<td>パスワード</td>
@@ -64,7 +64,11 @@
 		</table>
 		<input type="submit" value="変更">
 	</form>
-	<br>
+
+	<span th:text="${message}" style="color:rgb(255, 218, 4)"></span><br>
+	<span th:text="${message2}" style="color:rgb(255, 218, 4)"></span><br>
+	<span th:text="${message1}" style="color:rgb(255, 218, 4)"></span><br>
+
 <a class="a1" href="/myPage">キャンセル</a>
 
 </body>

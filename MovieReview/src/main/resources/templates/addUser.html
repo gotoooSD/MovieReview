@@ -15,7 +15,6 @@
 			<td>
 				<input type="text" name="name" th:value="${name}" maxlength="20">
 			</td>
-			<td><span th:text="${message2}" style="color:rgb(255, 218, 4)"></span></td>
 		</tr>
 		<tr>
 			<td>性別</td>
@@ -24,7 +23,6 @@
 				<input type="radio" name="gender" value="女" th:checked="${gender == '女'}">女
 				<input type="radio" name="gender" value="その他" th:checked="${gender == 'その他'}">その他
 			</td>
-			<td></td>
 		</tr>
 		<tr>
 			<td>年代</td>
@@ -40,25 +38,23 @@
 					<option value="70代~" th:selected="${age == '70代~'}">70代~</option>
 				</select>
 			</td>
-			<td></td>
 		</tr>
 		<tr>
 			<td>メールアドレス</td>
 			<td>
 				<input type="text" name="email" th:value="${email}">
 			</td>
-			<td><span th:text="${message1}" style="color:rgb(255, 218, 4)"></span></td>
-		</tr>
 		<tr>
 			<td>パスワード</td>
 			<td><input type="text" name="password" th:value="${password}"></td>
 		</tr>
-		<td></td>
 		</table>
 		<input type="submit" value="登録">
 	</form>
 
 	<span th:text="${message}" style="color:rgb(255, 218, 4)"></span><br>
+	<span th:text="${message2}" style="color:rgb(255, 218, 4)"></span><br>
+	<span th:text="${message1}" style="color:rgb(255, 218, 4)"></span><br>
 
 	<a class="a1" href="/">トップに戻る</a><br>
 

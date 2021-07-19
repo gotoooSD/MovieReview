@@ -12,8 +12,6 @@
 
 	<h1>新規レビュー作成</h1>
 
-	<span th:text="${message}" style="color:rgb(255, 218, 4)"></span>
-
 	<form action="/review/wrrite/gudge" method="post">
 	<table class="table1">
 		<tr>
@@ -62,6 +60,10 @@
 	<br>
 	<input type="submit" value="確認画面へ" style="padding:5px;font-size:15px;">
 	</form>
+
+	<span th:text="${message}" style="color:rgb(255, 218, 4)"></span>
+	<br>
+	<br>
 
 
 </body>

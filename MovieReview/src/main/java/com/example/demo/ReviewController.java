@@ -557,7 +557,7 @@ public class ReviewController {
 			mv.addObject("text",text);
 
 			//マイレビュー削除完了画面(reviewDeleteKanryou.html)を表示
-			mv.setViewName("reviewEditKanryou");
+			mv.setViewName("reviewDeleteKanryou");
 			return mv;
 		}
 

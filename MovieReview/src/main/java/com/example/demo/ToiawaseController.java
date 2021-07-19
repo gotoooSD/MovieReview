@@ -30,6 +30,22 @@ public class ToiawaseController {
 		return mv;
 	}
 
+	//http://localhost:8080/toiawase
+	@PostMapping("/toiawase")
+	public ModelAndView toiawase(
+			@RequestParam("title") String title,
+			@RequestParam("text") String text,
+			ModelAndView mv
+		) {
+		//入力内容を受け渡す//書き込み途中のものは保持
+		mv.addObject("title",title);
+		mv.addObject("text",text);
+
+		//お問い合わせページ(toiawase.html)を表示
+		mv.setViewName("toiawase");
+		return mv;
+	}
+
 	/**
 	  お問い合わせ・内容を書く
 	 **/

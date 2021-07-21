@@ -97,17 +97,24 @@ public class UserController {
 				///パスワードが一致(小のelse)
 				//ログインできるので、次の画面に移行するための処理を行う
 				}else {
-					//そのユーザ情報（ユーザコード含）をセッションに保存
-					session.setAttribute("userInfo", userInfo);
+					//管理者（usercodeが1）の場合は管理者ページへ
+					if(userInfo.getUsercode() == 1) {
+						//管理者ページ(kpage.html)を表示
+						mv.setViewName("redirect:/kpage");
 
-					//マイページ表示用
-					//ユーザコード(usercode)検索
-					List<Review> myreviewList = reviewRepository.findByUsercode(userInfo.getUsercode());
-					session.setAttribute("reviewsSize", myreviewList.size());
+					}else {
+						//そのユーザ情報（ユーザコード含）をセッションに保存
+						session.setAttribute("userInfo", userInfo);
 
+						//マイページ表示用
+						//ユーザコード(usercode)検索
+						List<Review> myreviewList = reviewRepository.findByUsercode(userInfo.getUsercode());
+						session.setAttribute("reviewsSize", myreviewList.size());
 
-					//映画一覧画面(movies.html)を表示
-					mv.setViewName("redirect:/movies");
+						//映画一覧画面(movies.html)を表示
+						mv.setViewName("redirect:/movies");
+					}
+
 				}///小のelseの終端
 			}///中のelseの終端
 		}////大のelseの終端

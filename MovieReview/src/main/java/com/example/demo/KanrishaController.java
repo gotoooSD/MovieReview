@@ -39,49 +39,109 @@ public class KanrishaController {
 	/**
 	  管理者ログイン画面
 	 **/
-	@RequestMapping("/klogin")
-	public ModelAndView klogin(ModelAndView mv) {
-		//管理者ログイン情報入力画面(klogin.html)を表示
-		mv.setViewName("klogin");
-		return mv;
-	}
-	@PostMapping("/klogin1")
-	public ModelAndView klogin1(
-			@RequestParam("password1") String password1,
-			ModelAndView mv
-		) {
-		//パスワード１を渡して次の画面へ遷移
-		mv.addObject("password1", password1);
-		mv.setViewName("klogin2");
-		return mv;
-	}
-	@PostMapping("/klogin2")
-	public ModelAndView klogin(
-			@RequestParam("password1") String password1,
-			@RequestParam("password2") String password2,
-			ModelAndView mv
-		) {
+//	@RequestMapping("/klogin")
+//	public ModelAndView klogin(ModelAndView mv) {
+//		//管理者ログイン情報入力画面(klogin.html)を表示
+//		mv.setViewName("klogin");
+//		return mv;
+//	}
+//	@PostMapping("/klogin1")
+//	public ModelAndView klogin1(
+//			@RequestParam("password1") String password1,
+//			ModelAndView mv
+//		) {
+//		//パスワード１を渡して次の画面へ遷移
+//		mv.addObject("password1", password1);
+//		mv.setViewName("klogin2");
+//		return mv;
+//	}
+//	@PostMapping("/klogin2")
+//	public ModelAndView klogin(
+//			@RequestParam("password1") String password1,
+//			@RequestParam("password2") String password2,
+//			ModelAndView mv
+//		) {
+//
+//		if(password1.equals("himitu") && password2.equals("himitu")) {
+//			//セッションにジャンル一覧を保存(選択できるように)
+//			List<Genre> genres = genreRepository.findAll();
+//			session.setAttribute("genres", genres);
+//
+//			//管理者ページ(kpage.html)を表示
+//			mv.setViewName("kpage");
+//
+//		}else {
+//			//エラーメッセージを表示
+//			mv.addObject("message", "どちらかまたは両方のパスワードが間違っています");
+//
+//			//管理者ログイン情報入力画面(klogin.html)を表示
+//			mv.setViewName("klogin");
+//		}
+//		return mv;
+//	}
 
-		if(password1.equals("himitu") && password2.equals("himitu")) {
-			//セッションにジャンル一覧を保存(選択できるように)
-			List<Genre> genres = genreRepository.findAll();
-			session.setAttribute("genres", genres);
-
-			//管理者ページ(kpage.html)を表示
-			mv.setViewName("kpage");
-
-		}else {
-			//エラーメッセージを表示
-			mv.addObject("message", "どちらかまたは両方のパスワードが間違っています");
-
-			//管理者ログイン情報入力画面(klogin.html)を表示
-			mv.setViewName("klogin");
-		}
+	@RequestMapping("/kpage")
+	public ModelAndView kpage(ModelAndView mv) {
+		//管理者ページ(kpage.html)を表示
+		mv.setViewName("kpage");
 		return mv;
 	}
 
 	/**
-	  映画一覧
+	  コマンドプロンプト登録後ボタン--------------------------------------------------------------------------
+	 **/
+	//moviesテーブルのtotalEvaluationを反映させる
+	@RequestMapping("/ktotalEvaluation")
+	public ModelAndView k(ModelAndView mv) {
+
+	//moviecodeの全レビューをreviewテーブルからリストを取得
+	List<Movie> movieList = movieRepository.findAll();
+
+	for(Movie _movieInfo: movieList) {
+		////movieテーブルに評価を平均して記録する処理
+		//moviecodeの全レビューをreviewテーブルからリストを取得
+		List<Review> evaluationList = reviewRepository.findByMoviecode(_movieInfo.getMoviecode());
+
+		//これらのレビューのevaluationを取り出して平均を求める(totalEvaluation)
+		double total =0;
+		for(Review e:evaluationList) {
+			total += e.getEvaluation();
+		}
+		double avarageEvaluation = total / evaluationList.size();
+
+		double totalEvaluation = Math.round(avarageEvaluation * 100.0)/100.0; //小数点第2位を四捨五入
+
+
+		//totalEvaluationを変更してmovieテーブルのレコードを更新
+		Movie movieInfo = new Movie(_movieInfo.getMoviecode(),_movieInfo.getTitle(),_movieInfo.getGenrecode(),_movieInfo.getTime(),_movieInfo.getCountry(),_movieInfo.getYear(),totalEvaluation);
+		movieRepository.saveAndFlush(movieInfo);
+	}
+
+		//管理者ページ(kpage.html)を表示
+		mv.setViewName("kpage");
+		return mv;
+	}
+
+
+	/**
+	  ユーザ一覧--------------------------------------------------------------------------
+	 **/
+	//ユーザの一覧を表示する
+	@RequestMapping("/kusers")
+	public ModelAndView kusers(ModelAndView mv) {
+		//全件検索を実行して表示
+		List<User> userList = userRepository.findAll();
+		//何件あるかを表示
+		int usersSize = userList.size();
+		mv.addObject("usersSize", usersSize);
+		mv.addObject("users", userList);
+
+		//遷移先を指定
+		mv.setViewName("kusers");
+		return mv;
+	}
+	/**
+	  映画一覧--------------------------------------------------------------------------
 	 **/
 	//全映画の一覧を表示する
 	@RequestMapping("/kmovies")
@@ -115,62 +175,10 @@ public class KanrishaController {
 	}
 
 	/**
-	  ユーザ一覧
-	 **/
-	//ユーザの一覧を表示する
-	@RequestMapping("/kusers")
-	public ModelAndView kusers(ModelAndView mv) {
-		//全件検索を実行して表示
-		List<User> userList = userRepository.findAll();
-		//何件あるかを表示
-		int usersSize = userList.size();
-		mv.addObject("usersSize", usersSize);
-		mv.addObject("users", userList);
-
-		//遷移先を指定
-		mv.setViewName("kusers");
-		return mv;
-	}
-
-	/**
-	  問い合わせ一覧
-	 **/
-	//問い合わせの一覧を表示する
-	@RequestMapping("/kinquiries")
-	public ModelAndView kinquiries(ModelAndView mv) {
-		//全件検索を実行して表示
-		List<Inquiry> inquiryList = inquiryRepository.findAll();
-		//何件あるかを表示
-		int inquiriesSize = inquiryList.size();
-		mv.addObject("inquiriesSize", inquiriesSize);
-		mv.addObject("inquiries", inquiryList);
-
-		//遷移先を指定
-		mv.setViewName("kinquiries");
-		return mv;
-	}
-
-	//問い合わせを削除
-	@RequestMapping("/kinquiries/delete/{code}")
-	public ModelAndView kinquiriesdelete(
-			@PathVariable("code") int code,
-			ModelAndView mv
-		) {
-		////Q&Aをhelpsテーブルから削除
-		inquiryRepository.deleteById(code);
-
-		//Q&A一覧画面(kaddQA.html)を表示
-		mv.setViewName("redirect:/kinquiries");
-
-		return mv;
-		}
-
-
-	/**
 	  映画登録
 	 **/
 	//映画登録情報記入画面を表示する
-	@RequestMapping("/kaddmovie")
+	@RequestMapping("/kmovie/add")
 	public ModelAndView kaddmovie(ModelAndView mv) {
 		//セッションにジャンル一覧を保存(選択できるように)
 		List<Genre> genres = genreRepository.findAll();
@@ -182,7 +190,7 @@ public class KanrishaController {
 	}
 
 	//記入内容を判定し映画を登録
-	@PostMapping("/kaddmovie")
+	@PostMapping("/kmovie/add")
 	public ModelAndView kaddmovie(
 			@RequestParam("title") String title,
 			@RequestParam("genre") String genre,
@@ -245,8 +253,8 @@ public class KanrishaController {
 	  ジャンル登録
 	 **/
 	//ジャンル登録情報記入画面を表示する
-	@RequestMapping("/kaddgenre")
-	public ModelAndView kaddgenre(ModelAndView mv) {
+	@RequestMapping("/kgenres")
+	public ModelAndView kgenre(ModelAndView mv) {
 		//セッションにジャンル一覧を保存(一覧を見れるように)
 		List<Genre> genres = genreRepository.findAll();
 		session.setAttribute("genres", genres);
@@ -255,12 +263,12 @@ public class KanrishaController {
 		mv.addObject("genresSize", genresSize);
 
 		//遷移先を指定
-		mv.setViewName("kaddgenre");
+		mv.setViewName("kgenres");
 		return mv;
 	}
 
 	//記入内容を判定しジャンルを登録
-	@PostMapping("/kaddgenre")
+	@PostMapping("/kgenre/add")
 	public ModelAndView kaddgenre(
 			@RequestParam("genre") String genre,
 			ModelAndView mv
@@ -270,8 +278,6 @@ public class KanrishaController {
 		if(genre.equals("")) {
 			//エラーメッセージを表示
 			mv.addObject("message", "未入力の項目があります");
-			//新規登録情報入力画面(kaddgenre.html)を表示して再度書き込ませる
-			mv.setViewName("kaddgenre");
 		}
 
 		////既存ジャンルとの重複がないか調べる
@@ -281,8 +287,6 @@ public class KanrishaController {
 			if(addGenre.size() != 0) {
 				//エラーメッセージを表示
 				mv.addObject("message", "そのジャンルは既に登録されています");
-				//新規登録情報入力画面(kaddgenre.html)を表示して再度書き込ませる
-				mv.setViewName("kaddgenre");
 			}
 
 		////空の入力がなく、ジャンルも重複しない場合
@@ -293,8 +297,6 @@ public class KanrishaController {
 
 			//登録が完了したことをメッセージで表示
 			mv.addObject("message", "新規ジャンルの追加が完了しました");
-			//kaddgenre.htmlを表示
-			mv.setViewName("kaddgenre");
 		}
 
 		//セッションにジャンル一覧を保存(一覧を見れるように)
@@ -304,14 +306,82 @@ public class KanrishaController {
 		int genresSize = genres.size();
 		mv.addObject("genresSize", genresSize);
 
+		//ジャンル一覧画面(kgenres.html)を表示
+		mv.setViewName("kgenres");
+		return mv;
+		}
+
+	//ジャンルを削除
+	@RequestMapping("/kgenre/delete/{genrecode}")
+	public ModelAndView kgenredelete(
+			@PathVariable("genrecode") int genrecode,
+			ModelAndView mv
+		) {
+		////ジャンルに映画がない時はジャンルを削除できるようにする
+		List<Movie> gudgeMovie = movieRepository.findByGenrecode(genrecode);
+		///genrecodeが使われる映画が一件でもある場合
+		if(gudgeMovie.size() != 0) {
+			//エラーメッセージを表示
+			mv.addObject("message", "そのジャンルは映画が登録されているため、削除することができません");
+
+		}else {
+			//ジャンルをgenresテーブルから削除
+			genreRepository.deleteById(genrecode);
+			//メッセージを表示
+			mv.addObject("message", "ジャンルを削除しました");
+
+		}
+
+		//セッションにジャンル一覧を保存(一覧を見れるように)
+		List<Genre> genres = genreRepository.findAll();
+		session.setAttribute("genres", genres);
+		//何件あるかを表示
+		int genresSize = genres.size();
+		mv.addObject("genresSize", genresSize);
+
+		//ジャンル一覧画面(kgenres.html)を表示
+		mv.setViewName("kgenres");
 		return mv;
 		}
 
 	/**
-	  Q&A登録
+	  問い合わせ一覧--------------------------------------------------------------------------
+	 **/
+	//問い合わせの一覧を表示する
+	@RequestMapping("/kinquiries")
+	public ModelAndView kinquiries(ModelAndView mv) {
+		//全件検索を実行して表示
+		List<Inquiry> inquiryList = inquiryRepository.findAll();
+		//何件あるかを表示
+		int inquiriesSize = inquiryList.size();
+		mv.addObject("inquiriesSize", inquiriesSize);
+		mv.addObject("inquiries", inquiryList);
+
+		//遷移先を指定
+		mv.setViewName("kinquiries");
+		return mv;
+	}
+
+	//問い合わせを削除
+	@RequestMapping("/kinquiry/delete/{code}")
+	public ModelAndView kinquirydelete(
+			@PathVariable("code") int code,
+			ModelAndView mv
+		) {
+		////問い合わせをinquiriesテーブルから削除
+		inquiryRepository.deleteById(code);
+
+		//問い合わせ一覧画面(kinquiries.html)を表示
+		mv.setViewName("redirect:/kinquiries");
+
+		return mv;
+		}
+
+	/**
+	  Q&A一覧＆登録--------------------------------------------------------------------------
 	 **/
 	//Q&A登録情報記入画面を表示する
-	@RequestMapping("/kaddQA")
+	@RequestMapping("/kQA/add")
 	public ModelAndView kaddQA(ModelAndView mv) {
 		//Q&A一覧を表示
 		List<Help> helps = helpRepository.findAll();
@@ -326,7 +396,7 @@ public class KanrishaController {
 	}
 
 	//記入内容を判定しQ&Aを登録
-	@PostMapping("/kaddQA")
+	@PostMapping("/kQA/add")
 	public ModelAndView kaddQA(
 			@RequestParam("q") String q,
 			@RequestParam("a") String a,
@@ -365,7 +435,7 @@ public class KanrishaController {
 		}
 
 	//Q&Aを削除
-	@RequestMapping("/kaddQA/delete/{code}")
+	@RequestMapping("/kQA/delete/{code}")
 	public ModelAndView deleteQA(
 			@PathVariable("code") int code,
 			ModelAndView mv

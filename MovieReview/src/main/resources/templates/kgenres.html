@@ -12,7 +12,7 @@
 
 	件数：<span th:text="${genresSize}"></span><br>
 
-	<form action="/kaddgenre" method="post">
+	<form action="/kgenre/add" method="post">
 		<table class="table1">
 		<tr>
 			<td>ジャンル名入力</td>
@@ -34,6 +34,7 @@
 	<tr th:each="g:${session.genres}">
 		<td th:text="${g.genrecode}"></td>
 		<td th:text="${g.genre}"></td>
+		<td><a class="a7" th:href="'/kgenre/delete/' + ${g.genrecode}">削除</a></td>
 	</tr>
 	</table>
 

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/style.css}">
+<title>管理者ページ</title>
+</head>
+<body>
+	<span th:replace="kmenu"></span>
+	<h1>管理者メールアドレス・パスワード変更</h1>
+	<hr>
+
+	<form action="/kinfo/edit" method="post">
+		<table class="table1">
+		<tr>
+			<td>メールアドレス</td>
+			<td>
+				<input type="text" name="email" th:value="${email}" placeholder="メールアドレス">
+
+			</td>
+		</tr>
+		<tr>
+			<td>パスワード</td>
+			<td>
+				<input type="text" name="password" th:value="${password}"placeholder="パスワード">
+			</td>
+		</tr>
+		</table>
+		<input type="submit" value="変更" style="padding:5px;font-size:15px;">
+	</form>
+	<span th:text="${message}" style="color:rgb(255, 218, 4)"></span><br>
+
+
+
+</body>
+</html>

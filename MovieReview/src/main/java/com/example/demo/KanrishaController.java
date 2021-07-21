@@ -86,7 +86,75 @@ public class KanrishaController {
 		mv.setViewName("kpage");
 		return mv;
 	}
+	/**
+	  管理者メールアドレス・パスワード変更--------------------------------------------------------------------------
+	 **/
+	@RequestMapping("/kinfo/edit")
+	public ModelAndView kinfoedit(ModelAndView mv) {
+		//管理者メールアドレス・パスワードをusersテーブルから取得（usercodeが1のレコード）
+		//usercode1でusersテーブルに検索をかける
+		List<User> kanrishaUser = userRepository.findByUsercode(1);
+		User kanrishaInfo = kanrishaUser.get(0);//レコードを取得
 
+		mv.addObject("email",kanrishaInfo.getEmail());
+		mv.addObject("password",kanrishaInfo.getPassword());
+
+		//管理者メールアドレス・パスワード変更ページ(keditInfo.html)を表示
+		mv.setViewName("keditInfo");
+		return mv;
+	}
+
+	@PostMapping("/kinfo/edit")
+	public ModelAndView kinfoedit(
+			@RequestParam("email") String email,
+			@RequestParam("password") String password,
+			ModelAndView mv
+		) {
+
+		//完了メッセージを表示
+		////空の入力がある場合
+			if(email.equals("")||password.equals("")) {
+				//エラーメッセージを表示
+				mv.addObject("message", "未入力の項目があります");
+			}
+
+		////既存ユーザとの重複がないか調べる
+			//usercode1でusersテーブルに検索をかける
+			List<User> kanrishaUser = userRepository.findByUsercode(1);
+			User kanrishaInfo = kanrishaUser.get(0);//レコードを取得
+
+			List<User> editUser = new ArrayList<>();;
+
+			//RequestParamで取得したemailとセッションのemailが異なる場合
+			if(!(email.equals(kanrishaInfo.getEmail()))) {
+				//RequestParamで取得したemailでusersテーブルに検索をかける
+				editUser = userRepository.findByEmail(email);
+			}
+
+			///emailが重複するユーザがいる場合
+			if(editUser.size() != 0) {
+				//エラーメッセージを表示
+				mv.addObject("message", "そのメールアドレスはユーザとして登録されています");
+			}
+
+		////空の入力がなく、emailが重複するユーザもいない場合
+		if(!(email.equals("")||password.equals("")) && editUser.size() == 0) {
+			//usersテーブルでユーザコード1を指定してユーザ情報を変更
+			User userInfo = new User(1,kanrishaInfo.getName(),kanrishaInfo.getGender(),kanrishaInfo.getAge(),email,password);
+			userRepository.saveAndFlush(userInfo);
+
+			//変更が完了したことをメッセージで表示
+			mv.addObject("message", "変更が完了しました");
+		}
+
+		//書き込み途中のものは保持して表示
+		mv.addObject("email",email);
+		mv.addObject("password",password);
+
+		//管理者メールアドレス・パスワード変更ページ(keditInfo.html)を表示
+		mv.setViewName("keditInfo");
+		return mv;
+	}
 	/**
 	  コマンドプロンプト登録後ボタン--------------------------------------------------------------------------
 	 **/
@@ -135,6 +203,7 @@ public class KanrishaController {
 		int usersSize = userList.size();
 		mv.addObject("usersSize", usersSize);
 		mv.addObject("users", userList);
+
 
 		//遷移先を指定
 		mv.setViewName("kusers");
@@ -235,8 +304,9 @@ public class KanrishaController {
 
 			//登録が完了したことをメッセージで表示
 			mv.addObject("message", "新規映画の追加が完了しました");
+
 			//映画一覧画面(kmovies.html)を表示
-			mv.setViewName("redirect:/kmovies");
+			kmovies(mv);
 		}
 
 		//書き込み途中のものは保持して表示
@@ -247,6 +317,35 @@ public class KanrishaController {
 		mv.addObject("year",_year);
 
 		return mv;
+		}
+
+	/**
+	  映画削除
+	 **/
+	@RequestMapping("/kmovie/delete/{moviecode}")
+	public ModelAndView kmoviedelete(
+			@PathVariable("moviecode") int moviecode,
+			ModelAndView mv
+		) {
+		////その映画にレビューがある時は映画を削除できないようにする
+		List<Review> gudgeReview = reviewRepository.findByMoviecode(moviecode);
+		///moviecodeが使われるレビューが一件でもある場合
+		if(gudgeReview.size() != 0) {
+			//エラーメッセージを表示
+			mv.addObject("message", "その映画はレビューが登録されているため、削除することができません");
+
+		}else {
+			//映画をmoviesテーブルから削除
+			movieRepository.deleteById(moviecode);
+			//メッセージを表示
+			mv.addObject("message", "映画を削除しました");
+
+		}
+
+		//映画一覧画面(kmovies.html)を表示
+		kmovies(mv);
+		return mv;
+
 		}
 
 	/**
@@ -317,7 +416,7 @@ public class KanrishaController {
 			@PathVariable("genrecode") int genrecode,
 			ModelAndView mv
 		) {
-		////ジャンルに映画がない時はジャンルを削除できるようにする
+		////そのジャンルの映画がある時はジャンルを削除できないようにする
 		List<Movie> gudgeMovie = movieRepository.findByGenrecode(genrecode);
 		///genrecodeが使われる映画が一件でもある場合
 		if(gudgeMovie.size() != 0) {

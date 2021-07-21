@@ -32,7 +32,13 @@
 		</tr>
 		<tr>
 			<th>評価：</th>
-			<td th:text="${evaluation}">
+			<td>
+				<span th:if="${evaluation == 1}"><font color="red">★</font></span>
+				<span th:if="${evaluation == 2}"><font color="red">★★</font></span>
+				<span th:if="${evaluation == 3}"><font color="red">★★★</font></span>
+				<span th:if="${evaluation == 4}"><font color="red">★★★★</font></span>
+				<span th:if="${evaluation == 5}"><font color="red">★★★★★</font></span>
+			</td>
 		</tr>
 		<tr>
 			<th>日付：</th>

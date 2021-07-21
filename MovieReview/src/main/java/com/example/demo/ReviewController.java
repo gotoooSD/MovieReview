@@ -257,16 +257,19 @@ public class ReviewController {
 			Review reviewInfo = new Review(moviecode,usercode,evaluation,date,title,text);
 			reviewRepository.saveAndFlush(reviewInfo);
 
-		////movieテーブルに評価を平均して記録する処理
+			////movieテーブルに評価を平均して記録する処理
 			//作成した映画のmoviecodeの全レビューをreviewテーブルからリストを取得
 			List<Review> evaluationList = reviewRepository.findByMoviecode(moviecode);
 
 			//これらのレビューのevaluationを取り出して平均を求める(totalEvaluation)
-			int total =0;
+			double total =0;
 			for(Review e:evaluationList) {
 				total += e.getEvaluation();
 			}
-			double totalEvaluation =((double)Math.round(( total / evaluationList.size())* 100))/10;//小数点第2位を四捨五入
+			double avarageEvaluation = total / evaluationList.size();
+
+			double totalEvaluation = Math.round(avarageEvaluation * 100.0)/100.0; //小数点第2位を四捨五入
+
 
 			//totalEvaluationを変更してmovieテーブルのレコードを更新
 			Movie movieInfo = new Movie(_movieInfo.getMoviecode(),_movieInfo.getTitle(),_movieInfo.getGenrecode(),_movieInfo.getTime(),_movieInfo.getCountry(),_movieInfo.getYear(),totalEvaluation);

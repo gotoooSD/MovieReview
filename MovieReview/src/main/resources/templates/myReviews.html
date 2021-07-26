@@ -6,10 +6,28 @@
 <title>マイレビュー</title>
 </head>
 <style>
-	.a5:link {color: rgb(171, 171, 171);font-size: 110%;}
-	.a5:visited {color: rgb(171, 171, 171);font-size: 110%;}
-	.a5:hover {color: #ff0000;font-size: 110%;}
-	.a5:active {color: #ff8000;font-size: 110%;}
+.a:link { color: #ffffff; }
+.a:visited { color: #ffffff; }
+.a:hover { color: #ff0000; }
+.a:active { color: #ff8000; }
+
+.a{
+  position: relative;
+}
+.a::after {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  content: '';
+  width: 0;
+  height: 2px;
+  background-color: #ff0000;
+  transition: .3s;
+  transform: translateX(-50%);
+}
+.a:hover::after{
+  width: 100%;
+}
 </style>
 <body>
 
@@ -20,40 +38,38 @@
 
 <h1>マイレビュー</h1>
 
-件数：<span th:text="${reviewsSize}"></span>
-<br>
-
 <a class="a3" href="/review/wrrite">新規レビュー作成</a>
 <br>
 
-<table  class="table1" border="1">
-	<tr>
-		<th>タイトル</th>
-		<th>評価</th>
-		<th>日付</th>
-		<th>レビュータイトル</th>
-		<th>レビュー本文</th>
-		<th></th>
+件数：<span th:text="${reviewsSize}"></span>
+<br>
 
-	</tr>
-	<tr th:each="review:${reviews}">
-		<td><a class="a4" th:href="'/reviews/'+${review.moviecode}" ><span th:text="${review.movieTitle}"></span></a></td>
-		<td>
-			<span th:if="${review.evaluation == 1}"><font color="red">★</font></span>
-			<span th:if="${review.evaluation == 2}"><font color="red">★★</font></span>
-			<span th:if="${review.evaluation == 3}"><font color="red">★★★</font></span>
-			<span th:if="${review.evaluation == 4}"><font color="red">★★★★</font></span>
+<section class="Rcard" th:each="review:${reviews}">
+	<div class="Rmidashi">
+	<span>
+		<span class="Rmovietitle"><a class="a" th:href="'/reviews/'+${review.moviecode}" ><span th:text="${review.movieTitle}"></span></a></span>　
+		<span class="Revaluation">
+			<span th:if="${review.evaluation == 1}"><font color="red">★　　　　</font></span>
+			<span th:if="${review.evaluation == 2}"><font color="red">★★　　　</font></span>
+			<span th:if="${review.evaluation == 3}"><font color="red">★★★　　</font></span>
+			<span th:if="${review.evaluation == 4}"><font color="red">★★★★　</font></span>
 			<span th:if="${review.evaluation == 5}"><font color="red">★★★★★</font></span>
-		</td>
-		<td th:text="${#dates.format(review.date, 'yyyy/MM/dd')}"></td>
-		<td th:text="${review.title}"></td>
-		<td th:text="${review.text}"></td>
-		<td>
-			<a class="a3" th:href="'/review/edit/' + ${review.reviewcode}">編集</a>
-			<a class="a7" th:href="'/review/delete/' + ${review.reviewcode}">削除</a>
-		</td>
-	</tr>
-</table>
+		</span>
+		<span class="Rtitle" th:text="${review.title}"></span>　
+		<span class="Rdate" th:text="${#dates.format(review.date, 'yyyy/MM/dd')}"></span>
+	</span>　　
+	<span class="Rbottun">
+		<a class="a9" th:href="'/review/edit/' + ${review.reviewcode}">編集</a>
+		<a class="a8" th:href="'/review/delete/' + ${review.reviewcode}">削除</a>
+	</span>
+	</div>
+
+	<hr>
+
+
+	<div class="Rtext" th:text="${review.text}"></div>
+</section>
+
 
 </body>
 </html>

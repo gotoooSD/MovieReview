@@ -12,6 +12,10 @@
 	font-size: 250%;
  }
 
+a{
+	font-size:120%;
+}
+
 </style>
 <body>
 
@@ -35,8 +39,18 @@
 	<th>制作年：</th><td><span th:text="${movieInfo.year}"></span></td><th>年</th><tr>
 </table>
 </div>
-
 <br>
+
+<table align="center">
+<tr>
+<th colspan="3"><p>気になったら見てみよう！<p></th>
+</tr>
+<tr>
+	<td><a href="/netflix.com/jp/">NETFLIXで探す</a></td>
+	<td>　　　</td>
+	<td><a href="/https://www.tohotheater.jp/">TOHOシネマで探す</a></td>
+</tr>
+</table>
 
 <h1>レビュー一覧</h1>
 件数：<span th:text="${reviewsSize}"></span>

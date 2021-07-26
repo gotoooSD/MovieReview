@@ -29,7 +29,7 @@
 	<h3>ジャンル一覧</h3>
 		<table class="table1" border="1">
 	<tr>
-		<th>ジャンルコード</th><th>ジャンル名</th>
+		<th>No</th><th>ジャンル名</th>
 	</tr>
 	<tr th:each="g:${session.genres}">
 		<td th:text="${g.genrecode}"></td>

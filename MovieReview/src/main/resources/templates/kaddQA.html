@@ -7,8 +7,10 @@
 </head>
 <body>
 	<span th:replace="kmenu"></span>
-	<h1>Q&A追加登録</h1>
+	<h1>Q&A一覧</h1>
 	<hr>
+
+	<h3>Q&A追加登録</h3>
 
 	<form action="/kQA/add" method="post">
 		<table class="table1">
@@ -32,7 +34,7 @@
 	<span th:text="${message}" style="color:rgb(255, 218, 4)"></span><br>
 
 	<hr>
-	<h3>Q&A一覧</h3>
+
 
 		件数：<span th:text="${helpsSize}"></span><br>
 
@@ -44,7 +46,7 @@
 		<td th:text="${h.code}"></td>
 		<td th:text="${h.q}"></td>
 		<td th:text="${h.a}"></td>
-		<td><a class="a7" th:href="'/kaddQA/delete/' + ${h.code}">削除</a></td>
+		<td><a class="a7" th:href="'/kQA/delete/' + ${h.code}">削除</a></td>
 	</tr>
 	</table>
 

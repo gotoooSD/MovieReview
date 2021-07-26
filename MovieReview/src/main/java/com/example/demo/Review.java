@@ -40,7 +40,7 @@ public class Review {
 	public Review() {//デフォルトコンストラクタ
 	}
 
-	public Review(//テーブル内全部＋ユーザ名・性別・年代
+	public Review(//テーブル内全部＋ユーザ名・性別・年代//映画詳細画面用
 			int reviewcode,
 			int moviecode,
 			int usercode,
@@ -80,7 +80,7 @@ public class Review {
 		this.text = text;
 	}
 
-	public Review(//テーブル内全部＋映画タイトル
+	public Review(//テーブル内全部＋映画タイトル//マイレビュー画面用
 			int reviewcode,
 			int moviecode,
 			int usercode,
@@ -128,6 +128,28 @@ public class Review {
 		this.date = date;
 		this.title = title;
 		this.text = text;
+	}
+
+	public Review(//テーブル内全部＋映画タイトル・ユーザ名//管理者ページのレビュー一覧用
+			int reviewcode,
+			int moviecode,
+			int usercode,
+			int evaluation,
+			Date date,
+			String title,
+			String text,
+			String movieTitle,
+			String name
+	) {
+		this.reviewcode = reviewcode;
+		this.moviecode = moviecode;
+		this.usercode = usercode;
+		this.evaluation = evaluation;
+		this.date = date;
+		this.title = title;
+		this.text = text;
+		this.movieTitle = movieTitle;
+		this.name = name;
 	}
 
 	public int getReviewcode() {

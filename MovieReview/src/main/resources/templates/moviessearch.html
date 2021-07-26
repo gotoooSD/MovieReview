@@ -5,7 +5,7 @@
 		<td><input type="text" name="keyword" placeholder="キーワードで探す"  th:value="${keyword}"></td>
 		<td>
 			<select name="genre" >
-				<option value="">ジャンルで探す</option>
+				<option value="">メインジャンルで探す</option>
 				<option th:each="g:${session.genres}" th:value="${g.genre}" th:selected="${genre == g.genre}">
 				<span th:text="${g.genre}"></span>
 				</option>

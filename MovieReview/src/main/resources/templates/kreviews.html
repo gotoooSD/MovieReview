@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/style.css}">
+<title>管理者ページ</title>
+</head>
+<body>
+	<span th:replace="kmenu"></span>
+	<h1>レビュー一覧</h1>
+	<hr>
+
+	<span th:text="${message}" style="color:rgb(255, 218, 4)"></span><br>
+	件数：<span th:text="${reviewsSize}"></span><br>
+
+	<table class="table1" border="1">
+	<tr>
+		<th>No</th><th>映画タイトル</th><th>ユーザ名</th><th>評価</th><th>日付</th><th>レビュータイトル</th><th>レビュー本文</th>
+	</tr>
+	<tr th:each="review:${reviews}">
+		<td th:text="${review.reviewcode}"></td>
+		<td th:text="${review.movieTitle}"></td>
+		<td th:text="${review.name}"></td>
+		<td th:text="${review.evaluation}"></td>
+		<td><span th:text="${review.#dates.format(review.date, 'yyyy/MM/dd')}"></span></td>
+		<td th:text="${review.title}"></td>
+		<td><span th:text="${review.text}"></span></td>
+		<td><a class="a7" th:href="'/kreview/delete/' + ${review.reviewcode}">削除</a></td>
+	</tr>
+	</table>
+</body>
+</html>

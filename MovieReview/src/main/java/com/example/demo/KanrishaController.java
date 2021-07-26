@@ -338,7 +338,7 @@ public class KanrishaController {
 			//映画をmoviesテーブルから削除
 			movieRepository.deleteById(moviecode);
 			//メッセージを表示
-			mv.addObject("message", "映画を削除しました");
+			mv.addObject("message", "映画を1件削除しました");
 
 		}
 
@@ -427,7 +427,7 @@ public class KanrishaController {
 			//ジャンルをgenresテーブルから削除
 			genreRepository.deleteById(genrecode);
 			//メッセージを表示
-			mv.addObject("message", "ジャンルを削除しました");
+			mv.addObject("message", "ジャンルを1件削除しました");
 
 		}
 
@@ -440,6 +440,100 @@ public class KanrishaController {
 
 		//ジャンル一覧画面(kgenres.html)を表示
 		mv.setViewName("kgenres");
+		return mv;
+		}
+	/**
+	  レビュー一覧--------------------------------------------------------------------------
+	 **/
+	//レビューの一覧を表示する
+	@RequestMapping("/kreviews")
+	public ModelAndView kreviews(ModelAndView mv) {
+		//全件検索を実行して表示
+		List<Review> reviewList = reviewRepository.findAll();
+
+
+		//何件あるかを表示
+		int reviewsSize = reviewList.size();
+		mv.addObject("reviewsSize", reviewsSize);
+
+		////映画タイトルとユーザ名を表示させる
+			//映画コードから映画のタイトルを検索してその情報も追加
+			//ユーザコードからユーザ情報を検索してその情報も追加
+			//してallreviewListとして保存
+			List<Review> allreviewList = new ArrayList<>();
+
+			//拡張for文
+			for(Review review: reviewList) {
+				//その項の映画コードを取得
+				int moviecode = review.getMoviecode();
+				//映画コードを指定して映画を検索
+				List<Movie> reviewMovie = movieRepository.findByMoviecode(moviecode);
+				Movie movieInfo = reviewMovie.get(0);//レコードを取得
+				String movieTitle = movieInfo.getTitle();//映画タイトル
+
+				//その項のユーザーコードを取得
+				int usercode = review.getUsercode();
+				//ユーザコードを指定してユーザを検索
+				List<User> reviewUser = userRepository.findByUsercode(usercode);
+				User userInfo = reviewUser.get(0);//レコードを取得
+				String name = userInfo.getName();//ユーザ名
+
+				//映画タイトル・ユーザ名を追加したもの(Review型)をallreviewListに追加
+				Review allreview = new Review(review.getReviewcode(),review.getMoviecode(),review.getUsercode(),review.getEvaluation(),review.getDate(),review.getTitle(),review.getText(),movieTitle,name);
+				allreviewList.add(allreview);
+			}
+
+			mv.addObject("reviews", allreviewList);
+
+		//遷移先を指定
+		mv.setViewName("kreviews");
+		return mv;
+	}
+
+	//レビューを削除
+	@RequestMapping("/kreview/delete/{reviewcode}")
+	public ModelAndView kreviewdelete(
+			@PathVariable("reviewcode") int reviewcode,
+			ModelAndView mv
+		) {
+		///movieテーブルに評価を平均して記録する処理
+			//削除するreviewのmoviecodeを取得
+			Review r =  reviewRepository.findById(reviewcode).orElse(new Review());
+//			Review _reviewInfo = r.get();//レコードを取得
+			int moviecode = r.getMoviecode();//映画コード
+
+		////レビューをreviewsテーブルから削除
+		reviewRepository.deleteById(reviewcode);
+
+
+			//moviecodeのmovie情報を取得
+			Movie _movieInfo = movieRepository.findById(moviecode).orElse(new Movie());
+//			Movie _movieInfo = m.get();//レコードを取得
+
+			//作成した映画のmoviecodeの全レビューをreviewテーブルからリストを取得
+			List<Review> evaluationList = reviewRepository.findByMoviecode(moviecode);
+
+			//これらのレビューのevaluationを取り出して平均を求める(totalEvaluation)
+			double total =0;
+			for(Review e:evaluationList) {
+				total += e.getEvaluation();
+			}
+			double avarageEvaluation = total / evaluationList.size();
+
+			double totalEvaluation = Math.round(avarageEvaluation * 100.0)/100.0; //小数点第2位を四捨五入
+
+
+			//totalEvaluationを変更してmovieテーブルのレコードを更新
+			Movie movieInfo = new Movie(_movieInfo.getMoviecode(),_movieInfo.getTitle(),_movieInfo.getGenrecode(),_movieInfo.getTime(),_movieInfo.getCountry(),_movieInfo.getYear(),totalEvaluation);
+			movieRepository.saveAndFlush(movieInfo);
+
+		//レビュー一覧画面(kreviews.html)を表示
+		kreviews(mv);
+
+		mv.addObject("message", "レビューを1件削除しました");
+
+
+
 		return mv;
 		}
 
@@ -471,7 +565,9 @@ public class KanrishaController {
 		inquiryRepository.deleteById(code);
 
 		//問い合わせ一覧画面(kinquiries.html)を表示
-		mv.setViewName("redirect:/kinquiries");
+		kinquiries(mv);
+
+		mv.addObject("message", "問い合わせを1件削除しました");
 
 		return mv;
 		}
@@ -505,30 +601,23 @@ public class KanrishaController {
 		if(q.equals("")||a.equals("")) {
 			//エラーメッセージを表示
 			mv.addObject("message", "未入力の項目があります");
-			//新規登録情報入力画面(kaddQA.html)を表示して再度書き込ませる
-			mv.setViewName("kaddQA");
 
 		}else {
 			////Q&Aをhelpsテーブルに登録
 			Help helpInfo = new Help(q, a);
 			helpRepository.saveAndFlush(helpInfo);
+			q = "";
+			a = "";
 
 			//登録が完了したことをメッセージで表示
 			mv.addObject("message", "Q&Aの追加が完了しました");
-			//Q&A一覧画面(kaddQA.html)を表示
-			mv.setViewName("redirect:/kaddQA");
 		}
 
-		//Q&A一覧を表示
-		List<Help> helps = helpRepository.findAll();
-		//何件あるかを表示
-		int helpsSize = helps.size();
-		mv.addObject("helpsSize", helpsSize);
+		kaddQA(mv);
 
 		//書き込み途中のものは保持して表示
 		mv.addObject("q",q);
 		mv.addObject("a",a);
-		mv.addObject("helps",helps);
 
 		return mv;
 		}
@@ -538,12 +627,14 @@ public class KanrishaController {
 	public ModelAndView deleteQA(
 			@PathVariable("code") int code,
 			ModelAndView mv
-		) {
-			////Q&Aをhelpsテーブルから削除
-			helpRepository.deleteById(code);
+	) {
+		////Q&Aをhelpsテーブルから削除
+		helpRepository.deleteById(code);
 
 		//Q&A一覧画面(kaddQA.html)を表示
-		mv.setViewName("redirect:/kaddQA");
+		kaddQA(mv);
+
+		mv.addObject("message", "Q&Aを1件削除しました");
 
 		return mv;
 		}

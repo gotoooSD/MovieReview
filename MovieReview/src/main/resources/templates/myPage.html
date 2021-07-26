@@ -7,6 +7,12 @@
 </head>
 <style>
 	.table1{font-size: 130%;}
+	.table1 td{
+	text-align: center;
+	}
+	.table1 th{
+	text-align: left;
+	}
 
 	a:link {
 		color: #ffffff;
@@ -25,6 +31,8 @@
 		font-size: 150%;
 		}
 
+
+
 </style>
 <body>
 	<span th:replace="menu"></span>
@@ -35,19 +43,19 @@
 <table class="table1">
 	<tr>
 		<td>ユーザ名：</td>
-		<th align="left" th:text="${session.userInfo.name}"></th>
+		<th th:text="${session.userInfo.name}"></th>
 	</tr>
 	<tr>
 		<td>性別：</td>
-		<th align="left" th:text="${session.userInfo.gender}"></th>
+		<th th:text="${session.userInfo.gender}"></th>
 	</tr>
 	<tr>
 		<td>年代：</td>
-		<th align="left" th:text="${session.userInfo.age}"></th>
+		<th th:text="${session.userInfo.age}"></th>
 	</tr>
 	<tr>
 		<td>メールアドレス：</td>
-		<th align="left" th:text="${session.userInfo.email}"></th>
+		<th th:text="${session.userInfo.email}"></th>
 	</tr>
 	<tr>
 		<td>今までにレビューした本数：</td>

@@ -33,8 +33,8 @@
 <div class="movieInfo">
 <table align="center">
 <tr>
-	<td colspan="4"><span class="movieTitle" th:text="${movieInfo.title}"></span></td><tr>
-	<td rowspan="6"><img th:src="'/images/' + ${genrecode} +'.png'" width="200" height="150"></td><tr>
+	<td colspan="5"><span class="movieTitle" th:text="${movieInfo.title}"></span></td><tr>
+	<td rowspan="7"><img th:src="'/images/' + ${genrecode} +'.png'" width="200" height="150"></td><tr>
 	<th>評価：</th>
 	<td>
 		<span th:replace="totalEvaluation"></span>
@@ -42,6 +42,7 @@
 	</td><tr>
 	<td><td><span th:text="${movieInfo.country}"></span></td><tr>
 	<th>ジャンル：</th><td><span th:text="${movieInfo.genre}"></span></td><tr>
+	<th>サブジャンル:</th><td><span th:each ="selectgenre:${selectgenres}" th:text="${selectgenre.genre}"></span></td><tr>
 	<th>上映時間：</th><td><span th:text="${movieInfo.time}"></span></td><th>分</th><tr>
 	<th>制作年：</th><td><span th:text="${movieInfo.year}"></span></td><th>年</th><tr>
 </table>
@@ -53,7 +54,7 @@
 <th colspan="3"><p>気になったら見てみよう！<p></th>
 </tr>
 <tr>
-	<td><a class="a1" href="/netflix.com/jp/">NETFLIXで探す</a></td>
+	<td><a class="a1" href="https://www.netflix.com/jp/">NETFLIXで探す</a></td>
 	<td>　　　</td>
 	<td><a class="a1" href="https://www.tohotheater.jp/">TOHOシネマで探す</a></td>
 </tr>

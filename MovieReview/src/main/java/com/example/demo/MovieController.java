@@ -107,6 +107,7 @@ public class MovieController {
 			genrecode = genreInfo.getGenrecode();
 		}
 		List<Movie> _movieList = null;
+		List<SelectGenre> selectgenres = selectgenreRepository.findAll();
 
 		if(keyword.equals("") && genre.equals("") && country.equals("")) {
 			if(sort.equals("")) {
@@ -246,6 +247,20 @@ public class MovieController {
 				Movie movieInfo = new Movie(movie.getMoviecode(),movie.getTitle(),_genre,movie.getTime(),movie.getCountry(),movie.getYear(),movie.getTotalEvaluation());
 				movieList.add(movieInfo);
 			}
+			//セレクトジャンルにジャンル名をセット
+			for(SelectGenre selectgenre : selectgenres) {
+				//その項のgenreコードを取得
+				int _genrecode = selectgenre.getGenrecode();
+				//ジャンルコードを指定してジャンルを検索
+				List<Genre> genreName = genreRepository.findByGenrecode(_genrecode);
+				Genre _genreInfo = genreName.get(0);//レコードを取得
+				String _genre = _genreInfo.getGenre();//ジャンル名
+
+				selectgenre.setGenre(_genre);
+
+			}
+
+		mv.addObject("selectgenres", selectgenres);
 
 		//検索結果が何件あるかを表示
 		int moviesSize = _movieList.size();

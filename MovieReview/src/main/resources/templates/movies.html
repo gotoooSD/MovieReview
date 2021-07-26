@@ -35,7 +35,7 @@
 
 	<table class="table1" border="1">
 	<tr>
-		<th>タイトル</th><th colspan="2">評価</th><th>ジャンル</th><th>放送時間</th><th>邦画/洋画</th><th>制作年</th>
+		<th>タイトル</th><th colspan="2">評価</th><th>メインジャンル</th><th>サブジャンル</th><th>放送時間</th><th>邦画/洋画</th><th>制作年</th>
 	</tr>
 	<tr th:each="movie:${movies}">
 		<td><a class="a4" th:href="'/reviews/'+${movie.moviecode}" ><span th:text="${movie.title}"></span></a></td>
@@ -45,6 +45,7 @@
 		<td>
 			(<span th:text="${movie.viewTotalEvaluation}"></span>)
 		</td>
+		<td><span th:text="${movie.genre}"></span></td>
 		<td>
 			<span th:each ="selectgenre:${selectgenres}" th:text="${selectgenre.genre}" th:if="${selectgenre.moviecode == movie.moviecode}"></span>
 		</td>

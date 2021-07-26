@@ -33,6 +33,9 @@ public class ReviewController {
 	@Autowired
 	GenreRepository genreRepository;
 
+	@Autowired
+	SelectGenreRepository selectgenreRepository;
+
 	/**
 	  レビュー一覧画面
 	 **/
@@ -45,9 +48,12 @@ public class ReviewController {
 		List<Movie> m = movieRepository.findByMoviecode(moviecode);
 		Movie _movieInfo = m.get(0);//レコードを取得
 
+		List<SelectGenre> selectgenres = selectgenreRepository.findByMoviecode(moviecode);
+
 		 //ジャンルで画像処理
 		mv.addObject("genrecode", _movieInfo.getGenrecode());
 
+		{
 			//genrecordをgenre名に置き換える作業
 			int genrecode = _movieInfo.getGenrecode();
 			//ジャンルコードを指定してジャンルを検索
@@ -56,8 +62,19 @@ public class ReviewController {
 			String genre = _genreInfo.getGenre();//ジャンル名
 			//genrecodeをgenreに置き換えたもの(Movie型)をmovieListに追加
 			Movie movieInfo = new Movie(_movieInfo.getMoviecode(),_movieInfo.getTitle(),genre,_movieInfo.getTime(),_movieInfo.getCountry(),_movieInfo.getYear(),_movieInfo.getTotalEvaluation());
+			mv.addObject("movieInfo", movieInfo);
+		}
 
-		mv.addObject("movieInfo", movieInfo);
+		for(SelectGenre selectgenre : selectgenres) {
+			//その項のgenreコードを取得
+			int genrecode = selectgenre.getGenrecode();
+			//ジャンルコードを指定してジャンルを検索
+			List<Genre> genreList = genreRepository.findByGenrecode(genrecode);
+			Genre _genreInfo = genreList.get(0);//レコードを取得
+			String genre = _genreInfo.getGenre();//ジャンル名
+
+			selectgenre.setGenre(genre);
+		}
 
 		//選択した映画の全レビューの一覧を表示
 		List<Review> reviewList = reviewRepository.findByMoviecode(moviecode);
@@ -84,6 +101,7 @@ public class ReviewController {
 			}
 
 		mv.addObject("reviews", allreviewList);
+		mv.addObject("selectgenres", selectgenres);
 
 		//レビュー一覧(reviews.html)を表示
 		mv.setViewName("reviews");

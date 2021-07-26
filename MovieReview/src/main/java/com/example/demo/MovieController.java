@@ -22,6 +22,9 @@ public class MovieController {
 	@Autowired
 	GenreRepository genreRepository;
 
+	@Autowired
+	SelectGenreRepository selectgenreRepository;
+
 	/**
 	  全映画の一覧画面
 	 **/
@@ -32,6 +35,9 @@ public class MovieController {
 	public ModelAndView movies(ModelAndView mv) {
 		//全件検索を実行して表示
 		List<Movie> _movieList = movieRepository.findAll();
+
+		List<SelectGenre> selectgenres = selectgenreRepository.findAll();
+
 		//何件あるかを表示
 		int moviesSize = _movieList.size();
 		mv.addObject("moviesSize", moviesSize);
@@ -51,7 +57,19 @@ public class MovieController {
 				Movie movieInfo = new Movie(movie.getMoviecode(),movie.getTitle(),genre,movie.getTime(),movie.getCountry(),movie.getYear(),movie.getTotalEvaluation());
 				movieList.add(movieInfo);
 			}
+			//セレクトジャンルにジャンル名をセット
+			for(SelectGenre selectgenre : selectgenres) {
+				//その項のgenreコードを取得
+				int genrecode = selectgenre.getGenrecode();
+				//ジャンルコードを指定してジャンルを検索
+				List<Genre> genreList = genreRepository.findByGenrecode(genrecode);
+				Genre _genreInfo = genreList.get(0);//レコードを取得
+				String genre = _genreInfo.getGenre();//ジャンル名
+
+				selectgenre.setGenre(genre);
+			}
 		mv.addObject("movies", movieList);
+		mv.addObject("selectgenres", selectgenres);
 
 		mv.addObject("keyword", "");
 		mv.addObject("genre", "");

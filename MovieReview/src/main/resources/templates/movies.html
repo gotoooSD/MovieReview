@@ -45,7 +45,9 @@
 		<td>
 			(<span th:text="${movie.viewTotalEvaluation}"></span>)
 		</td>
-		<td th:text="${movie.genre}"></td>
+		<td>
+			<span th:each ="selectgenre:${selectgenres}" th:text="${selectgenre.genre}" th:if="${selectgenre.moviecode == movie.moviecode}"></span>
+		</td>
 		<td><span th:text="${movie.time}"></span>分</td>
 		<td th:text="${movie.country}"></td>
 		<td><span th:text="${movie.year}"></span>年</td>

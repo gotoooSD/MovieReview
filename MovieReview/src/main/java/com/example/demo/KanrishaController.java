@@ -36,6 +36,9 @@ public class KanrishaController {
 	@Autowired
 	HelpRepository helpRepository;
 
+	@Autowired
+	SelectGenreRepository selectgenreRepository;
+
 	/**
 	  管理者ログイン画面
 	 **/
@@ -217,6 +220,8 @@ public class KanrishaController {
 	public ModelAndView kmovies(ModelAndView mv) {
 		//全件検索を実行して表示
 		List<Movie> _movieList = movieRepository.findAll();
+		List<SelectGenre> selectgenres = selectgenreRepository.findAll();
+
 		//何件あるかを表示
 		int moviesSize = _movieList.size();
 		mv.addObject("moviesSize", moviesSize);
@@ -236,7 +241,19 @@ public class KanrishaController {
 				Movie movieInfo = new Movie(movie.getMoviecode(),movie.getTitle(),movie.getGenrecode(),genre,movie.getTime(),movie.getCountry(),movie.getYear(),movie.getTotalEvaluation());
 				movieList.add(movieInfo);
 			}
+			//セレクトジャンルにジャンル名をセット
+			for(SelectGenre selectgenre : selectgenres) {
+				//その項のgenreコードを取得
+				int genrecode = selectgenre.getGenrecode();
+				//ジャンルコードを指定してジャンルを検索
+				List<Genre> genreList = genreRepository.findByGenrecode(genrecode);
+				Genre _genreInfo = genreList.get(0);//レコードを取得
+				String genre = _genreInfo.getGenre();//ジャンル名
+
+				selectgenre.setGenre(genre);
+			}
 		mv.addObject("movies", movieList);
+		mv.addObject("selectgenres", selectgenres);
 
 		//遷移先を指定
 		mv.setViewName("kmovies");
@@ -253,6 +270,10 @@ public class KanrishaController {
 		List<Genre> genres = genreRepository.findAll();
 		session.setAttribute("genres", genres);
 
+//		//セッションにサブジャンル一覧を保存(選択できるように)
+//		List<SelectGenre> selectgenres = selectgenreRepository.findAll();
+//		session.setAttribute("selectgenres", selectgenres);
+
 		//遷移先を指定
 		mv.setViewName("kaddmovie");
 		return mv;
@@ -266,6 +287,7 @@ public class KanrishaController {
 			@RequestParam("time") String _time,
 			@RequestParam("country") String country,
 			@RequestParam("year") String _year,
+//			@RequestParam("selectgenre") String selectgenre,
 			ModelAndView mv
 		) {
 		////空の入力がある場合
@@ -315,6 +337,7 @@ public class KanrishaController {
 		mv.addObject("time",_time);
 		mv.addObject("country",country);
 		mv.addObject("year",_year);
+//		mv.addObject("selectgenre",selectgenre);
 
 		return mv;
 		}

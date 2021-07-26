@@ -39,6 +39,16 @@
 			<td>ジャンルがない場合：<a class="a4" href="/kgenres">ジャンルの追加登録</a></td>
 		</tr>
 		<tr>
+			<td>サブジャンル</td>
+			<td>
+			<select name="selectgenre" >
+				<option th:each="g:${session.genres}" th:value="${g.genre}" th:selected="${genre == g.genre}">
+					<span th:text="${g.genre}"></span>
+				</option>
+			</select>
+			</td>
+		</tr>
+		<tr>
 			<td>放送時間</td>
 			<td>
 				<input type="text" name="time" th:value="${time}"size="6">分

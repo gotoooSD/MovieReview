@@ -18,13 +18,14 @@
 
 	<table class="table3" border="1">
 	<tr>
-		<th>No</th><th>タイトル</th><th>評価</th><th>ジャンル</th><th>放送時間</th><th>邦画/洋画</th><th>制作年</th>
+		<th>No</th><th>タイトル</th><th>評価</th><th>メインジャンル</th><th>サブジャンル</th><th>放送時間</th><th>邦画/洋画</th><th>制作年</th>
 	</tr>
 	<tr th:each="movie:${movies}">
 		<td th:text="${movie.moviecode}"></td>
 		<td th:text="${movie.title}"></td>
 		<td th:text="${movie.viewTotalEvaluation}"></td>
 		<td th:text="${movie.genre}"></td>
+		<td><span th:each ="selectgenre:${selectgenres}" th:text="${selectgenre.genre}" th:if="${selectgenre.moviecode == movie.moviecode}"></span></td>
 		<td><span th:text="${movie.time}"></span>分</td>
 		<td th:text="${movie.country}"></td>
 		<td><span th:text="${movie.year}"></span>年</td>

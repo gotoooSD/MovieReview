@@ -232,7 +232,133 @@ body{
 }
 
 
+.a9 {
+  position: relative;
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  color: rgb(20, 20, 20) ;
+  background: rgb(247, 247, 247)  ;/*背景色*/
+  border-bottom: solid 3px rgb(122, 114, 173);/*少し濃い目の色に*/
+  border-radius: 4px;/*角の丸み*/
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  font-weight: bold;
+}
+.a9:visited {
+  position: relative;
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  color: rgb(20, 20, 20) ;
+  background: rgb(247, 247, 247) ;/*背景色*/
+  border-bottom: solid 3px rgb(122, 114, 173);/*少し濃い目の色に*/
+  border-radius: 4px;/*角の丸み*/
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  font-weight: bold;
+}
+.a9:hover {
+  position: relative;
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  color: #FFF;
+  background: #ff0000;/*背景色*/
+  border-bottom: solid 3px #ff8000;/*少し濃い目の色に*/
+  border-radius: 4px;/*角の丸み*/
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  font-weight: bold;
+}
+.a9:active {
+  border-bottom: solid 2px rgb(128, 128, 255);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
+}
+
+.a8 {
+  position: relative;
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  color: rgb(165, 165, 165) ;
+  background: rgb(247, 247, 247)  ;/*背景色*/
+  border-bottom: solid 3px rgb(122, 114, 173);/*少し濃い目の色に*/
+  border-radius: 4px;/*角の丸み*/
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  font-weight: bold;
+}
+.a8:visited {
+  position: relative;
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  color: rgb(165, 165, 165) ;
+  background: rgb(247, 247, 247) ;/*背景色*/
+  border-bottom: solid 3px rgb(122, 114, 173);/*少し濃い目の色に*/
+  border-radius: 4px;/*角の丸み*/
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  font-weight: bold;
+}
+.a8:hover {
+  position: relative;
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  text-decoration: none;
+  color: rgb(171, 171, 171);
+  background: #ff0000;/*背景色*/
+  border-bottom: solid 3px #ff8000;/*少し濃い目の色に*/
+  border-radius: 4px;/*角の丸み*/
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
+  font-weight: bold;
+}
+.a8:active {
+  border-bottom: solid 2px rgb(128, 128, 255);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
+}
+
 
 a{
-	 text-decoration: none;
+  text-decoration: none;
 }
+
+
+
+.Rcard {
+  /*margin: 30px auto;*/
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 5px;
+  background-color:rgb(20, 20, 20);
+  border-radius: 5px;
+
+}
+.Rmidashi {
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: left;
+}
+	.Revaluation {
+	  font-size: 20px;
+	}
+	.Rtitle {
+	  font-size: 19px;
+	}
+	.Ruser {
+	  font-size: 12px;
+ 	  color: rgb(171, 171, 171);
+	}
+	.Rdate {
+	  font-size: 12px;
+	}
+	.Rmovietitle {
+	  font-size: 20px;
+	}
+.Rbottun {
+  font-size: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.Rtext {
+  padding: 20px;
+  text-align: left;
+}
+
+

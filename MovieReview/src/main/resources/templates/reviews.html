@@ -7,14 +7,21 @@
 </head>
 <style type="text/css">
 
-.movieTitle{
-	color: #ff0000;
-	font-size: 250%;
- }
+	.movieTitle{
+		color: #ff0000;
+		font-size: 250%;
+	 }
 
-a{
-	font-size:120%;
-}
+	a{
+		font-size:120%;
+	}
+
+	div.right{
+	  text-align: right;
+	  margin-left: 5%;
+	  margin-right: 5%;
+	}
+
 
 </style>
 <body>
@@ -39,53 +46,52 @@ a{
 	<th>制作年：</th><td><span th:text="${movieInfo.year}"></span></td><th>年</th><tr>
 </table>
 </div>
-<br>
+
 
 <table align="center">
 <tr>
 <th colspan="3"><p>気になったら見てみよう！<p></th>
 </tr>
 <tr>
-	<td><a href="/netflix.com/jp/">NETFLIXで探す</a></td>
+	<td><a class="a1" href="/netflix.com/jp/">NETFLIXで探す</a></td>
 	<td>　　　</td>
-	<td><a href="/https://www.tohotheater.jp/">TOHOシネマで探す</a></td>
+	<td><a class="a1" href="https://www.tohotheater.jp/">TOHOシネマで探す</a></td>
 </tr>
 </table>
-
-<h1>レビュー一覧</h1>
-件数：<span th:text="${reviewsSize}"></span>
 <br>
 
-<a class="a3" th:href="'/review/wrrite/' + ${movieInfo.moviecode}">新規レビュー作成</a>
+
+<div class="right">
+	件数：<span th:text="${reviewsSize}"></span>　
+	<a class="a3" th:href="'/review/wrrite/' + ${movieInfo.moviecode}">新規レビュー作成</a>
+</div>
+
 <br>
 
-<table class="table1" border="1">
-	<tr>
-		<th>評価</th>
-		<th>ユーザー名</th>
-		<th>性別</th>
-		<th>年代</th>
-		<th>レビュータイトル</th>
-		<th>レビュー本文</th>
-		<th>日付</th>
-
-	</tr>
-	<tr th:each="review:${reviews}">
-		<td>
-			<span th:if="${review.evaluation == 1}"><font color="red">★</font></span>
-			<span th:if="${review.evaluation == 2}"><font color="red">★★</font></span>
-			<span th:if="${review.evaluation == 3}"><font color="red">★★★</font></span>
-			<span th:if="${review.evaluation == 4}"><font color="red">★★★★</font></span>
+<section class="Rcard" th:each="review:${reviews}">
+	<div class="Rmidashi">
+	<span>
+		<span class="Revaluation">
+			<span th:if="${review.evaluation == 1}"><font color="red">★　　　　</font></span>
+			<span th:if="${review.evaluation == 2}"><font color="red">★★　　　</font></span>
+			<span th:if="${review.evaluation == 3}"><font color="red">★★★　　</font></span>
+			<span th:if="${review.evaluation == 4}"><font color="red">★★★★　</font></span>
 			<span th:if="${review.evaluation == 5}"><font color="red">★★★★★</font></span>
-		</td>
-		<td th:text="${review.name}"></td>
-		<td th:text="${review.gender}"></td>
-		<td th:text="${review.age}"></td>
-		<td th:text="${review.title}"></td>
-		<td th:text="${review.text}"></td>
-		<td th:text="${#dates.format(review.date, 'yyyy/MM/dd')}"></td>
+		</span>
+		<span class="Rtitle" th:text="${review.title}"></span>　
+		<span class="Ruser">
+			<span th:text="${review.name}"></span>
+			<span th:text="${review.age}"></span>
+			<span th:text="${review.gender}"></span>
+		</span>　
+		<span class="Rdate" th:text="${#dates.format(review.date, 'yyyy/MM/dd')}"></span>
+	</span>
+	</div>
+	<hr>
 
-	</tr>
-</table>
+	<div class="Rtext" th:text="${review.text}"></div>
+</section>
+
+
 </body>
 </html>
